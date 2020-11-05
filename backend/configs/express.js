@@ -1,0 +1,31 @@
+const express = require("express");
+const cookieParser = require("cookie-parser");
+const morgan = require("morgan");
+const cors = require("cors");
+
+require("dotenv").config();
+
+const indexRouter = require("@routers");
+const apiRouter = require("@routers/api");
+
+const { handleNotFoundPage, handleError } = require("@middlewares/error");
+const { logs } = require("@configs/constants");
+
+const app = express();
+
+app.use(morgan(logs));
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+
+app.use(cors({ credentials: true, origin: "http://localhost:3000" }));
+
+//Router
+app.use("/", indexRouter);
+app.use("/api/", apiRouter);
+
+app.use(handleNotFoundPage);
+app.use(handleError);
+
+module.exports = app;
