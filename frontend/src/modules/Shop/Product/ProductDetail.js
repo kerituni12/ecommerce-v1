@@ -40,7 +40,7 @@ function ProductDetail({ product, query }) {
         <meta property="og:image:type" content="image/jpg" />
         {/* <meta property="fb:app_id" content={`${FB_APP_ID}`} /> */}
       </Head>
-      <Container style={{ paddingTop: 150 }}>
+      <Container>
         <Grid container spacing={2}>
           <Grid item xs={12} xs={10} sm={10} md={6} lg={5}>
             <img src={product.image} alt={product.title} style={styleImage} />

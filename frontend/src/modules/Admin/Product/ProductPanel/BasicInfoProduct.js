@@ -1,4 +1,4 @@
-import { TextField, MenuItem, InputLabel, OutlinedInput, FormControl, InputAdornment } from "@material-ui/core";
+import { TextField, MenuItem, Grid } from "@material-ui/core";
 import { Controller } from "react-hook-form";
 const currencies = [
   {
@@ -26,7 +26,32 @@ function BasicInfoProduct({ control, errors }) {
           pattern: { value: /^[a-zA-Z 0-9]*$/, message: "not include special characters" },
         }}
       />
-
+      <Grid container spacing={2}>
+        <Grid item sm={6}>
+          <Controller
+            as={<TextField type="number" margin="normal" variant="outlined" fullWidth required />}
+            label="Price"
+            name="price"
+            control={control}
+            rules={{ required: "this is required" }}
+            helperText={errors.price ? errors.price.message : null}
+            error={errors.price ? true : false}
+            defaultValue=""
+          />
+        </Grid>
+        <Grid item sm={6}>
+          <Controller
+            as={<TextField type="number" margin="normal" variant="outlined" fullWidth required />}
+            label="Inventory"
+            name="inventory"
+            control={control}
+            rules={{ required: "this is required" }}
+            helperText={errors.price ? errors.price.message : null}
+            error={errors.price ? true : false}
+            defaultValue=""
+          />
+        </Grid>
+      </Grid>
       <Controller
         as={<TextField type="number" margin="normal" variant="outlined" fullWidth required />}
         label="Price"
@@ -37,6 +62,7 @@ function BasicInfoProduct({ control, errors }) {
         error={errors.price ? true : false}
         defaultValue=""
       />
+
       <Controller
         as={
           <TextField select margin="normal" variant="outlined" fullWidth required>

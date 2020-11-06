@@ -52,14 +52,7 @@ export default function AdminProductDetail() {
           const { data } = await api.get(`/api/product/${product}`);
           if (data) {
             const { product } = data;
-            reset({
-              title: product.title,
-              description: product.description,
-              slug: product.slug,
-              category: product.category,
-              price: product.price,
-              image: product.image,
-            });
+            reset(product);
           }
         } catch (error) {
           console.log(error);
