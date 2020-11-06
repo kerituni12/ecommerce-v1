@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 
@@ -20,20 +21,46 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const defaultPayment = {
+  paymentMethod: "cod",
+};
+
+class Order {
+  constructor(user, shipping, orderItems, itemsPrice, payment = defaultPayment) {
+    this.isPaid = false;
+    this.isDelivered = false;
+    this.orderItems = orderItems;
+    this.user = user;
+    this.shipping = shipping;
+    this.itemsPrice = itemsPrice;
+    this.shippingPrice = 0;
+    this.totalPrice = this.shippingPrice + this.itemsPrice;
+    this.payment = payment;
+  }
+}
+
 export default function PaymentForm(props) {
   const classes = useStyles();
-  const [value, setValue] = useState("code");
+  const [paymentMethod, setPaymentMethod] = useState("code");
   const [sdkReady, setSdkReady] = useState(false);
 
+  const { user, shipping } = useSelector((state) => state.checkout.order);
+  const cartItems = useSelector((state) => state.cart.items);
+
+  const order = new Order(user, shipping, cartItems, props.total);
+
+  console.log(order);
+
   const handleChange = (event) => {
-    setValue(event.target.value);
+    setPaymentMethod(event.target.value);
+    order.payment.paymentMethod = event.target.value;
   };
 
   useEffect(() => {
     const addPayPalScript = async () => {
       const script = document.createElement("script");
       script.type = "text/javascript";
-      script.src = `https://www.paypal.com/sdk/js?client-id=AdSub0mHnZXjq2Tg3E2-PX0fsxUBrlF4K39GXzKB30r8F6XplwmeH4IckASjiDIagQq1UGwCZVgYzoSR&currency=CAD`;
+      script.src = `https://www.paypal.com/sdk/js?client-id=AdSub0mHnZXjq2Tg3E2-PX0fsxUBrlF4K39GXzKB30r8F6XplwmeH4IckASjiDIagQq1UGwCZVgYzoSR&currency=USD`;
       script.async = true;
       script.onload = () => {
         setSdkReady(true);
@@ -55,7 +82,7 @@ export default function PaymentForm(props) {
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <FormControl component="fieldset" className={classes.root}>
-            <RadioGroup aria-label="gender" name="gender1" value={value} onChange={handleChange}>
+            <RadioGroup aria-label="gender" name="gender1" value={paymentMethod} onChange={handleChange}>
               <Card className={classes.card}>
                 <CardContent>
                   <Grid container>
@@ -71,9 +98,9 @@ export default function PaymentForm(props) {
                         />
                       </Grid>
                     </Grid>
-                    {value === "cod" && (
+                    {paymentMethod === "cod" && (
                       <Grid item sm={12}>
-                        <Paypal />
+                        <Paypal order={order} />
                       </Grid>
                     )}
                   </Grid>
@@ -92,9 +119,9 @@ export default function PaymentForm(props) {
                         alt="my image"
                       />
                     </Grid>
-                    {value === "paypal" && (
+                    {paymentMethod === "paypal" && (
                       <Grid item sm={12}>
-                        <Paypal total={props.total} />
+                        <Paypal order={order} />
                       </Grid>
                     )}
                   </Grid>

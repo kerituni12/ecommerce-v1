@@ -11,18 +11,17 @@ export const addCheckout = createAsyncThunk("addCheckout", async (item, { dispat
 const checkoutSlice = createSlice({
   name: "checkout",
   initialState: {
-    items: [],
-    user:null,
+    order: null,
   },
   reducers: {
     addCheckoutSuccess: (state, action) => {
       state.items.push(action.payload);
     },
     addUserInfo: (state, action) => {
-      state.user = action.payload;
-    }
+      state.order = action.payload;
+    },
   },
 });
 
-export const { addCheckoutSuccess , addUserInfo} = checkoutSlice.actions;
+export const { addCheckoutSuccess, addUserInfo } = checkoutSlice.actions;
 export default checkoutSlice.reducer;

@@ -8,10 +8,10 @@ const authRouter = require("../api/auth/auth.router");
 
 const app = express();
 
-app.use("/user/", userRouter);
-app.use("/product/", productRouter);
-app.use("/category/", categoryRouter);
-app.use("/order/", orderRouter);
+app.use("/user", userRouter);
+app.use("/product", productRouter);
+app.use("/category", categoryRouter);
+app.use("/order", orderRouter);
 app.use("/auth", authRouter);
 
 module.exports = app;

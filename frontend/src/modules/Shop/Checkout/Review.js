@@ -6,7 +6,9 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Grid from "@material-ui/core/Grid";
 
-const products = [
+import {useSelector} from 'react-redux';
+
+const items = [
   { name: "Product 1", desc: "A nice thing", price: "$9.99" },
   { name: "Product 2", desc: "Another thing", price: "$3.45" },
   { name: "Product 3", desc: "Something else", price: "$6.51" },
@@ -35,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Review() {
   const classes = useStyles();
+  const order = useSelector((state) => state.checkout.order);
 
   return (
     <React.Fragment>
@@ -42,16 +45,16 @@ export default function Review() {
         Order summary
       </Typography>
       <List disablePadding>
-        {products.map((product) => (
-          <ListItem className={classes.listItem} key={product.name}>
-            <ListItemText primary={product.name} secondary={product.desc} />
-            <Typography variant="body2">{product.price}</Typography>
+        {order.orderItems.map((item) => (
+          <ListItem className={classes.listItem} key={item.title}>
+            <ListItemText primary={item.title} secondary={item.desc} />
+            <Typography variant="body2">{item.price}</Typography>
           </ListItem>
         ))}
         <ListItem className={classes.listItem}>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" className={classes.total}>
-            $34.06
+           $ {order.totalPrice}
           </Typography>
         </ListItem>
       </List>
@@ -60,8 +63,8 @@ export default function Review() {
           <Typography variant="h6" gutterBottom className={classes.title}>
             Shipping
           </Typography>
-          <Typography gutterBottom>John Smith</Typography>
-          <Typography gutterBottom>{addresses.join(", ")}</Typography>
+        <Typography gutterBottom>{order.user.name}</Typography>
+          <Typography gutterBottom>{Object.entries(order.shipping).map(([key, value]) => value).join(", ")}</Typography>
         </Grid>
         <Grid item container direction="column" xs={12} sm={6}>
           <Typography variant="h6" gutterBottom className={classes.title}>

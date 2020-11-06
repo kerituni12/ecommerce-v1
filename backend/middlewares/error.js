@@ -10,7 +10,7 @@ function handleError(err, req, res, next) {
     err = new APIError({ message: err.message, status: 401 });
   }
   if (err.name == "ValidationError") {
-    err = new APIError({ message: err.message, status: 401 });
+    err = new APIError({ message: err.message, status: 400 });
   }
   if (err.name === "MongoError" && err.code === 11000) {
     console.log(err);

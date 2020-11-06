@@ -11,7 +11,7 @@ import AddressForm from "./AddressForm";
 import PaymentForm from "./PaymentForm";
 import Review from "./Review";
 
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 const steps = ["Shipping address", "Payment details", "Review your order"];
 
@@ -21,7 +21,7 @@ function calculateSubtotal(items) {
     if (item.checked == true) {
       sum += item.price * item.quantity;
     }
-  }); 
+  });
   return sum;
 }
 
@@ -31,19 +31,19 @@ export default function Checkout() {
 
   const cartitems = useSelector((state) => state.cart.items);
   const subtotal = calculateSubtotal(cartitems);
-  console.log(subtotal);
-  const handleNext = () => {
+
+  const handleNext = React.useCallback(() => {
     setActiveStep(activeStep + 1);
-  };
+  });
 
-  const handleBack = () => {
+  const handleBack = React.useCallback(() => {
     setActiveStep(activeStep - 1);
-  };
+  });
 
-  function getStepContent(step) {
+  const getStepContent = React.useCallback((step) => {
     switch (step) {
       case 0:
-        return <AddressForm handleNext={handleNext}/>;
+        return <AddressForm handleNext={handleNext} />;
       case 1:
         return <PaymentForm total={subtotal} />;
       case 2:
@@ -51,7 +51,7 @@ export default function Checkout() {
       default:
         throw new Error("Unknown step");
     }
-  }
+  });
 
   // Cai nay de su ly tien o backend
   // React.useEffect(() => {
@@ -61,6 +61,10 @@ export default function Checkout() {
   //   };
   //   getCart();
   // },[]);
+
+  React.useEffect(() => {
+    console.log("checkout effect");
+  }, []);
 
   return (
     <React.Fragment>
@@ -77,33 +81,20 @@ export default function Checkout() {
             ))}
           </Stepper>
           <React.Fragment>
-            {activeStep === steps.length ? (
-              <React.Fragment>
-                <Typography variant="h5" gutterBottom>
-                  Thank you for your order.
-                </Typography>
-                <Typography variant="subtitle1">
-                  Your order number is #2001539. We have emailed your order confirmation, and will send you an update
-                  when your order has shipped.
-                </Typography>
-              </React.Fragment>
-            ) : (
-              <React.Fragment>
-                {getStepContent(activeStep)}
-                <div className={classes.buttons}>
-                  {activeStep !== 0 && (
-                    <Button onClick={handleBack} className={classes.button}>
-                      Back
-                    </Button>
-                  )}
-                  {activeStep === 0 && (
-                    <Button variant="contained" color="primary" onClick={handleNext} className={classes.button}>
-                      {activeStep === steps.length - 1 ? "Place order" : "Next"}
-                    </Button>
-                  )}
-                </div>
-              </React.Fragment>
-            )}
+            <React.Fragment>
+              {getStepContent(activeStep)}
+              <div className={classes.buttons}>
+                {activeStep !== 0 && (
+                  <Button onClick={handleBack} className={classes.button}>
+                    Back
+                  </Button>
+                )}
+
+                <Button variant="contained" color="primary" onClick={handleNext} className={classes.button}>
+                  {activeStep === steps.length - 1 ? "Place order" : "Next"}
+                </Button>
+              </div>
+            </React.Fragment>
           </React.Fragment>
         </Paper>
       </main>

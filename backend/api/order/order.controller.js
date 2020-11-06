@@ -26,7 +26,7 @@ exports.createOrder = async (req, res, next) => {
     const { _id, ...orderBody } = req.body;
     const order = new Order(orderBody);
     const orderData = await order.save();
-    return res.json({ orderData });
+    return res.json({ order: orderData });
   } catch (err) {
     next(err);
   }

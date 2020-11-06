@@ -1,8 +1,8 @@
-var mongoose = require("mongoose");
+const mongoose = require("mongoose");
 
-var Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
-var ProductSchema = new Schema(
+const ProductSchema = new Schema(
   {
     title: { type: String, required: true },
     slug: { type: String, unique: true },

@@ -25,7 +25,10 @@ exports.getPriceForProducts = async (req, res, next) => {
   console.log("parmas", req.query);
 
   try {
-    const priceForProducts = await Product.find({ _id: { $in: req.query.items } }).exec();
+    const priceForProducts = await Product.find(
+      { _id: { $in: req.query.items } },
+      "title price image inventory"
+    ).exec();
     // if (product === null) throw new APIError({ message: "Product not exits" });
     return res.json(priceForProducts);
   } catch (err) {

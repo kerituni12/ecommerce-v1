@@ -1,6 +1,6 @@
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as yup from "yup";
 import Grid from "@material-ui/core/Grid";
 import { Typography, Button } from "@material-ui/core";
@@ -11,14 +11,21 @@ import Checkbox from "@material-ui/core/Checkbox";
 import { addUserInfo } from "./checkout.slice";
 import api from "services/axios";
 
-export default function AddressForm({ handleNext }) {
-  const { handleSubmit, errors, control, trigger } = useForm({});
+function AddressForm({ handleNext }) {
+  const { handleSubmit, errors, control, trigger, reset } = useForm();
   const dispatch = useDispatch();
+  const order = useSelector((state) => state.checkout.order);
+
   const onSubmit = async (values) => {
-   
     dispatch(addUserInfo(values));
     handleNext();
   };
+
+  React.useEffect(() => {
+    !!order && reset(order);
+
+    return console.log("chay address");
+  }, []);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -26,41 +33,39 @@ export default function AddressForm({ handleNext }) {
         Shipping address
       </Typography>
       <Grid container spacing={3}>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={12}>
           <Controller
             as={<TextField margin="normal" variant="outlined" fullWidth required />}
-            label="firstName"
-            name="firstName"
+            label="Name"
+            name="user.name"
             control={control}
             helperText={errors.title ? errors.title.message : null}
             error={errors.title ? true : false}
             defaultValue=""
             rules={{
               required: "this is required",
-              pattern: { value: /^[a-zA-Z 0-9]*$/, message: "not include special characters" },
             }}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
           <Controller
             as={<TextField margin="normal" variant="outlined" fullWidth required />}
-            label="lastName"
-            name="lastName"
+            label="Email"
+            name="user.email"
             control={control}
             helperText={errors.title ? errors.title.message : null}
             error={errors.title ? true : false}
             defaultValue=""
             rules={{
               required: "this is required",
-              pattern: { value: /^[a-zA-Z 0-9]*$/, message: "not include special characters" },
             }}
           />
         </Grid>
-        <Grid item sm={12}>
+        <Grid item sm={6}>
           <Controller
             as={<TextField type="number" margin="normal" variant="outlined" fullWidth required />}
             label="Phone"
-            name="phone"
+            name="user.phone"
             control={control}
             rules={{ required: "this is required" }}
             helperText={errors.price ? errors.price.message : null}
@@ -72,18 +77,44 @@ export default function AddressForm({ handleNext }) {
           <Controller
             as={<TextField margin="normal" variant="outlined" fullWidth required />}
             label="address"
-            name="address"
+            name="shipping.address"
             control={control}
             helperText={errors.title ? errors.title.message : null}
             error={errors.title ? true : false}
             defaultValue=""
             rules={{
               required: "this is required",
-              pattern: { value: /^[a-zA-Z 0-9]*$/, message: "not include special characters" },
             }}
           />
         </Grid>
-
+        <Grid item xs={6}>
+          <Controller
+            as={<TextField margin="normal" variant="outlined" fullWidth required />}
+            label="City"
+            name="shipping.city"
+            control={control}
+            helperText={errors.title ? errors.title.message : null}
+            error={errors.title ? true : false}
+            defaultValue=""
+            rules={{
+              required: "this is required",
+            }}
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <Controller
+            as={<TextField margin="normal" variant="outlined" fullWidth required />}
+            label="Ward"
+            name="shipping.ward"
+            control={control}
+            helperText={errors.title ? errors.title.message : null}
+            error={errors.title ? true : false}
+            defaultValue=""
+            rules={{
+              required: "this is required",
+            }}
+          />
+        </Grid>
         <Button variant="contained" color="primary" type="submit">
           {"Next"}
         </Button>
@@ -91,3 +122,5 @@ export default function AddressForm({ handleNext }) {
     </form>
   );
 }
+
+export default React.memo(AddressForm);
