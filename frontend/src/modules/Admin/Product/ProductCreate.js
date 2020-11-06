@@ -34,7 +34,7 @@ export default function Login() {
       const { data } = await api.post("/api/product", values);
       if (data) {
         console.log(data);
-        toast("Wow so easy !");
+        toast("Create success !");
       }
     } catch (err) {
       console.log(err.response);
@@ -81,7 +81,7 @@ export default function Login() {
                 const err = await trigger();
               }}
             >
-              Continue
+              Create
             </Button>
           </Grid>
         </Grid>

@@ -37,7 +37,7 @@ export default function AdminProductDetail() {
       const { data } = await api.put(`/api/product/${value.slug}`, value);
       if (data) {
         console.log(data);
-        toast("Wow so easy !");
+        toast("Update success!");
       }
     } catch (err) {
       console.log(err.response);
@@ -109,7 +109,7 @@ export default function AdminProductDetail() {
                 const err = await trigger();
               }}
             >
-              Continue
+              Save
             </Button>
           </Grid>
         </Grid>

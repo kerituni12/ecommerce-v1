@@ -1,4 +1,6 @@
+import Router from "next/router";
 import { makeStyles } from "@material-ui/core/styles";
+
 import {
   Table,
   TableBody,
@@ -100,6 +102,7 @@ function DataTable({ data = [], orderByDefault, cellConfigs, checkbox }) {
         scope="row"
         padding={cell.disablePadding ? "none" : "default"}
         align={cell.numeric ? "right" : "left"}
+        onClick={() => Router.push(`/admin/products/${row.slug}`)}
       >
         {row[cell.id]}
       </TableCell>
