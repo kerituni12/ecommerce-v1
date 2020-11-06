@@ -6,7 +6,7 @@ import { AppBar, Toolbar, IconButton, Badge, MenuItem, Menu, Container, Tooltip 
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 
-import LogoWeb from "@shop/images/LogoWeb.png";
+// import LogoWeb from "@shop/images/LogoWeb.png";
 import SearchField from "../SearchField/SearchField";
 import TopHeader from "./TopHeader";
 
@@ -87,7 +87,7 @@ function Header(props) {
           <Toolbar>
             <Link href="/">
               <a>
-                <img src={LogoWeb} className={classes.logoWeb} />
+                <img src="/LogoWeb.png" alt="logo web shop sale" className={classes.logoWeb} />
               </a>
             </Link>
             <SearchField />

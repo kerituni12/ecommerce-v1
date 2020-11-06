@@ -6,7 +6,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Grid from "@material-ui/core/Grid";
 
-import {useSelector} from 'react-redux';
+import { useSelector } from "react-redux";
 
 const items = [
   { name: "Product 1", desc: "A nice thing", price: "$9.99" },
@@ -54,7 +54,7 @@ export default function Review() {
         <ListItem className={classes.listItem}>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" className={classes.total}>
-           $ {order.totalPrice}
+            $ {order.totalPrice}
           </Typography>
         </ListItem>
       </List>
@@ -63,24 +63,30 @@ export default function Review() {
           <Typography variant="h6" gutterBottom className={classes.title}>
             Shipping
           </Typography>
-        <Typography gutterBottom>{order.user.name}</Typography>
-          <Typography gutterBottom>{Object.entries(order.shipping).map(([key, value]) => value).join(", ")}</Typography>
+          <Typography gutterBottom>{order.user.name}</Typography>
+          <Typography gutterBottom>
+            {Object.entries(order.shipping)
+              .map(([key, value]) => value)
+              .join(", ")}
+          </Typography>
         </Grid>
         <Grid item container direction="column" xs={12} sm={6}>
           <Typography variant="h6" gutterBottom className={classes.title}>
             Payment details
           </Typography>
           <Grid container>
-            {payments.map((payment) => (
-              <React.Fragment key={payment.name}>
-                <Grid item xs={6}>
-                  <Typography gutterBottom>{payment.name}</Typography>
-                </Grid>
-                <Grid item xs={6}>
-                  <Typography gutterBottom>{payment.detail}</Typography>
-                </Grid>
-              </React.Fragment>
-            ))}
+            <Grid item xs={6}>
+              <Typography gutterBottom>Payment Method</Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography gutterBottom>: {order.payment.paymentMethod}</Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography gutterBottom>Payment Status </Typography>
+            </Grid>
+            <Grid item xs={6}>
+              <Typography gutterBottom>: {order.isPaid + ""}</Typography>
+            </Grid>
           </Grid>
         </Grid>
       </Grid>

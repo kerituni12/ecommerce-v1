@@ -12,6 +12,8 @@ export const login = createAsyncThunk("login", async ({ email, password }, { dis
       dispatch(authSuccess(user));
       Router.push("/admin");
     } else {
+
+      // Bat de gui ma otp ve dt 
       // await api.post("/api/auth/send-otp-auth", { email });
       dispatch(needVerifyOtp());
     }
@@ -21,9 +23,13 @@ export const login = createAsyncThunk("login", async ({ email, password }, { dis
 });
 
 export const verifyOtp = createAsyncThunk("verifyOtp", async ({ email, otp }, { dispatch }) => {
+  //Cai nay dung neu xac nhan bang server nha 
   // const { data } = await api.post("/api/auth/verify-otp-auth", { email, otp });
+
+  // Day la du lieu mau , khong dung trong deploy
   const data = {};
   data.status = "approved";
+  //
   if (data.status === "approved") {
     dispatch(authSuccess());
     Router.push("/");
