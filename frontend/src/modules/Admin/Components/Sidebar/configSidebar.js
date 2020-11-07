@@ -57,6 +57,16 @@ const appMenuItems = [
     ],
   },
   {
+    name: "MailChimp",
+    Icon: IconBarChart,
+    items: [
+      {
+        name: "List",
+        link: "/admin/mailchimp",
+      },
+    ],
+  },
+  {
     name: "Nested Pages",
     Icon: IconLibraryBooks,
     items: [

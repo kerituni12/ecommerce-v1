@@ -15,4 +15,8 @@ module.exports = {
       from: "no-reply@test-app.com",
     },
   },
+  mailchimpConfigs: {
+    apiKey: process.env.MAICHIMP_APIKEY,
+    listsId: process.env.MAILCHIMP_LISTID,
+  },
 };

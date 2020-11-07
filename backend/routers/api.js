@@ -5,6 +5,7 @@ const productRouter = require("../api/product/product.router");
 const categoryRouter = require("../api/category/category.router");
 const orderRouter = require("../api/order/order.router");
 const authRouter = require("../api/auth/auth.router");
+const mailchimpRouter = require("../api/mailchimp/mailchimp.router");
 
 const app = express();
 
@@ -13,5 +14,5 @@ app.use("/product", productRouter);
 app.use("/category", categoryRouter);
 app.use("/order", orderRouter);
 app.use("/auth", authRouter);
-
+app.use("/mailchimp", mailchimpRouter);
 module.exports = app;

@@ -15,9 +15,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function EnhancedTableHead(props) {
-  const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort, checkbox , cellConfigs } = props;
-
+function EnhancedTableHead({
+  onSelectAllClick,
+  order,
+  orderBy,
+  numSelected,
+  rowCount,
+  onRequestSort,
+  checkbox,
+  cellConfigs,
+}) {
   const classes = useStyles();
 
   const createSortHandler = (property) => (event) => {

@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2),
   },
   table: {
-    minWidth: 750,
+    padding: theme.spacing(2),
   },
 }));
 
@@ -102,7 +102,7 @@ function DataTable({ data = [], orderByDefault, cellConfigs, checkbox }) {
         scope="row"
         padding={cell.disablePadding ? "none" : "default"}
         align={cell.numeric ? "right" : "left"}
-        onClick={() => Router.push(`/admin/products/${row.slug}`)}
+        onClick={row.title ? () => Router.push(`/admin/products/${row.slug}`) : null}
       >
         {row[cell.id]}
       </TableCell>
@@ -113,8 +113,8 @@ function DataTable({ data = [], orderByDefault, cellConfigs, checkbox }) {
     <div className={classes.root}>
       <Paper className={classes.paper}>
         <EnhancedTableToolbar numSelected={selected.length} />
-        <TableContainer>
-          <Table className={classes.table} aria-labelledby="tableTitle" aria-label="enhanced table">
+        <TableContainer className={classes.table}>
+          <Table aria-labelledby="tableTitle" aria-label="enhanced table">
             <EnhancedTableHead
               numSelected={selected.length}
               order={order}
@@ -122,7 +122,7 @@ function DataTable({ data = [], orderByDefault, cellConfigs, checkbox }) {
               onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
               rowCount={data.length}
-              checkbox
+              checkbox={checkbox}
               cellConfigs={cellConfigs}
             />
             {data.length == 0 ? null : (
