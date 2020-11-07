@@ -6,8 +6,8 @@ JWT_SECRET=abcdefghijklmnopqrstuvwxyz1234567890
 
 EMAIL_SMTP_HOST=smtp.gmail.com
 EMAIL_SMTP_PORT=587
-EMAIL_SMTP_USERNAME=kerituni123
-EMAIL_SMTP_PASSWORD=ckiuvk12345
+EMAIL_SMTP_USERNAME=
+EMAIL_SMTP_PASSWORD=
 # true for 465, false for other ports
 EMAIL_SMTP_SECURE=false
 

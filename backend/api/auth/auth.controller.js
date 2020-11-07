@@ -106,6 +106,7 @@ exports.sendOtpAuth = async (req, res, next) => {
   try {
     const query = { email: req.body.email };
     const { phone } = await UserModel.findOne(query, "phone");
+    console.log(phone);
     client.verify
       .services(process.env.VERIFY_SERVICE_SID)
       .verifications.create({
@@ -116,6 +117,7 @@ exports.sendOtpAuth = async (req, res, next) => {
         res.status(200).send(data);
       });
   } catch (err) {
+    console.log(err);
     next(err);
   }
 };

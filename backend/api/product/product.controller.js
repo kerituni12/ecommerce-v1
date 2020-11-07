@@ -21,9 +21,7 @@ exports.getProductBySlug = async (req, res, next) => {
   }
 };
 
-exports.getPriceForProducts = async (req, res, next) => {
-  console.log("parmas", req.query);
-
+exports.getPriceForProducts = async (req, res, next) => { 
   try {
     const priceForProducts = await Product.find(
       { _id: { $in: req.query.items } },
