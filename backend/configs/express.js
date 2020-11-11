@@ -25,10 +25,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use(
-  cors(
-    { credentials: true, origin: "http://localhost:3000" },
-    { credentials: true, origin: "https://ecommerce-v1.vercel.app/" }
-  )
+  cors({ credentials: true, origin: "http://localhost:3000" }, { credentials: true, origin: process.env.FRONTEND_URL })
 );
 
 //Router
