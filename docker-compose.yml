@@ -8,8 +8,8 @@ services:
     ports:
       - "3000:3000"
     volumes:
-      - ./frontend:/usr/src/app
-      - /usr/src/app/build
+      - ./frontend:/usr/app/frontend
+      - /usr/app/frontend/build
   backend:
     container_name: server
     build:
@@ -18,4 +18,4 @@ services:
     ports:
       - "5000:5000"
     volumes:
-      - ./backend:/usr/src/app
+      - ./backend:/usr/app/backend

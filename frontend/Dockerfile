@@ -1,11 +1,11 @@
 FROM node:lts-slim
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+RUN mkdir -p /usr/app/frontend
+WORKDIR /usr/app/frontend
 
-COPY package*.json /usr/src/app/
+COPY package*.json /usr/app/frontend/
 RUN npm install 
    
-COPY . /usr/src/app/ 
+COPY . /usr/app/frontend/ 
 
 RUN npm run build
 

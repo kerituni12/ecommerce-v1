@@ -1,10 +1,10 @@
 FROM node:lts-slim
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+RUN mkdir -p /usr/app/backend
+WORKDIR /usr/app/backend
 
-COPY package*.json /usr/src/app/
+COPY package*.json /usr/app/backend/
 RUN npm install
-COPY . /usr/src/app/
+COPY . /usr/app/backend/
 
 EXPOSE 5000
 
