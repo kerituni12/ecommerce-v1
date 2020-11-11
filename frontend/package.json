@@ -6,7 +6,6 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start "
-   
   },
   "dependencies": {
     "@material-ui/core": "^4.11.0",
@@ -40,5 +39,5 @@
     "swr": "^0.3.6",
     "yup": "^0.29.3"
   },
-  "proxy": "http://localhost:5000"
+  "proxy": "https://kinshop-api.herokuapp.com/"
 }
