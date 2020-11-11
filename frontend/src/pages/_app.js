@@ -16,15 +16,13 @@ import AdminLayout from "@admin/Components/AdminLayout/AdminLayout";
 import ShopLayout from "@shop/Components/ShopLayout/ShopLayout";
 import theme from "configs/theme";
 
-
-
 const WrappedApp = ({ Component, pageProps, router }) => {
   const store = useStore();
   const dispatch = useDispatch();
   // Handle error from api request of each pages SSR or something
-  // if (pageProps.error) {
-  //   return <Error statusCode={pageProps.error.statusCode} title={pageProps.error.message} />;
-  // }
+  if (pageProps.error) {
+    return <Error statusCode={pageProps.error.statusCode} title={pageProps.error.message} />;
+  }
   if (router.pathname.startsWith("/admin")) {
     return (
       <PersistGate persistor={store.__persistor} loading={<h1>loading</h1>}>
@@ -46,9 +44,9 @@ const WrappedApp = ({ Component, pageProps, router }) => {
           <CssBaseline />
           <ShopLayout>
             <ToastContainer />
-            <Component {...pageProps} />           
-          </ShopLayout>          
-        </ThemeProvider>        
+            <Component {...pageProps} />
+          </ShopLayout>
+        </ThemeProvider>
       )}
     </PersistGate>
   );
