@@ -1,6 +1,7 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
+const path = require("path");
 const cors = require("cors");
 
 require("dotenv").config();
@@ -11,7 +12,11 @@ const apiRouter = require("@routers/api");
 const { handleNotFoundPage, handleError } = require("@middlewares/error");
 const { logs } = require("@configs/constants");
 
+const FRONTEND_BUILD_PATH = path.join(__dirname, "../../frontend/build");
+
 const app = express();
+
+app.use(express.static(FRONTEND_BUILD_PATH));
 
 app.use(morgan(logs));
 

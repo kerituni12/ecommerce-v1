@@ -17,7 +17,7 @@ export const makeStore = () => {
 
     const persistConfig = {
       key: "auth",
-      whitelist: ["login", "checkout"], // only counter will be persisted, add other reducers if needed
+      whitelist: ["login", "order"], // only counter will be persisted, add other reducers if needed
       storage, // if needed, use a safer storage
     };
 

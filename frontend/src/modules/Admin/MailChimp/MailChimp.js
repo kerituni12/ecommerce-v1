@@ -15,7 +15,7 @@ function Products() {
   const [members, setProducts] = React.useState([]);
 
   React.useEffect(() => {
-    fetch("http://localhost:3001/api/mailchimp", {
+    fetch("/api/mailchimp", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

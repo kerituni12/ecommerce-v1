@@ -17,7 +17,7 @@ function connect() {
       console.log("mongodb connected");
     })
     .catch((err) => {
-      console.err("App starting err:", err.message);
+      console.error("App starting err:", err.message);
       process.exit(1);
     });
   return mongoose.connection;

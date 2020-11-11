@@ -13,3 +13,24 @@ ProductDetail.getInitialProps = async ({ query }) => {
     return { error: { code: status, message: message } };
   }
 };
+
+// export async function getStaticProps({ params }) {
+//   try {
+//     const { data } = await api.get(`/api/product/${params.product}`)
+//     return { props: { product: data.product, params } };
+//   } catch (err) {
+//     // Hanlde typeError
+//     const { status, message } = err?.response?.data || { status: 500, message: "api errors" };
+//     return { props: { error: { code: status, message: message } } };
+//   }
+// }
+
+// export async function getStaticPaths() {
+//   let { data } = await api.get(`/api/product`);
+
+//   const paths = data.products.map((product) => ({
+//     params: { product: product.slug },
+//   }));
+
+//   return { paths, fallback: false };
+// }

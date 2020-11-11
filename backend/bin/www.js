@@ -12,7 +12,7 @@ var http = require("http");
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || "3001");
+var port = normalizePort(process.env.PORT || "5000");
 app.set("port", port);
 
 /**
@@ -25,7 +25,9 @@ var server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
+server.listen(port, function () {
+  console.log("server listening on port " + server.address().port + "mongo" + process.env.MONGODB_URI);
+});
 server.on("error", onError);
 server.on("listening", onListening);
 
@@ -58,22 +60,20 @@ function onError(error) {
     throw error;
   }
 
-  var bind = typeof port === "string"
-    ? "Pipe " + port
-    : "Port " + port;
+  var bind = typeof port === "string" ? "Pipe " + port : "Port " + port;
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
-  case "EACCES":
-    console.error(bind + " requires elevated privileges");
-    process.exit(1);
-    break;
-  case "EADDRINUSE":
-    console.error(bind + " is already in use");
-    process.exit(1);
-    break;
-  default:
-    throw error;
+    case "EACCES":
+      console.error(bind + " requires elevated privileges");
+      process.exit(1);
+      break;
+    case "EADDRINUSE":
+      console.error(bind + " is already in use");
+      process.exit(1);
+      break;
+    default:
+      throw error;
   }
 }
 
@@ -83,8 +83,6 @@ function onError(error) {
 
 function onListening() {
   var addr = server.address();
-  var bind = typeof addr === "string"
-    ? "pipe " + addr
-    : "port " + addr.port;
+  var bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
   debug("Listening on " + bind);
 }

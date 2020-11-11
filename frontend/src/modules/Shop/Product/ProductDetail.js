@@ -17,7 +17,8 @@ const stylePrice = {
   color: "rgb(0, 172, 193)",
 };
 
-function ProductDetail({ product, query }) {
+function ProductDetail({ product, params }) {
+
   const dispatch = useDispatch();
   const [quantity, setQuality] = useState(1);
   const handleChange = (event) => {
@@ -28,11 +29,12 @@ function ProductDetail({ product, query }) {
       <Head>
         <title>{product.title}</title>
         <meta name="description" content={product.description} />
-        <link rel="canonical" href={`${DOMAIN}/product/${query.product}`} />
+        <meta name="keywords" content={product.title}></meta>
+        <link rel="canonical" href={`/product/${params.product}`} />
         <meta property="og:title" content={`${product.title}| Shop Sale`} />
         <meta property="og:description" content={product.description} />
         <meta property="og:type" content="online shop" />
-        <meta property="og:url" content={`${DOMAIN}/product/${query.product}`} />
+        <meta property="og:url" content={`/product/${params.product}`} />
         <meta property="og:site_name" content="Shop sale" />
 
         <meta property="og:image" content={`${product.image}`} />

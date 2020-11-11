@@ -15,7 +15,7 @@ function Category() {
   const [categories, setCategories] = React.useState([]);
 
   React.useEffect(() => {
-    fetch("http://localhost:3001/api/category", {
+    fetch("/api/category", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

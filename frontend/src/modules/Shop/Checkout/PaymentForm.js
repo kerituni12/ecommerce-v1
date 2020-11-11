@@ -8,6 +8,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import { makeStyles } from "@material-ui/core/styles";
 
 import Paypal from "./PayPal";
+import VnPay from "./VnPay";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,7 +45,7 @@ export default function PaymentForm(props) {
   const [paymentMethod, setPaymentMethod] = useState("code");
   const [sdkReady, setSdkReady] = useState(false);
 
-  const { user, shipping } = useSelector((state) => state.checkout.order);
+  const { user, shipping } = useSelector((state) => state.order.order);
   const cartItems = useSelector((state) => state.cart.items);
 
   const order = new Order(user, shipping, cartItems, props.total);
@@ -140,6 +141,11 @@ export default function PaymentForm(props) {
                         alt="my image"
                       />
                     </Grid>
+                    {paymentMethod === "vnpay" && (
+                      <Grid item sm={12}>
+                        <VnPay order={order} />
+                      </Grid>
+                    )}
                   </Grid>
                 </CardContent>
               </Card>

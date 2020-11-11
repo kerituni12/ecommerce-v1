@@ -1,5 +1,5 @@
 module.exports = {
-  mongoUrl: process.env.MONGODB_URL || "mongodb://localhost/ecomm",
+  mongoUrl: process.env.MONGODB_URI || "mongodb://localhost/ecomm",
 
   jwtSecret: process.env.JWT_SECRET || "abcdefghijklmnopqrstuvwxyz1234567890",
   jwtExpiresIn: 3600,

@@ -50,7 +50,7 @@ export default function Checkout() {
         return <Review />;
       default:
         throw new Error("Unknown step");
-    }
+    } 
   });
 
   // Cai nay de su ly tien o backend

@@ -15,7 +15,7 @@ function Products() {
   const [products, setProducts] = React.useState([]);
 
   React.useEffect(() => {
-    fetch("http://localhost:3001/api/product", {
+    fetch("/api/product", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

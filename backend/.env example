@@ -1,13 +1,14 @@
 NODE_ENV=development
 
-MONGODB_URL=mongodb://localhost/ecom
+MONGODB_URI=mongodb://localhost/ecom
 
 JWT_SECRET=abcdefghijklmnopqrstuvwxyz1234567890
+## mongodb+srv://kerituni123:Ckiuvk123%23@cluster0.gfaz4.mongodb.net/shopsale?retryWrites=true&w=majority
 
 EMAIL_SMTP_HOST=smtp.gmail.com
 EMAIL_SMTP_PORT=587
-EMAIL_SMTP_USERNAME=
-EMAIL_SMTP_PASSWORD=
+EMAIL_SMTP_USERNAME=kerituni123
+EMAIL_SMTP_PASSWORD=ckiuvk12345
 # true for 465, false for other ports
 EMAIL_SMTP_SECURE=false
 
@@ -18,3 +19,13 @@ VERIFY_SERVICE_SID=VA537db948f73bb1ee5dc36a8023638b47
 
 ##Redis
 REDIS_URL=redis://127.0.0.1:6379
+
+##MailChimp
+MAICHIMP_APIKEY=458e786a8068675af12bda6f89104e8c-us2
+MAILCHIMP_LISTID=be1d784127
+
+##VNPAY
+VNP_TMNCODE=1SNJ89L8
+VNP_HASH_SECRET=ODJLXOCEWMFIEJXHJNMZUVFFVRDDXLOT
+VNP_URL=http://sandbox.vnpayment.vn/paymentv2/vpcpay.html
+VNP_RETURN_URL= http://localhost:3001/api/vnpay

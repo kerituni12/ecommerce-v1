@@ -1,30 +1,23 @@
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import * as yup from "yup";
-import Grid from "@material-ui/core/Grid";
-import { Typography, Button } from "@material-ui/core";
-import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
 
-import { addUserInfo } from "./checkout.slice";
-import api from "services/axios";
+import { Typography, Button, TextField, Grid } from "@material-ui/core";
+
+import { addOrder } from "@shop/Order/order.slice";
 
 function AddressForm({ handleNext }) {
-  const { handleSubmit, errors, control, trigger, reset } = useForm();
+  const { handleSubmit, errors, control,  reset } = useForm();
   const dispatch = useDispatch();
-  const order = useSelector((state) => state.checkout.order);
+  const order = useSelector((state) => state.order.order);
 
   const onSubmit = async (values) => {
-    dispatch(addUserInfo(values));
+    dispatch(addOrder(values));
     handleNext();
   };
 
   React.useEffect(() => {
     !!order && reset(order);
-
-    return console.log("chay address");
   }, []);
 
   return (
