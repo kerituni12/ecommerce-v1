@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Card, CardActionArea, CardActions, CardContent, CardMedia, Button, Typography } from "@material-ui/core";
+import { Skeleton } from '@material-ui/lab';
 
 import convertPrice from "helpers/convertPriceVND";
 import Link from "next/link";
@@ -28,6 +29,29 @@ function ProductCard({ item }) {
       </Link>
     </div>
   );
+}
+
+export function ProductCardSkeleton() {
+  const classes = useStyles();
+  return (
+    <div>
+      <Card className={classes.root}>
+        <CardActionArea>
+          <CardMedia className={classes.media}>
+            <Skeleton animation="wave" width="100%" height="100%" />
+          </CardMedia>
+          <CardContent>
+            <Skeleton animation="wave"/>
+            <Skeleton animation="wave"/>
+            <Skeleton animation="wave"/>
+          </CardContent>
+          <CardActions className={classes.cartActions}>
+            <Skeleton width="100%" animation="wave"/>
+          </CardActions>
+        </CardActionArea>
+      </Card>
+    </div>
+  )
 }
 
 const useStyles = makeStyles({
