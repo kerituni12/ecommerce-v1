@@ -6,7 +6,7 @@ const Category = require("./category.model");
 exports.getAllCategory = async (req, res, next) => {
   try {
     let categories = (await Category.find()) || [];
-    return res.status(200).json(categories);
+    return res.status(200).json({ categories });
   } catch (err) {
     next(err);
   }
@@ -16,7 +16,7 @@ exports.getCategoryBySlug = async (req, res, next) => {
   try {
     const category = await Category.findOne({ slug: req.params.slug });
     if (category === null) throw new APIError({ message: "category not exits", status: 404 });
-    return res.status(200).json(category);
+    return res.status(200).json({ category });
   } catch (err) {
     next(err);
   }

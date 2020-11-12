@@ -16,8 +16,8 @@ const appMenuItems = [
     Icon: IconDashboard,
   },
   {
-    name: "Orders",
-    link: "/orders",
+    name: "Order",
+    link: "/order",
     Icon: IconShoppingCart,
   },
   {
@@ -30,11 +30,11 @@ const appMenuItems = [
     items: [
       {
         name: "Create Poduct",
-        link: "/admin/products/create",
+        link: "/admin/product/create",
       },
       {
         name: "List",
-        link: "/admin/products",
+        link: "/admin/product",
       },
     ],
   },
@@ -44,16 +44,12 @@ const appMenuItems = [
     items: [
       {
         name: "Create",
-        link: "/admin/categories/create",
+        link: "/admin/category/create",
       },
       {
         name: "List",
-        link: "/admin/categories",
-      },
-      {
-        name: "List",
-        link: "/admin/categories/11",
-      },
+        link: "/admin/category",
+      },     
     ],
   },
   {
