@@ -1,6 +1,6 @@
-import { Container, Grid, Toolbar } from "@material-ui/core";
+import { Container, Grid, Toolbar, Card } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
-import ProductCard from "./ProductCard";
+import ProductCard, { ProductCardSkeleton } from "./ProductCard";
 import { getProductList } from "./product.slice";
 
 function ProductList(props) {
@@ -32,7 +32,27 @@ function renderProductList(products) {
           </Grid>
         );
       })
-    : null;
+    : 
+    <>
+      <Grid item xs={12} sm={4} lg={2}>
+        <ProductCardSkeleton />
+      </Grid>
+      <Grid item xs={12} sm={4} lg={2}>
+        <ProductCardSkeleton />
+      </Grid>
+      <Grid item xs={12} sm={4} lg={2}>
+        <ProductCardSkeleton />
+      </Grid>
+      <Grid item xs={12} sm={4} lg={2}>
+        <ProductCardSkeleton />
+      </Grid>
+      <Grid item xs={12} sm={4} lg={2}>
+        <ProductCardSkeleton />
+      </Grid>
+      <Grid item xs={12} sm={4} lg={2}>
+        <ProductCardSkeleton />
+      </Grid>
+    </>
   return result;
 }
 export default ProductList;

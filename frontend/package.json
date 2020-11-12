@@ -38,6 +38,5 @@
     "slick-carousel": "^1.8.1",
     "swr": "^0.3.6",
     "yup": "^0.29.3"
-  },
-  "proxy": "http://localhost:5000/"
+  }
 }

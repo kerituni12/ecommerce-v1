@@ -52,16 +52,6 @@ function BasicInfoProduct({ control, errors }) {
           />
         </Grid>
       </Grid>
-      <Controller
-        as={<TextField type="number" margin="normal" variant="outlined" fullWidth required />}
-        label="Price"
-        name="price"
-        control={control}
-        rules={{ required: "this is required" }}
-        helperText={errors.price ? errors.price.message : null}
-        error={errors.price ? true : false}
-        defaultValue=""
-      />
 
       <Controller
         as={

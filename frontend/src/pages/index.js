@@ -9,7 +9,6 @@ const App = (props) => {
   console.log("index rerender");
   return (
     <>
-      <Header />
       <Carousel />
       <Service />
       <ProductList />

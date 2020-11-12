@@ -23,7 +23,7 @@ function EnhancedTableHead({
   rowCount,
   onRequestSort,
   checkbox,
-  cellConfigs,
+  columnConfigs,
 }) {
   const classes = useStyles();
 
@@ -49,7 +49,7 @@ function EnhancedTableHead({
     <TableHead>
       <TableRow>
         {renderCheckbox()}
-        {cellConfigs.map((headCell) => (
+        {columnConfigs.map((headCell) => (
           <TableCell
             key={headCell.id}
             align={headCell.numeric ? "right" : "left"}

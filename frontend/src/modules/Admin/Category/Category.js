@@ -2,28 +2,28 @@ import DataTable from "@admin/Components/DataTable/DataTable";
 import api from "services/axios";
 
 const dataTableConfigs = {
-  name: "product",
+  name: "category",
   columnConfigs: [
     {
       id: "title",
       numeric: false,
       disablePadding: true,
-      label: "Product",
+      label: "Category",
     },
     { id: "slug", numeric: true, disablePadding: false, label: "Slug" },
     { id: "description", numeric: true, disablePadding: false, label: "Description" },
   ],
 };
 
-function Products() {
-  const [products, setProducts] = React.useState([]);
+function Category() {
+  const [categories, setCategories] = React.useState([]);
 
   React.useEffect(() => {
     async function fetchData() {
       try {
-        const { data } = await api.get(`/api/product/`);
+        const { data } = await api.get(`/api/category/`);
         if (data) {
-          setProducts(data.products);
+          setCategories(data.categories);
         }
       } catch (error) {
         throw new Error(error);
@@ -33,7 +33,7 @@ function Products() {
   }, []);
   return (
     <DataTable
-      data={products}
+      data={categories}
       orderByDefault={{ order: "desc", orderBy: "slug" }}
       dataTableConfigs={dataTableConfigs}
       checkbox
@@ -41,4 +41,4 @@ function Products() {
   );
 }
 
-export default Products;
+export default Category;

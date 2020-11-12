@@ -9,7 +9,7 @@ router.get("/", ProductModel.getAllProduct);
 router.get("/:slug", ProductModel.getProductBySlug);
 
 router.post("/", validate(productRule), ProductModel.createProduct);
-router.put("/:slug", auth, validate(productRule), ProductModel.updateProduct);
-router.delete("/:slug", auth, ProductModel.deleteProduct);
+router.put("/:slug", validate(productRule), ProductModel.updateProduct);
+router.delete("/:slug", ProductModel.deleteProduct);
 
 module.exports = router;
