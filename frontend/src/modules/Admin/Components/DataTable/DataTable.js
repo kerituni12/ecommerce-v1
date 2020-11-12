@@ -95,7 +95,7 @@ function DataTable({ data = [], orderByDefault, dataTableConfigs, checkbox }) {
   };
 
   const renderCell = (row) => {
-    return dataTableConfigs.columnConfigs.map((cell) => (
+    return dataTableConfigs.columnConfigs.map((cell, index) => (
       <TableCell
         key={row[cell.id]}
         component="th"
@@ -131,7 +131,6 @@ function DataTable({ data = [], orderByDefault, dataTableConfigs, checkbox }) {
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row, index) => {
                     const isItemSelected = isSelected(row._id);
-                    const labelId = `enhanced-table-checkbox-${index}`;
 
                     return (
                       <TableRow
@@ -139,7 +138,7 @@ function DataTable({ data = [], orderByDefault, dataTableConfigs, checkbox }) {
                         role="checkbox"
                         aria-checked={isItemSelected}
                         tabIndex={-1}
-                        key={row._id}
+                        key={row._id || index}
                         selected={isItemSelected}
                       >
                         {renderCheckbox(isItemSelected, row._id)}
