@@ -12,7 +12,7 @@ ${products
   .map(
     (product) =>
       `<url>
-    <loc>${origin}/${product.slug}</loc>    
+      <loc>${origin}/product/${product.slug}</loc>   
     <lastmod>${new Date(product.updatedAt).toISOString().slice(0, 10)}</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
