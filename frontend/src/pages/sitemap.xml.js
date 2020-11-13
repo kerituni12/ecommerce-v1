@@ -1,7 +1,7 @@
 import React from "react";
 import api from "services/axios";
 
-const origin = "https://kinshop.tk/";
+const origin = "https://kinshop.tk";
 const getSitemap = (products) => `<?xml version="1.0" encoding="utf-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
@@ -24,10 +24,10 @@ ${products
 </urlset>`;
 
 class Sitemap extends React.Component {
-  static async getInitialProps({ req, res }) {
+  static async getInitialProps({  res }) {
     try {
       const { data } = await api.get("/api/product");
-      console.log(req.headers);
+     
       if (data) {
         // Not use req for orgin because it -> https://search.google.com/
         // let origin = "";
