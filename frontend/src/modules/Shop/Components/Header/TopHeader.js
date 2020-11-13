@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
-import { Typography, ButtonGroup, Button } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import Link from "next/link";
 
 const useStyles = makeStyles((theme) => ({
@@ -15,21 +15,20 @@ function TopHeader() {
   const classes = useStyles();
   return (
     <div style={{ display: "flex", justifyContent: "space-between" }}>
-      <Button color="secondary" variant="contained">
+      <div className={classes.sectionDesktop}>
         <Typography>Tải ứng dụng</Typography>
-      </Button>
-      <ButtonGroup variant="contained" color="secondary" size="large" aria-label="contained primary button group">
-        <Button>
+      </div>
+      <div style={{ paddingRight: 20 }}>
+        <div className={classes.sectionDesktop}>
           <Link href="/login">
             <Typography>Đăng nhập</Typography>
           </Link>
-        </Button>
-        <Button>
+          <div style={{ marginLeft: "3px", marginRight: "3px", lineHeight: "1.6em" }}> | </div>
           <Link href="/register">
-            <Typography>Đăng kí</Typography>
+            <Typography>Đăng kí </Typography>
           </Link>
-        </Button>
-      </ButtonGroup>
+        </div>
+      </div>
     </div>
   );
 }
