@@ -28,8 +28,9 @@ class Sitemap extends React.Component {
       const { data } = await api.get("/api/product");
       console.log(req.headers);
       if (data) {
-        if (req) const [_, origin] = req.headers.referer.match(/(http[s]?:\/\/?[^\/\s]+)\/(.*)/i);
-        else const origin = window.location.origin;
+        if (req) {
+          const [_, origin] = req.headers.referer.match(/(http[s]?:\/\/?[^\/\s]+)\/(.*)/i);
+        } else const origin = window.location.origin;
         // console.log(origin, data.products);
         res.setHeader("Content-Type", "text/xml");
         res.write(getSitemap(data.products, origin));
