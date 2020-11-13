@@ -27,13 +27,12 @@ class Sitemap extends React.Component {
     try {
       const { data } = await api.get("/api/product");
       console.log(req.headers);
-      let origin = "";
       if (data) {
-        if (req) {
-          origin = "https://ecommerce-v1.vercel.app/";
-        } else {
-          origin = window.location.origin;
+        let origin = "";
+        if (typeof req.headers.referer === "undefined") {
+          origin = ";";
         }
+        origin = `${req.headers["x-forwarded-proto"]}://${req.headers["x-forwarded-host"]}`;
         // console.log(origin, data.products);
         res.setHeader("Content-Type", "text/xml");
         res.write(getSitemap(data.products, origin));
