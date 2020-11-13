@@ -26,15 +26,21 @@ class Sitemap extends React.Component {
   static async getInitialProps({ req, res }) {
     try {
       const { data } = await api.get("/api/product");
+      console.log(req.headers);
       if (data) {
-        const [_, origin] = req.headers.referer.match(/(http[s]?:\/\/?[^\/\s]+)\/(.*)/i);
-        // console.log(origin, data.products);
+        let origin = "";
+        if (typeof req.headers.referer !== "undefined") {
+          origin = req.headers.referer.match(/(http[s]?:\/\/?[^\/\s]+)\/(.*)/i)[1];
+        } else {
+          //For vercel
+          origin = `${req.headers["x-forwarded-proto"]}://${req.headers["x-forwarded-host"]}`;
+        }
         res.setHeader("Content-Type", "text/xml");
         res.write(getSitemap(data.products, origin));
         res.end();
       }
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
     }
   }
 }
