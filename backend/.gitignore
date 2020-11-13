@@ -62,3 +62,6 @@ typings/
 
 #vs code configurations
 .vscode/
+
+.vercel
+

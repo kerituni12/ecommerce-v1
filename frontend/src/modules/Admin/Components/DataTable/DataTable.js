@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function DataTable({ data = [], orderByDefault, cellConfigs, checkbox }) {
+function DataTable({ data = [], orderByDefault, dataTableConfigs, checkbox }) {
   const classes = useStyles();
   const [order, setOrder] = React.useState(orderByDefault?.order || "asc");
   const [orderBy, setOrderBy] = React.useState(orderByDefault?.orderBy || "title");
@@ -95,14 +95,14 @@ function DataTable({ data = [], orderByDefault, cellConfigs, checkbox }) {
   };
 
   const renderCell = (row) => {
-    return cellConfigs.map((cell) => (
+    return dataTableConfigs.columnConfigs.map((cell) => (
       <TableCell
         key={row[cell.id]}
         component="th"
         scope="row"
         padding={cell.disablePadding ? "none" : "default"}
         align={cell.numeric ? "right" : "left"}
-        onClick={row.title ? () => Router.push(`/admin/products/${row.slug}`) : null}
+        onClick={row.title ? () => Router.push(`/admin/${dataTableConfigs.name}/${row.slug}`) : null}
       >
         {row[cell.id]}
       </TableCell>
@@ -123,7 +123,7 @@ function DataTable({ data = [], orderByDefault, cellConfigs, checkbox }) {
               onRequestSort={handleRequestSort}
               rowCount={data.length}
               checkbox={checkbox}
-              cellConfigs={cellConfigs}
+              columnConfigs={dataTableConfigs.columnConfigs}
             />
             {data.length == 0 ? null : (
               <TableBody>

@@ -13,10 +13,10 @@ function handleError(err, req, res, next) {
     err = new APIError({ message: err.message, status: 400 });
   }
   if (err.name === "MongoError" && err.code === 11000) {
-    console.log(err);
     // eslint-disable-next-line no-unused-vars
     let [_, collection, field, value] = err.message.match(
-      /collection: [a-z]*\.([a-z]*)\sindex:\s([a-z]+).*{\s?:\s?"?([a-z0-9@. ]+)"?/i
+      /collection: [a-z]*\.([a-z]*)\sindex:\s([a-z]+).*{\s?[a-zA-z0-9]*:\s?"?([a-z0-9@. ]+)"?/i
+
     );
     err = new APIError({ message: ` ${collection} exist ${field} : ${value}`, status: 409 });
   }

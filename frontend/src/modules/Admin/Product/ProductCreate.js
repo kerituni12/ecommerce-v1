@@ -1,9 +1,7 @@
 import { useForm, Controller } from "react-hook-form";
-import * as yup from "yup";
-import { useRouter } from "next/router";
-import { ToastContainer, toast } from "react-toastify";
+import {  toast } from "react-toastify";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
-import { Grid, TextField, Button, AppBar, Tab, Tabs } from "@material-ui/core";
+import { Grid,  Button, AppBar, Tab, Tabs } from "@material-ui/core";
 
 import BasicInfoProduct from "./ProductPanel/BasicInfoProduct";
 import SeoProduct from "./ProductPanel/SeoProduct";
@@ -11,18 +9,15 @@ import TabPanel from "@admin/Components/TabPanel/TabPanel";
 
 import api from "services/axios";
 
-export default function Login() {
+export default function ProductCreate() {
   const classes = useStyles();
-  const router = useRouter();
-  const { product } = router.query;
-  const { handleSubmit, errors, control, trigger } = useForm({
-    validationSchema: loginSchema,
+ 
+  const { handleSubmit, errors, control, trigger } = useForm({  
     shouldUnregister: false,
     mode: "onChange",
   });
 
-  const [value, setValue] = React.useState(0);
-  const [error, setError] = React.useState(null);
+  const [value, setValue] = React.useState(0); 
 
   const handleChangeTab = (event, newValue) => {
     trigger();
@@ -32,19 +27,16 @@ export default function Login() {
   const onSubmit = async (values) => {
     try {
       const { data } = await api.post("/api/product", values);
-      if (data) {
-        console.log(data);
+      if (data) {       
         toast("Create success !");
       }
-    } catch (err) {
-      console.log(err.response);
+    } catch (err) {      
       toast(err.response.data.message);
     }
   };
 
   return (
-    <div className={classes.root}>
-      {error && <h1>{error}</h1>}
+    <div className={classes.root}>     
       <AppBar position="static" color="default">
         <Tabs
           value={value}
@@ -129,8 +121,3 @@ function a11yProps(index) {
     "aria-controls": `scrollable-auto-tabpanel-${index}`,
   };
 }
-
-const loginSchema = yup.object().shape({
-  title: yup.string().required(),
-  price: yup.number().required(),
-});
