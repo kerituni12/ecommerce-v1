@@ -32,15 +32,15 @@ class Sitemap extends React.Component {
         if (typeof req.headers.referer !== "undefined") {
           origin = req.headers.referer.match(/(http[s]?:\/\/?[^\/\s]+)\/(.*)/i)[1];
         } else {
+          //For vercel
           origin = `${req.headers["x-forwarded-proto"]}://${req.headers["x-forwarded-host"]}`;
         }
-        // console.log(origin, data.products);
         res.setHeader("Content-Type", "text/xml");
         res.write(getSitemap(data.products, origin));
         res.end();
       }
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
     }
   }
 }
