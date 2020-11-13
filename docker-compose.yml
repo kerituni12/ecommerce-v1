@@ -1,0 +1,21 @@
+version: "3"
+services:
+  frontend:
+    container_name: client
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/usr/app/frontend
+      - /usr/app/frontend/build
+  backend:
+    container_name: server
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend:/usr/app/backend
