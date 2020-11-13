@@ -25,6 +25,7 @@ export default class MyDocument extends Document {
         <Head>
           {/* PWA primary color */}
           <meta name="theme-color" content={theme.palette.primary.main} />
+          <meta name="google-site-verification" content="oxPZq_A_-N8VAEYF2Ou5isJgyap8w97sij3a5-LNmh0" />
           <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
         </Head>
         <body>
