@@ -37,7 +37,8 @@ class Sitemap extends React.Component {
         //   //For vercel
         //   origin = `${req.headers["x-forwarded-proto"]}://${req.headers["x-forwarded-host"]}`;
         // }
-        origin = res.setHeader("Content-Type", "text/xml");
+
+        res.setHeader("Content-Type", "text/xml");
         res.write(getSitemap(data.products));
         res.end();
       }
