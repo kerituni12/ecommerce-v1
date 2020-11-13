@@ -29,7 +29,7 @@ class Sitemap extends React.Component {
       console.log(req.headers);
       if (data) {
         let origin = "";
-        if (typeof req.headers.referer === "undefined") {
+        if (typeof req.headers.referer !== "undefined") {
           origin = req.headers.referer.match(/(http[s]?:\/\/?[^\/\s]+)\/(.*)/i)[1];
         } else {
           origin = `${req.headers["x-forwarded-proto"]}://${req.headers["x-forwarded-host"]}`;
