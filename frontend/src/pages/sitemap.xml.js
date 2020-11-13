@@ -30,7 +30,7 @@ class Sitemap extends React.Component {
       let origin = "";
       if (data) {
         if (req) {
-          origin = req.headers.referer.match(/(http[s]?:\/\/?[^\/\s]+)\/(.*)/i)[1];
+          origin = "https://ecommerce-v1.vercel.app/";
         } else {
           origin = window.location.origin;
         }
