@@ -30,9 +30,10 @@ class Sitemap extends React.Component {
       if (data) {
         let origin = "";
         if (typeof req.headers.referer === "undefined") {
-          origin = ";";
+          origin = req.headers.referer.match(/(http[s]?:\/\/?[^\/\s]+)\/(.*)/i)[1];
+        } else {
+          origin = `${req.headers["x-forwarded-proto"]}://${req.headers["x-forwarded-host"]}`;
         }
-        origin = `${req.headers["x-forwarded-proto"]}://${req.headers["x-forwarded-host"]}`;
         // console.log(origin, data.products);
         res.setHeader("Content-Type", "text/xml");
         res.write(getSitemap(data.products, origin));
