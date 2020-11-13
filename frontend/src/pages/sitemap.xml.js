@@ -26,6 +26,7 @@ class Sitemap extends React.Component {
   static async getInitialProps({ req, res }) {
     try {
       const { data } = await api.get("/api/product");
+      console.log(req.headers);
       if (data) {
         const [_, origin] = req.headers.referer.match(/(http[s]?:\/\/?[^\/\s]+)\/(.*)/i);
         // console.log(origin, data.products);
