@@ -16,6 +16,7 @@ function handleError(err, req, res, next) {
     // eslint-disable-next-line no-unused-vars
     let [_, collection, field, value] = err.message.match(
       /collection: [a-z]*\.([a-z]*)\sindex:\s([a-z]+).*{\s?[a-zA-z0-9]*:\s?"?([a-z0-9@. ]+)"?/i
+
     );
     err = new APIError({ message: ` ${collection} exist ${field} : ${value}`, status: 409 });
   }

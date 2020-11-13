@@ -8,6 +8,7 @@ const CategoryController = require("./category.controller");
 
 router.get("/", CategoryController.getAllCategory);
 router.get("/:slug", CategoryController.getCategoryBySlug);
+
 router.post("/", validate(categoryCreateRule), CategoryController.createCategory);
 router.put("/:slug", validate(categoryCreateRule), CategoryController.updateCategory);
 router.delete("/:slug", CategoryController.deleteCategory);
