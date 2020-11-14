@@ -8,7 +8,6 @@ function checkExsitsItem(array, idItem) {
 
 function handleCartToLocalStorage(newItem, type) {
   let localItemCart = localStorage.getItem("cart");
-  console.log(localItemCart);
   localItemCart = localItemCart === null ? [] : JSON.parse(localItemCart);
 
   if (checkExsitsItem(localItemCart, newItem._id)) {
@@ -26,11 +25,9 @@ function handleCartToLocalStorage(newItem, type) {
 const updateCartReducer = (state, action) => {
   let { item, quantity = 1, checked = true } = action.payload;
   const newItem = { ...item };
-  console.log("newITem", newItem, quantity);
   // hanlde min max items to add cart
   const rule = calculatePurchaseQuantity(newItem.inventory);
   if (quantity > rule || quantity < 1) {
-    console.log("chay vao day");
     toast(`Quality must  > 1 and < ${rule}`);
     return;
   }
@@ -63,16 +60,17 @@ export const getCart = createAsyncThunk("getCart", async (item, { dispatch, getS
   if (localItemCart !== null) {
     localItemCart = JSON.parse(localItemCart);
     const objectIds = localItemCart.map((item) => item._id);
-    console.log(objectIds);
     let { data } = await api.get(`/api/product/get-price-for-products`, {
       params: { items: objectIds },
     });
-    if (data) {
+
+    if (data) {     
       localItemCart.forEach((item, index) => {
         data[index].quantity = item.quantity;
         data[index].checked = item.checked;
-      });
+      });     
     }
+
     dispatch(setCart(data));
   }
 });
@@ -86,9 +84,7 @@ const cartSlice = createSlice({
     updateCart: updateCartReducer,
     handleChecked: handleCheckedReducer,
     deleteItemCart: (state, action) => {
-      console.log(action.payload);
       const index = state.items.findIndex((item) => item._id === action.payload);
-      console.log(index);
       if (index > -1) {
         state.items.splice(index, 1);
       }

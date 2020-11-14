@@ -18,7 +18,7 @@ ${products
     <priority>0.9</priority>
   </url>`
   )
-  .join("")}
+.join("")}
  
 </urlset>`;
 

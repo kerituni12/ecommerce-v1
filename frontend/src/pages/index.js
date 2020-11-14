@@ -6,7 +6,6 @@ import Checkout from "@shop/Checkout/Checkout";
 import { Container } from "@material-ui/core";
 import Service from "@shop/Components/Service/Service";
 const App = (props) => {
-  console.log("index rerender");
   return (
     <>
       <Carousel />

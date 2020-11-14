@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getPaymentSumary } from "@shop/Cart/cart.slice";
+import Router from "next/router";
 import { addUserInfo } from "./checkout.slice";
 import api from "services/axios";
 
@@ -7,7 +7,6 @@ async function createOrder(order) {
   try {
     const { data } = await api.post(`/api/order`, order);
     if (data) {
-      console.log(data);
       return data.order;
     }
   } catch (err) {
@@ -15,20 +14,25 @@ async function createOrder(order) {
   }
 }
 
+const usdExchangeRate = 23176;
+const vndToUsd = (money) => Math.round((money / usdExchangeRate) * 100) / 100;
+
 export default function Paypal({ order }) {
   const paypal = React.useRef();
   const dispatch = useDispatch();
 
-  const orderItems = order.orderItems.map((item) => ({
-    unit_amount: {
-      currency_code: "USD",
-      value: item.price,
-    },
-    quantity: item.quantity,
-    name: item.title,
-  }));
-
-  console.log(orderItems);
+  let totalUSDPrice = 0;
+  const orderItems = order.orderItems.map((item) => {
+    totalUSDPrice += vndToUsd(item.price) * item.quantity;
+    return {
+      unit_amount: {
+        currency_code: "USD",
+        value: vndToUsd(item.price),
+      },
+      quantity: item.quantity,
+      name: item.title,
+    };
+  });
 
   React.useEffect(() => {
     window.paypal
@@ -38,14 +42,14 @@ export default function Paypal({ order }) {
             intent: "CAPTURE",
             purchase_units: [
               {
-                description: "Stuff",
+                description: "Thanh toán hóa đơn",
                 amount: {
-                  value: order.totalPrice,
+                  value: totalUSDPrice,
                   currency_code: "USD",
                   breakdown: {
                     item_total: {
                       currency_code: "USD",
-                      value: order.totalPrice,
+                      value: totalUSDPrice,
                     },
                   },
                 },
@@ -56,7 +60,6 @@ export default function Paypal({ order }) {
         },
         onApprove: async (data, actions) => {
           const result = await actions.order.capture();
-          console.log(result);
           const { description, amount, payee } = result.purchase_units[0];
 
           if (result.status === "COMPLETED") order.isPaid = true;
@@ -68,11 +71,10 @@ export default function Paypal({ order }) {
           };
 
           const resultCreateOrder = await createOrder(order);
-          console.log(resultCreateOrder);
-          if (resultCreateOrder) dispatch(addUserInfo(resultCreateOrder));
+          if (resultCreateOrder) Router.push("/order");
         },
         onError: (err) => {
-          console.log(err);
+          throw new Error(err);
         },
       })
       .render(paypal.current);

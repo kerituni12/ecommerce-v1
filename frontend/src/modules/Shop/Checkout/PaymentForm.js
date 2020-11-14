@@ -9,6 +9,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import Paypal from "./PayPal";
 import VnPay from "./VnPay";
+import COD from "./COD";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,8 +50,6 @@ export default function PaymentForm(props) {
   const cartItems = useSelector((state) => state.cart.items);
 
   const order = new Order(user, shipping, cartItems, props.total);
-
-  console.log(order);
 
   const handleChange = (event) => {
     setPaymentMethod(event.target.value);
@@ -101,7 +100,7 @@ export default function PaymentForm(props) {
                     </Grid>
                     {paymentMethod === "cod" && (
                       <Grid item sm={12}>
-                        <Paypal order={order} />
+                        <COD order={order} />
                       </Grid>
                     )}
                   </Grid>
@@ -151,13 +150,7 @@ export default function PaymentForm(props) {
               </Card>
             </RadioGroup>
           </FormControl>
-        </Grid>
-        <Grid item xs={12}>
-          <FormControlLabel
-            control={<Checkbox color="secondary" name="saveCard" value="yes" />}
-            label="Remember credit card details for next time"
-          />
-        </Grid>
+        </Grid>        
       </Grid>
     </React.Fragment>
   );
