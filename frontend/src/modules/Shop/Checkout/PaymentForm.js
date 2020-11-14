@@ -1,10 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
 
-import { FormControlLabel, FormControl, RadioGroup, Radio, CardContent, Card } from "@material-ui/core";
-import Checkbox from "@material-ui/core/Checkbox";
+import {
+  FormControlLabel,
+  FormControl,
+  RadioGroup,
+  Radio,
+  CardContent,
+  Card,
+  Button,
+  Typography,
+  Grid,
+  Checkbox,
+} from "@material-ui/core";
+
 import { makeStyles } from "@material-ui/core/styles";
 
 import Paypal from "./PayPal";
@@ -20,6 +29,10 @@ const useStyles = makeStyles((theme) => ({
   },
   card: {
     marginBottom: "30px",
+  },
+  button: {
+    display: "flex",
+    justifyContent: "flex-end",
   },
 }));
 
@@ -41,7 +54,7 @@ class Order {
   }
 }
 
-export default function PaymentForm(props) {
+export default function PaymentForm({ total, handleBack }) {
   const classes = useStyles();
   const [paymentMethod, setPaymentMethod] = useState("code");
   const [sdkReady, setSdkReady] = useState(false);
@@ -49,7 +62,9 @@ export default function PaymentForm(props) {
   const { user, shipping } = useSelector((state) => state.order.order);
   const cartItems = useSelector((state) => state.cart.items);
 
-  const order = new Order(user, shipping, cartItems, props.total);
+  const order = new Order(user, shipping, cartItems, total);
+
+  console.log(order);
 
   const handleChange = (event) => {
     setPaymentMethod(event.target.value);
@@ -150,7 +165,10 @@ export default function PaymentForm(props) {
               </Card>
             </RadioGroup>
           </FormControl>
-        </Grid>        
+        </Grid>
+        <Grid item xs={12}>
+          <Button onClick={handleBack}>Back</Button>
+        </Grid>
       </Grid>
     </React.Fragment>
   );

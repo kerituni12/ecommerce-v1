@@ -83,7 +83,6 @@ export default function Paypal({ order }) {
   return (
     <div>
       <div ref={paypal}></div>
-      <button onClick={() => createOrder(order)}>create order</button>
     </div>
   );
 }

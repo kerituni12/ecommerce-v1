@@ -15,7 +15,7 @@ import { useSelector } from "react-redux";
 
 import converPriceVND from "helpers/convertPriceVND";
 
-const steps = ["Thông tin đặt hàng", "Thanh toán"];
+const steps = ["Thông tin đặt hàng", "Thanh toán", "Hoàn thành"];
 
 function calculateSubtotal(items) {
   let sum = 0;

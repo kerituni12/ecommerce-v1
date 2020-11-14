@@ -7,7 +7,7 @@ import { Typography, Button, TextField, Grid } from "@material-ui/core";
 import { addOrder } from "@shop/Order/order.slice";
 
 function AddressForm({ handleNext }) {
-  const { handleSubmit, errors, control,  reset } = useForm();
+  const { handleSubmit, errors, control, reset } = useForm();
   const dispatch = useDispatch();
   const order = useSelector((state) => state.order.order);
 
@@ -108,9 +108,18 @@ function AddressForm({ handleNext }) {
             }}
           />
         </Grid>
-        <Button variant="contained" color="primary" type="submit">
-          {"Next"}
-        </Button>
+        <Grid
+          item
+          md={12}
+          style={{
+            display: "flex",
+            justifyContent: "flex-end",
+          }}
+        >
+          <Button variant="contained" color="primary" type="submit">
+            Next
+          </Button>
+        </Grid>
       </Grid>
     </form>
   );
