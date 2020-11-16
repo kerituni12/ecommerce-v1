@@ -66,7 +66,7 @@ function ProductDetail({ product, params }) {
                 variant="contained"
                 color="primary"
                 onClick={() => {
-                  setQuality((quantity) => (quantity -= 1));
+                  if (quantity > 1) setQuality((quantity) => (quantity -= 1));
                 }}
               >
                 -
