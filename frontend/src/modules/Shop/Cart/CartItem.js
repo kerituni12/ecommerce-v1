@@ -46,14 +46,16 @@ function Cart(props) {
         <TableCell align="left">{convertPrice(item.price)}</TableCell>
 
         <TableCell align="center">
-          <div style={{ width: 70 }}>
+          <div>
             <Button
               variant="contained"
               color="primary"
               size="small"
               style={styleButton}
               onClick={() => {
-                dispatch(updateCart({ item, quantity: item.quantity - 1 }));
+                if(item.quantity > 0) {
+                  dispatch(updateCart({ item, quantity: item.quantity - 1 }));
+                }
               }}
             >
               -
