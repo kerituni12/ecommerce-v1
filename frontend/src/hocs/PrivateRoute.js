@@ -13,9 +13,9 @@ function PrivateRoute({ children }) {
 
   if (!isAuthenticated) {
     // Restore authenticated from cookies
-    const payload = Cookies.get("payload");    
+    const payload = Cookies.get("payload");
     if (payload && !isOtpVerify) {
-      const user = JSON.parse(atob(payload));      
+      const user = JSON.parse(atob(payload));
       dispatch(authSuccess(user));
       return null;
     }
@@ -25,4 +25,27 @@ function PrivateRoute({ children }) {
   return children;
 }
 
-export { PrivateRoute };
+function AdminRoute({ children }) {
+  const dispatch = useDispatch();
+  const { isAuthenticated, isOtpVerify, isAdmin } = useSelector(({ login }) => ({
+    isAuthenticated: !!login.isAuthenticated,
+    isOtpVerify: login.isOtpVerify,
+    isAdmin: login.user.role === "admin",
+  }));
+
+  if (!isAuthenticated || !isAdmin) {
+    // Restore authenticated from cookies
+    const payload = Cookies.get("payload");
+    if (payload && !isOtpVerify) {
+      const user = JSON.parse(atob(payload));
+      if (user.role === "admin") {
+        dispatch(authSuccess(user));
+        return null;
+      }
+    }
+    Router.push("/login");
+    return null;
+  }
+  return children;
+}
+export { PrivateRoute, AdminRoute };
