@@ -13,7 +13,6 @@ import { getCart } from "@shop/Cart/cart.slice";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    marginTop: "200px",
     flexGrow: 1,
   },
   demo: {
