@@ -10,12 +10,12 @@ function PrivateRoute({ children }) {
     isAuthenticated: !!login.isAuthenticated,
     isOtpVerify: login.isOtpVerify,
   }));
- 
+
   if (!isAuthenticated) {
     // Restore authenticated from cookies
-    const payload = Cookies.get("payload");
+    const payload = Cookies.get("payload");    
     if (payload && !isOtpVerify) {
-      const user = JSON.parse(atob(payload));
+      const user = JSON.parse(atob(payload));      
       dispatch(authSuccess(user));
       return null;
     }

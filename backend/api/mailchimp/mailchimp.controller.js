@@ -8,8 +8,7 @@ exports.getListAudience = async (req, res, next) => {
     const data = await mailchimp.get({
       path: `/lists/${mailchimpConfigs.listsId}/members?fields=members.email_address,members.merge_fields,members.status`,
     });
-    if (data) console.log(data);
-    res.json(data);
+    if (data) res.json(data);
   } catch (err) {
     next(err);
   }

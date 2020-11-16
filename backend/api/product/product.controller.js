@@ -21,6 +21,15 @@ exports.getProductBySlug = async (req, res, next) => {
   }
 };
 
+exports.getProductOfCategory = async (req, res, next) => {
+  try {
+    const products = await Product.find({ category: req.params.slug });  
+    return res.status(200).json({ products });
+  } catch (err) {
+    next(err);
+  }
+};
+
 exports.getPriceForProducts = async (req, res, next) => { 
   try {
     const priceForProducts = await Product.find(
@@ -35,8 +44,7 @@ exports.getPriceForProducts = async (req, res, next) => {
 };
 
 exports.createProduct = async (req, res, next) => {
-  try {
-    console.log(req.body);
+  try {  
     let slug = req.body.slug;
     slug = !slug ? slugify(req.body.title) : slug;
     const product = new Product({ ...req.body, slug });

@@ -29,7 +29,7 @@ function SeoProduct({ control, errors }) {
         defaultValue=""
       />
       <Controller
-        as={<TextField margin="normal" variant="outlined" fullWidth />}
+        as={<TextField margin="normal" variant="outlined" fullWidth multiline />}
         label="Description"
         name="description"
         control={control}

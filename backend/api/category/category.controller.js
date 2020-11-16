@@ -22,6 +22,8 @@ exports.getCategoryBySlug = async (req, res, next) => {
   }
 };
 
+
+
 exports.createCategory = async (req, res, next) => {
   try {
     let slug = req.body.slug;

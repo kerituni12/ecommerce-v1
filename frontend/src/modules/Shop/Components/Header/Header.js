@@ -1,17 +1,17 @@
 import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
-import { fade, makeStyles, withStyles } from "@material-ui/core/styles";
-import { AppBar, Toolbar, IconButton, Badge, MenuItem, Menu, Container, Tooltip } from "@material-ui/core";
+import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { AppBar, Toolbar, Badge, Container, Tooltip } from "@material-ui/core";
 
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 
-// import LogoWeb from "@shop/images/LogoWeb.png";
 import SearchField from "../SearchField/SearchField";
 import TopHeader from "./TopHeader";
 
-import { useDispatch } from "react-redux";
 import { getCart } from "@shop/Cart/cart.slice";
+
 const LightTooltip = withStyles((theme) => ({
   tooltip: {
     backgroundColor: theme.palette.common.white,
@@ -20,6 +20,49 @@ const LightTooltip = withStyles((theme) => ({
     fontSize: 11,
   },
 }))(Tooltip);
+
+function Header(props) {
+  const classes = useStyles();
+  const dispatch = useDispatch();
+  const cartItems = useSelector((state) => state.cart.items);
+  const cartInfo = getCartInfo(cartItems);
+  React.useEffect(() => {
+    dispatch(getCart());
+  }, []);
+
+  return (
+    <div className={classes.grow}>
+      <AppBar position="fixed" style={styleAppBar}>
+        <Container fixed>
+          <TopHeader />
+          <Toolbar className={classes.toolBar}>
+            <Link href="/">
+              <a>
+                <img src="/LogoWeb.png" alt="logo web shop sale" className={classes.logoWeb} />
+              </a>
+            </Link>
+            <SearchField />
+            <div className={classes.grow} />
+
+            <Link href="/cart">
+              <LightTooltip
+                title={cartItems.length > 0 ? <div style={{ padding: 5 }}>{cartInfo}</div> : "Chưa Có sản phẩm"}
+                arrow
+                placement="bottom-end"
+              >
+                <Badge badgeContent={cartItems.length} color="primary">
+                  <ShoppingCartIcon style={styleCart} className="show">
+                    <NotificationsIcon />
+                  </ShoppingCartIcon>
+                </Badge>
+              </LightTooltip>
+            </Link>
+          </Toolbar>
+        </Container>
+      </AppBar>
+    </div>
+  );
+}
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -57,6 +100,9 @@ const useStyles = makeStyles((theme) => ({
   logoWeb: {
     height: "90px",
   },
+  toolBar: {
+    maxHeight: "80px",
+  },
 }));
 
 const styleCart = {
@@ -71,42 +117,26 @@ const styleAppBar = {
   backgroundColor: "#00acc1",
 };
 
-function Header(props) {
-  const classes = useStyles();
-  const dispatch = useDispatch();
-
-  React.useEffect(() => {
-    dispatch(getCart());
-  },[]);
-
-  return (
-    <div className={classes.grow}>
-      <AppBar position="fixed" style={styleAppBar}>
-        <Container fixed>
-          <TopHeader />
-          <Toolbar>
-            <Link href="/">
-              <a>
-                <img src="/LogoWeb.png" alt="logo web shop sale" className={classes.logoWeb} />
-              </a>
-            </Link>
-            <SearchField />
-            <div className={classes.grow} />
-
-            <Link href="/cart">
-              <LightTooltip title={"Chưa Có sản phẩm"} arrow placement="bottom-end">
-                <Badge badgeContent={0} color="primary">
-                  <ShoppingCartIcon style={styleCart} className="show">
-                    <NotificationsIcon />
-                  </ShoppingCartIcon>
-                </Badge>
-              </LightTooltip>
-            </Link>
-          </Toolbar>
-        </Container>
-      </AppBar>
-    </div>
-  );
-}
+const getCartInfo = (cartItems) =>
+  cartItems.map((item) => {
+    return (
+      <div style={{ display: "flex", marginBottom: 5 }} key={item._id}>
+        <img src={item.image} style={{ width: 40, border: "1px solid #dadada" }} />
+        <h3
+          style={{
+            width: 200,
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            display: "inline-block",
+            marginLeft: 4,
+          }}
+        >
+          {item.title}
+        </h3>
+        <h5 style={{ color: "#696969", marginLeft: 1 }}>x{item.quantity}</h5>
+      </div>
+    );
+  });
 
 export default Header;

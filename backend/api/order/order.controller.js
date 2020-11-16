@@ -20,6 +20,16 @@ exports.getOrderById = async (req, res, next) => {
   }
 };
 
+exports.getOrderOfUser = async (req, res, next) => {
+  try {
+    const orders = await Order.find({ "user.id": req.params.id });
+    // if (orders === null) throw new APIError({ message: "Order not exits" });
+    return res.json({ orders });
+  } catch (err) {
+    next(err);
+  }
+};
+
 exports.createOrder = async (req, res, next) => {
   try {
     // eslint-disable-next-line no-unused-vars

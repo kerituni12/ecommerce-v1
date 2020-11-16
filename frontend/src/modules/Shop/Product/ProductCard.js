@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Card, CardActionArea, CardActions, CardContent, CardMedia, Button, Typography } from "@material-ui/core";
-import { Skeleton } from '@material-ui/lab';
+import { Skeleton } from "@material-ui/lab";
 
 import convertPrice from "helpers/convertPriceVND";
 import Link from "next/link";
@@ -11,7 +11,7 @@ function ProductCard({ item }) {
 
   return (
     <div>
-      <Link href={{ pathname: "product/" + item.slug }}>
+      <Link href={{ pathname: "/product/" + item.slug }}>
         <Card className={classes.root}>
           <CardActionArea>
             <CardMedia className={classes.media} title={item.title} image={item.image}></CardMedia>
@@ -41,17 +41,17 @@ export function ProductCardSkeleton() {
             <Skeleton animation="wave" width="100%" height="100%" />
           </CardMedia>
           <CardContent>
-            <Skeleton animation="wave"/>
-            <Skeleton animation="wave"/>
-            <Skeleton animation="wave"/>
+            <Skeleton animation="wave" />
+            <Skeleton animation="wave" />
+            <Skeleton animation="wave" />
           </CardContent>
           <CardActions className={classes.cartActions}>
-            <Skeleton width="100%" animation="wave"/>
+            <Skeleton width="100%" animation="wave" />
           </CardActions>
         </CardActionArea>
       </Card>
     </div>
-  )
+  );
 }
 
 const useStyles = makeStyles({

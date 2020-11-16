@@ -25,8 +25,14 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(2),
   },
   table: {
-    padding: theme.spacing(2),
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
   },
+  // tableCell :{
+  //   whiteSpace: "nowrap",
+  //   textOverflow: "ellipsis",    
+  //   overflow: "hidden"
+  // }
 }));
 
 function DataTable({ data = [], orderByDefault, dataTableConfigs, checkbox }) {
@@ -97,12 +103,13 @@ function DataTable({ data = [], orderByDefault, dataTableConfigs, checkbox }) {
   const renderCell = (row) => {
     return dataTableConfigs.columnConfigs.map((cell, index) => (
       <TableCell
-        key={row[cell.id]}
+        key={`${row[cell.id]} ${index}`}
         component="th"
         scope="row"
         padding={cell.disablePadding ? "none" : "default"}
         align={cell.numeric ? "right" : "left"}
         onClick={row.title ? () => Router.push(`/admin/${dataTableConfigs.name}/${row.slug}`) : null}
+       
       >
         {row[cell.id]}
       </TableCell>
@@ -112,7 +119,7 @@ function DataTable({ data = [], orderByDefault, dataTableConfigs, checkbox }) {
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length} />
+        <EnhancedTableToolbar numSelected={selected.length} pageName={dataTableConfigs.name} />
         <TableContainer className={classes.table}>
           <Table aria-labelledby="tableTitle" aria-label="enhanced table">
             <EnhancedTableHead
