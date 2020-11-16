@@ -61,8 +61,9 @@ export default function PaymentForm({ total, handleBack }) {
 
   const { user, shipping } = useSelector((state) => state.order.order);
   const cartItems = useSelector((state) => state.cart.items);
+  const selectCartItems = cartItems.filter((item) => item.checked);
 
-  const order = new Order(user, shipping, cartItems, total);
+  const order = new Order(user, shipping, selectCartItems, total);
 
   console.log(order);
 

@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
   // tableCell :{
   //   whiteSpace: "nowrap",
-  //   textOverflow: "ellipsis",    
+  //   textOverflow: "ellipsis",
   //   overflow: "hidden"
   // }
 }));
@@ -99,6 +99,7 @@ function DataTable({ data = [], orderByDefault, dataTableConfigs, checkbox }) {
       );
     }
   };
+  const [rootRoute, hash] = dataTableConfigs.routerRules.split("#");
 
   const renderCell = (row) => {
     return dataTableConfigs.columnConfigs.map((cell, index) => (
@@ -108,8 +109,7 @@ function DataTable({ data = [], orderByDefault, dataTableConfigs, checkbox }) {
         scope="row"
         padding={cell.disablePadding ? "none" : "default"}
         align={cell.numeric ? "right" : "left"}
-        onClick={row.title ? () => Router.push(`/admin/${dataTableConfigs.name}/${row.slug}`) : null}
-       
+        onClick={() => Router.push(`${rootRoute}/${row[`${hash}`]}`)}
       >
         {row[cell.id]}
       </TableCell>
