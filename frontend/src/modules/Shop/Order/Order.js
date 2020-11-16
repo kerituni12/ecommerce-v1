@@ -28,8 +28,7 @@ export default function Order() {
       const order = Cookies.get("orderId");
       try {
         const { data } = await api.get(`/api/order/${order}`);
-        if (data) {
-          console.log(data);
+        if (data) {         
           setOrder(data.order);
         }
       } catch (error) {

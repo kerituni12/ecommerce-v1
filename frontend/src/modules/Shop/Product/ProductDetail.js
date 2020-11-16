@@ -18,7 +18,6 @@ const stylePrice = {
 };
 
 function ProductDetail({ product, params }) {
-
   const dispatch = useDispatch();
   const [quantity, setQuality] = useState(1);
   const handleChange = (event) => {
@@ -30,11 +29,11 @@ function ProductDetail({ product, params }) {
         <title>{product.title}</title>
         <meta name="description" content={product.description} />
         <meta name="keywords" content={product.title}></meta>
-        <link rel="canonical" href={`/product/${params.product}`} />
+        <link rel="canonical" href={`${DOMAIN}/product/${params.product}`} />
         <meta property="og:title" content={`${product.title}| Shop Sale`} />
         <meta property="og:description" content={product.description} />
         <meta property="og:type" content="online shop" />
-        <meta property="og:url" content={`/product/${params.product}`} />
+        <meta property="og:url" content={`${DOMAIN}/product/${params.product}`} />
         <meta property="og:site_name" content="Shop sale" />
 
         <meta property="og:image" content={`${product.image}`} />
@@ -50,7 +49,7 @@ function ProductDetail({ product, params }) {
           <Grid item xs={12} xs={10} sm={10} md={6} lg={6}>
             <h2>{product.title}</h2>
 
-            <h1 style={stylePrice}>₫{convertPrice(200)}</h1>
+            <h1 style={stylePrice}>₫{convertPrice(product.price)}</h1>
             <h4>
               Vận Chuyển :
               <span style={{ marginLeft: 10 }}>
@@ -84,6 +83,8 @@ function ProductDetail({ product, params }) {
                 +
               </Button>
             </div>
+
+            <br />
             <div>
               <Button
                 variant="outlined"
@@ -94,14 +95,7 @@ function ProductDetail({ product, params }) {
               >
                 Thêm Vào Giỏ Hàng
               </Button>
-              <Button
-                variant="contained"
-                color="primary"
-                style={{ marginLeft: 10 }}
-                onClick={() => {
-                  buyNow();
-                }}
-              >
+              <Button variant="contained" color="primary" style={{ marginLeft: 10 }}>
                 Mua Ngay
               </Button>
             </div>

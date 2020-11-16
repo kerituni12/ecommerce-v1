@@ -1,3 +1,4 @@
+import { TextField, Button, Typography } from "@material-ui/core";
 const CustomForm = ({ status, message, onValidated }) => {
   let email, name;
   const submit = () =>
@@ -11,14 +12,30 @@ const CustomForm = ({ status, message, onValidated }) => {
 
   return (
     <div>
+      <Typography>Đăng kí nhận tin</Typography>
       {status === "sending" && <div style={{ color: "blue" }}>sending...</div>}
       {status === "error" && <div style={{ color: "red" }} dangerouslySetInnerHTML={{ __html: message }} />}
       {status === "success" && <div style={{ color: "green" }} dangerouslySetInnerHTML={{ __html: message }} />}
-      <input ref={(node) => (name = node)} type="text" placeholder="Your name" />
+      <TextField
+        inputRef={(node) => (name = node)}
+        type="text"
+        placeholder="Your name"
+        variant="outlined"
+        size="small"
+      />
       <br />
-      <input ref={(node) => (email = node)} type="email" placeholder="Your email" />
+      <TextField
+        inputRef={(node) => (email = node)}
+        type="email"
+        placeholder="Your email"
+        variant="outlined"
+        size="small"
+        margin="normal"
+      />
       <br />
-      <button onClick={submit}>Submit</button>
+      <Button variant="contained" color="primary" onClick={submit}>
+        Submit
+      </Button>
     </div>
   );
 };

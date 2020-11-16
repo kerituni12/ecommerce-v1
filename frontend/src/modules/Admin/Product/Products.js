@@ -22,8 +22,15 @@ function Products() {
     async function fetchData() {
       try {
         const { data } = await api.get(`/api/product/`);
-        if (data) {
-          setProducts(data.products);
+        if (data) {         
+          const _products = data.products.map((product) => {
+         
+            return {
+              ...product,
+              description: product.description.split(" ").slice(0, 18).join(" ") + "...",
+            };
+          });        
+          setProducts(_products);
         }
       } catch (error) {
         throw new Error(error);

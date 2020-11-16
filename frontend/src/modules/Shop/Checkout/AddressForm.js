@@ -1,6 +1,7 @@
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
+import Cookies from "js-cookie";
 
 import { Typography, Button, TextField, Grid } from "@material-ui/core";
 
@@ -10,8 +11,12 @@ function AddressForm({ handleNext }) {
   const { handleSubmit, errors, control, reset } = useForm();
   const dispatch = useDispatch();
   const order = useSelector((state) => state.order.order);
-
   const onSubmit = async (values) => {
+    const payload = Cookies.get("payload");
+    if (payload) {
+      const user = JSON.parse(atob(payload));     
+      values.user.id = user.id;
+    }
     dispatch(addOrder(values));
     handleNext();
   };

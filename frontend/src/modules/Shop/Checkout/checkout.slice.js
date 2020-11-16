@@ -5,8 +5,7 @@ import Router from "next/router";
 export const addOrder = createAsyncThunk("addOrder", async (order, { dispatch }) => {
   try {
     const { data } = await api.post(`/api/order`, order);
-    if (data) {
-      console.log(data);
+    if (data) {     
       return data.order;
     }
   } catch (err) {

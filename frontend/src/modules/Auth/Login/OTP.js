@@ -11,7 +11,7 @@ function OTPVerify({ email, setRenderLogin }) {
   const numberOfVerifyOtpFail = useSelector((state) => state.login.numberOfVerifyOtpFail);
   const handleChange = (otp) => setOtp(otp);
   const handleVerifyOtp = (otp) => {
-    console.log(email, otp);
+   
     dispatch(verifyOtp({ email, otp }));
   };
 
