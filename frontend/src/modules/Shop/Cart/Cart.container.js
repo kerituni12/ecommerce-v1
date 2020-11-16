@@ -22,6 +22,7 @@ import { getCart } from "@shop/Cart/cart.slice";
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    marginTop: "200px",
     flexGrow: 1,
   },
   menuButton: {
@@ -30,6 +31,10 @@ const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 700,
   },
+  tableHeader: {
+    background: "#00acc1",
+    color: "#ffffff"
+  }
 }));
 
 const styleButton = {
@@ -76,24 +81,24 @@ function CartContainer(props) {
 
   return (
     <div className={classes.root}>
-      <Container className="paddingTopFixed">
+      {/* <Container className="paddingTopFixed">
         <AppBar position="static" style={StyleAppBar}>
-          <Toolbar variant="dense">{/* <Typography variant="h6">{props.messageCart}</Typography> */}</Toolbar>
+          <Toolbar variant="dense"><Typography variant="h6">{props.messageCart}</Typography></Toolbar>
         </AppBar>
-      </Container>
+      </Container> */}
 
       <Container>
-        <Grid container>
-          <Grid item lg={8}>
+        <Grid container justify="space-evenly" alignItems="center" >
+          <Grid item>
             <TableContainer component={Paper}>
               <Table className={classes.table} aria-label="spanning table">
-                <TableHead>
+                <TableHead className={classes.tableHeader}>
                   <TableRow>
                     <TableCell></TableCell>
                     <TableCell>Sản Phẩm</TableCell>
                     <TableCell>Mô tả</TableCell>
                     <TableCell align="left">Đơn Giá</TableCell>
-                    <TableCell align="left">Số Lượng</TableCell>
+                    <TableCell align="center">Số Lượng</TableCell>
                     <TableCell align="center">Thành Tiền</TableCell>
                     <TableCell align="center">Thao Tác</TableCell>
                   </TableRow>
@@ -103,23 +108,19 @@ function CartContainer(props) {
               </Table>
             </TableContainer>
           </Grid>
-          <Grid item lg={4}>
-            <Box>
-              <Typography>Tam tinh</Typography>
-              <Typography>{subtotal(items)}</Typography>
-            </Box>
+          <Grid item>
+            <Container style={{display: "flex", flexDirection: "column", alignItems:"center", marginTop: "20px"}}>
+              <Typography>Tạm tính: {subtotal(items)}</Typography>
             {/* Handle ship + subtotal */}
-            <Box>
-              <Typography>Tổng tiền</Typography>
-              <Typography>{subtotal(items)}</Typography>
-            </Box>
-            <Box>
-              <Link href="/checkout">
-                <Button variant="contained" color="primary">
-                  Checkout
-                </Button>
-              </Link>
-            </Box>
+              <Typography>Tổng tiền: {subtotal(items)}</Typography>
+              <Box>
+                <Link href="/checkout">
+                  <Button style={{marginTop: "20px"}}  variant="contained" color="primary">
+                    Checkout
+                  </Button>
+                </Link>
+              </Box>
+            </Container>
           </Grid>
         </Grid>
       </Container>
