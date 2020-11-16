@@ -70,8 +70,7 @@ exports.createPaymentUrl = async function (req, res, next) {
     vnp_Params["vnp_SecureHashType"] = "SHA256";
     vnp_Params["vnp_SecureHash"] = secureHash;
     vnpUrl += "?" + querystring.stringify(vnp_Params, { encode: true });
-    console.log(vnpUrl);
-
+   
     //Neu muon dung Redirect thi dong dong ben duoi
     res.cookie("orderId", orderData._id + "", { maxAge: 720000 }).json({ code: "00", vnpUrl });
     //Neu muon dung Redirect thi mo dong ben duoi va dong dong ben tren

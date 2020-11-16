@@ -1,15 +1,14 @@
-import { Button } from "@material-ui/core";
+import { Button, Container, Grid, TextField } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import api from "services/axios";
 import Router from "next/router";
 
-function VnPay({ order }) {
+function COD({ order }) {
   const onSubmit = async () => {
     try {
-      const { data } = await api.post("/api/vnpay", { order });
-      if (data) {      
-        if (data.code === "00") {
-          Router.push(data.vnpUrl);
-        }
+      const { data } = await api.post(`/api/order`, order);
+      if (data) {
+        Router.push("/order");
       }
     } catch (err) {
       console.log(err);
@@ -18,9 +17,9 @@ function VnPay({ order }) {
 
   return (
     <Button color="secondary" fullWidth type="submit" variant="contained" onClick={() => onSubmit()}>
-      Thanh toán
+      Đặt hàng
     </Button>
   );
 }
 
-export default VnPay;
+export default COD;

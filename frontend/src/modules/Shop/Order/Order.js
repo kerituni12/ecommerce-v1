@@ -1,14 +1,11 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import Grid from "@material-ui/core/Grid";
 import Cookies from "js-cookie";
-import api from "services/axios";
 
-import { useSelector } from "react-redux";
+import { makeStyles } from "@material-ui/core/styles";
+import { Typography, Container, Grid, ListItemText, List, ListItem } from "@material-ui/core";
+
+import api from "services/axios";
+import converPriceVND from "helpers/convertPriceVND";
 
 const useStyles = makeStyles((theme) => ({
   listItem: {
@@ -31,8 +28,7 @@ export default function Order() {
       const order = Cookies.get("orderId");
       try {
         const { data } = await api.get(`/api/order/${order}`);
-        if (data) {
-          console.log(data);
+        if (data) {         
           setOrder(data.order);
         }
       } catch (error) {
@@ -44,57 +40,61 @@ export default function Order() {
 
   if (!!order)
     return (
-      <React.Fragment>
-        <Typography variant="h6" gutterBottom>
-          Order summary
-        </Typography>
-        <List disablePadding>
-          {order.orderItems.map((item) => (
-            <ListItem className={classes.listItem} key={item.title}>
-              <ListItemText primary={item.title} secondary={item.desc} />
-              <Typography variant="body2">{item.price}</Typography>
-            </ListItem>
-          ))}
-          <ListItem className={classes.listItem}>
-            <ListItemText primary="Total" />
-            <Typography variant="subtitle1" className={classes.total}>
-              $ {order.totalPrice}
+      <Container>
+        <Grid container>
+          <Grid item md={8}>
+            <Typography variant="h6" gutterBottom>
+              Order summary
             </Typography>
-          </ListItem>
-        </List>
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={6}>
-            <Typography variant="h6" gutterBottom className={classes.title}>
-              Shipping
-            </Typography>
-            <Typography gutterBottom>{order.user.name}</Typography>
-            <Typography gutterBottom>
-              {Object.entries(order.shipping)
-                .map(([key, value]) => value)
-                .join(", ")}
-            </Typography>
-          </Grid>
-          <Grid item container direction="column" xs={12} sm={6}>
-            <Typography variant="h6" gutterBottom className={classes.title}>
-              Payment details
-            </Typography>
-            <Grid container>
-              <Grid item xs={6}>
-                <Typography gutterBottom>Payment Method</Typography>
+            <List disablePadding>
+              {order.orderItems.map((item) => (
+                <ListItem className={classes.listItem} key={item.title}>
+                  <ListItemText primary={item.title} secondary={item.desc} />
+                  <Typography variant="body2">đ{converPriceVND(item.price)}</Typography>
+                </ListItem>
+              ))}
+              <ListItem className={classes.listItem}>
+                <ListItemText primary="Total" />
+                <Typography variant="subtitle1" className={classes.total}>
+                  đ{converPriceVND(order.totalPrice)}
+                </Typography>
+              </ListItem>
+            </List>
+            <Grid container spacing={2} justify="space-between">
+              <Grid item>
+                <Typography variant="h6" gutterBottom className={classes.title}>
+                  Shipping
+                </Typography>
+                <Typography gutterBottom>{order.user.name}</Typography>
+                <Typography gutterBottom>
+                  {Object.entries(order.shipping)
+                    .map(([key, value]) => value)
+                    .join(", ")}
+                </Typography>
               </Grid>
-              <Grid item xs={6}>
-                <Typography gutterBottom>: {order.payment.paymentMethod}</Typography>
-              </Grid>
-              <Grid item xs={6}>
-                <Typography gutterBottom>Payment Status </Typography>
-              </Grid>
-              <Grid item xs={6}>
-                <Typography gutterBottom>: {order.isPaid + ""}</Typography>
+              <Grid item>
+                <Typography variant="h6" gutterBottom className={classes.title}>
+                  Payment details
+                </Typography>
+                <Grid container>
+                  <Grid item xs={6}>
+                    <Typography gutterBottom>Payment Method</Typography>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Typography gutterBottom>: {order.payment.paymentMethod}</Typography>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Typography gutterBottom>Payment Status </Typography>
+                  </Grid>
+                  <Grid item xs={6}>
+                    <Typography gutterBottom>: {order.isPaid + ""}</Typography>
+                  </Grid>
+                </Grid>
               </Grid>
             </Grid>
           </Grid>
         </Grid>
-      </React.Fragment>
+      </Container>
     );
   return <h1>Ban khong co order nao</h1>;
 }

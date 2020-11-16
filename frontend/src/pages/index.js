@@ -1,17 +1,16 @@
 import Header from "modules/Shop/Components/Header/Header";
 import Carousel from "@shop/Components/Carousel/Carousel";
-import ProductList from "@shop/Product/ProductsList";
+import ProductList from "@shop/Product/ProductList";
 import ProductDetail from "@shop/Product/ProductDetail";
 import Checkout from "@shop/Checkout/Checkout";
-import { Container } from "@material-ui/core";
+import ProductHome from "@shop/Product/ProductHome";
 import Service from "@shop/Components/Service/Service";
 const App = (props) => {
-  console.log("index rerender");
   return (
     <>
       <Carousel />
       <Service />
-      <ProductList />
+      <ProductHome />
       {/* <ProductDetail /> */}
       {/* <Checkout /> */}
     </>
