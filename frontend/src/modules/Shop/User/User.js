@@ -8,6 +8,7 @@ import UserCard from "./UserCard";
 
 const dataTableConfigs = {
   name: "order",
+  routerRules: "/order#id",
   columnConfigs: [
     {
       id: "id",

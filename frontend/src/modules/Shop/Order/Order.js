@@ -8,6 +8,9 @@ import api from "services/axios";
 import converPriceVND from "helpers/convertPriceVND";
 
 const useStyles = makeStyles((theme) => ({
+  root: {
+    backgroundColor: theme.palette.background.paper,
+  },
   listItem: {
     padding: theme.spacing(1, 0),
   },
@@ -16,6 +19,9 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     marginTop: theme.spacing(2),
+  },
+  image: {
+    width: "100%",
   },
 }));
 
@@ -28,7 +34,7 @@ export default function Order() {
       const order = Cookies.get("orderId");
       try {
         const { data } = await api.get(`/api/order/${order}`);
-        if (data) {         
+        if (data) {
           setOrder(data.order);
         }
       } catch (error) {
@@ -40,8 +46,8 @@ export default function Order() {
 
   if (!!order)
     return (
-      <Container>
-        <Grid container>
+      <Container className={classes.root}>
+        <Grid container spacing={4}>
           <Grid item md={8}>
             <Typography variant="h6" gutterBottom>
               Order summary
@@ -50,6 +56,7 @@ export default function Order() {
               {order.orderItems.map((item) => (
                 <ListItem className={classes.listItem} key={item.title}>
                   <ListItemText primary={item.title} secondary={item.desc} />
+                  <ListItemText primary={`x${item.quantity}`} secondary={item.desc} />
                   <Typography variant="body2">đ{converPriceVND(item.price)}</Typography>
                 </ListItem>
               ))}
@@ -92,6 +99,9 @@ export default function Order() {
                 </Grid>
               </Grid>
             </Grid>
+          </Grid>
+          <Grid item md={4}>
+            <img src="/thank-for-purchase.png" className={classes.image} />
           </Grid>
         </Grid>
       </Container>

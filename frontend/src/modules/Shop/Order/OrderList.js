@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 
 const dataTableConfigs = {
   name: "order",
+  routerRules: "/admin/order#id",
   columnConfigs: [
     {
       id: "id",
