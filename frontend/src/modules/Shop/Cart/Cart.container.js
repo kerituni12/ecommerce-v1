@@ -13,6 +13,7 @@ import { getCart } from "@shop/Cart/cart.slice";
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    marginTop: "200px",
     flexGrow: 1,
   },
   demo: {
@@ -24,6 +25,10 @@ const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 700,
   },
+  tableHeader: {
+    background: "#00acc1",
+    color: "#ffffff"
+  }
 }));
 
 const styleButton = {
@@ -70,13 +75,13 @@ function CartContainer(props) {
           <Grid item md={8}>
             <TableContainer component={Paper}>
               <Table className={classes.table} aria-label="spanning table">
-                <TableHead>
+                <TableHead className={classes.tableHeader}>
                   <TableRow>
                     <TableCell></TableCell>
                     <TableCell>Sản Phẩm</TableCell>
                     <TableCell>Mô tả</TableCell>
                     <TableCell align="left">Đơn Giá</TableCell>
-                    <TableCell align="left">Số Lượng</TableCell>
+                    <TableCell align="center">Số Lượng</TableCell>
                     <TableCell align="center">Thành Tiền</TableCell>
                     <TableCell align="center">Thao Tác</TableCell>
                   </TableRow>
