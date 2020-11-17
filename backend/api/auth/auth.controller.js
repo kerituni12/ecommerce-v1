@@ -94,7 +94,8 @@ exports.login = async (req, res, next) => {
       .cookie("signToken", "aaa", {
         maxAge: jwtExpiresIn * 1000,
         secure: true,
-        sameSite: true,
+        sameSite: "none",
+        httpOnly: false,
       })
       .end();
   } catch (err) {
