@@ -32,7 +32,9 @@ export const verifyOtp = createAsyncThunk("verifyOtp", async ({ email, otp }, { 
   data.status = "approved";
   //
   if (data.status === "approved") {
-    dispatch(authSuccess());
+    const payload = Cookies.get("payload");
+    const user = JSON.parse(atob(payload)); 
+    dispatch(authSuccess(user));
     Router.push("/");
     return;
   }

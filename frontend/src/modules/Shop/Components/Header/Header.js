@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
-import { AppBar, Toolbar, Badge, Container, Tooltip } from "@material-ui/core";
+import { AppBar, Toolbar, Badge, Container, Tooltip, IconButton } from "@material-ui/core";
 
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import NotificationsIcon from "@material-ui/icons/Notifications";
@@ -50,11 +50,13 @@ function Header(props) {
                 arrow
                 placement="bottom-end"
               >
-                <Badge badgeContent={cartItems.length} color="primary">
-                  <ShoppingCartIcon style={styleCart} className="show">
-                    <NotificationsIcon />
-                  </ShoppingCartIcon>
-                </Badge>
+                <IconButton style={styleCart}>
+                  <Badge badgeContent={cartItems.length} color="secondary">
+                    <ShoppingCartIcon fontSize="large" className="show">
+                      <NotificationsIcon />
+                    </ShoppingCartIcon>
+                  </Badge>
+                </IconButton>
               </LightTooltip>
             </Link>
           </Toolbar>
@@ -106,7 +108,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const styleCart = {
-  fontSize: 25,
   color: "white",
   marginLeft: 20,
 };

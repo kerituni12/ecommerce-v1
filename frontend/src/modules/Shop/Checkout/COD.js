@@ -1,5 +1,4 @@
 import { Button, Container, Grid, TextField } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
 import api from "services/axios";
 import Router from "next/router";
 
@@ -8,7 +7,7 @@ function COD({ order }) {
     try {
       const { data } = await api.post(`/api/order`, order);
       if (data) {
-        Router.push("/order");
+        Router.push(`/order/${data.order._id}`);
       }
     } catch (err) {
       console.log(err);

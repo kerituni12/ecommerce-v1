@@ -71,7 +71,7 @@ export default function Paypal({ order }) {
           };
 
           const resultCreateOrder = await createOrder(order);
-          if (resultCreateOrder) Router.push("/order");
+          if (resultCreateOrder) Router.push(`/order/${resultCreateOrder.order._id}`);
         },
         onError: (err) => {
           throw new Error(err);

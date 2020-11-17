@@ -27,20 +27,13 @@ function calculateSubtotal(items) {
   return sum;
 }
 
-function generate(element) {
-  return [0, 1, 2].map((value) =>
-    React.cloneElement(element, {
-      key: value,
-    })
-  );
-}
-
 export default function Checkout() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
 
   const cartItems = useSelector((state) => state.cart.items);
-  const subtotal = calculateSubtotal(cartItems);
+  const selectCartItems = cartItems.filter((item) => item.checked);
+  const subtotal = calculateSubtotal(selectCartItems);
 
   const handleNext = React.useCallback(() => {
     setActiveStep(activeStep + 1);

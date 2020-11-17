@@ -70,7 +70,7 @@ exports.createPaymentUrl = async function (req, res, next) {
     vnp_Params["vnp_SecureHashType"] = "SHA256";
     vnp_Params["vnp_SecureHash"] = secureHash;
     vnpUrl += "?" + querystring.stringify(vnp_Params, { encode: true });
-   
+
     //Neu muon dung Redirect thi dong dong ben duoi
     res.cookie("orderId", orderData._id + "", { maxAge: 720000 }).json({ code: "00", vnpUrl });
     //Neu muon dung Redirect thi mo dong ben duoi va dong dong ben tren
@@ -109,11 +109,15 @@ exports.getVnPayReturn = async function (req, res, next) {
         { new: true }
       );
       if (result === null) throw new APIError({ message: "Order not exits" });
-      return res.cookie("vnpay", "success", { maxAge: 720000 }).redirect("http://localhost:3000/order");
+      return res
+        .cookie("vnpay", "success", { maxAge: 720000 })
+        .redirect(`${process.env.FRONTEND_URL}/order/${vnp_Params["vnp_OrderInfo"]}`);
     } catch (err) {
       next(err);
     }
   } else {
-    res.cookie("vnpay", "fail", { maxAge: 720000 }).redirect("http://localhost:3000/order");
+    res
+      .cookie("vnpay", "fail", { maxAge: 720000 })
+      .redirect(`${process.env.FRONTEND_URL}/order/${vnp_Params["vnp_OrderInfo"]}`);
   }
 };
