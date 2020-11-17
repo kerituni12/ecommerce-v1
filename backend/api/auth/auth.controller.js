@@ -66,9 +66,24 @@ exports.login = async (req, res, next) => {
     // To more sercurity you can concat with random hash for payload and use it hash in front end to decode payload
     return (
       res
-        .cookie("signToken", splitToken[2], { maxAge: jwtExpiresIn * 1000, secure: false, httpOnly: true })
-        .cookie("payload", splitToken[1], { maxAge: jwtExpiresIn * 1000, secure: false, httpOnly: false })
-        .cookie("header", splitToken[0], { maxAge: jwtExpiresIn * 1000, secure: false, httpOnly: true })
+        .cookie("signToken", splitToken[2], {
+          maxAge: jwtExpiresIn * 1000,
+          secure: true,
+          sameSite: "none",
+          httpOnly: true,
+        })
+        .cookie("payload", splitToken[1], {
+          maxAge: jwtExpiresIn * 1000,
+          secure: true,
+          sameSite: "none",
+          httpOnly: false,
+        })
+        .cookie("header", splitToken[0], {
+          maxAge: jwtExpiresIn * 1000,
+          secure: true,
+          sameSite: "none",
+          httpOnly: true,
+        })
 
         // Use api response with the same params of cookie for both mobile and browser.
         // Or use can check header if browser or mobile for separate  cookie response or api response
@@ -105,7 +120,7 @@ exports.verifyConfirm = async (req, res, next) => {
 exports.sendOtpAuth = async (req, res, next) => {
   try {
     const query = { email: req.body.email };
-    const { phone } = await UserModel.findOne(query, "phone");    
+    const { phone } = await UserModel.findOne(query, "phone");
     client.verify
       .services(process.env.VERIFY_SERVICE_SID)
       .verifications.create({
@@ -115,7 +130,7 @@ exports.sendOtpAuth = async (req, res, next) => {
       .then((data) => {
         res.status(200).send(data);
       });
-  } catch (err) {   
+  } catch (err) {
     next(err);
   }
 };
@@ -134,7 +149,10 @@ exports.verifyOtpAuth = async (req, res, next) => {
         .then((data) => {
           const confirmOTP = utility.randomNumber(4);
           const otpKey = jwt.sign({ confirmOTP }, jwtSecret, { expiresIn: jwtExpiresIn });
-          res.cookie("otpKey", otpKey, { maxAge: 7200000, secure: false, httpOnly: true }).status(200).send(data);
+          res
+            .cookie("otpKey", otpKey, { maxAge: 7200000, secure: true, sameSite: "none", httpOnly: true })
+            .status(200)
+            .send(data);
         });
     } catch (err) {
       next(err);
