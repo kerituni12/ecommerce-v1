@@ -1,13 +1,15 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import api from "services/axios";
 import Router from "next/router";
-import Cookies from "js-cookie";
+import Cookies from "universal-cookie";
 import { toast } from "react-toastify";
+
+const cookies = new Cookies();
 
 export const login = createAsyncThunk("login", async ({ email, password, setRenderLogin }, { dispatch }) => {
   try {
     const {
-      data: { user, isOtpVerify },
+      data: { user, token, isOtpVerify },
     } = await api.post("/api/auth/login", { email, password });
     if (!isOtpVerify) {
       dispatch(authSuccess(user));
@@ -15,6 +17,8 @@ export const login = createAsyncThunk("login", async ({ email, password, setRend
     } else {
       // Bat de gui ma otp ve dt
       // await api.post("/api/auth/send-otp-auth", { email });
+      const payload = token.split(".")[1];
+      cookies.set("payloadClient", payload, { maxAge: 72000 });
       setRenderLogin(false);
       dispatch(needVerifyOtp());
     }
@@ -32,8 +36,8 @@ export const verifyOtp = createAsyncThunk("verifyOtp", async ({ email, otp }, { 
   data.status = "approved";
   //
   if (data.status === "approved") {
-    const payload = Cookies.get("payload");
-    const user = JSON.parse(atob(payload)); 
+    const payload = cookies.get("payloadClient");
+    const user = JSON.parse(atob(payload));
     dispatch(authSuccess(user));
     Router.push("/");
     return;
@@ -42,7 +46,7 @@ export const verifyOtp = createAsyncThunk("verifyOtp", async ({ email, otp }, { 
 });
 
 export const logout = createAsyncThunk("logout", async (data, { dispatch }) => {
-  Cookies.remove("payload");
+  cookies.remove("payloadClient");
   dispatch(logoutSuccess());
 });
 
@@ -52,7 +56,7 @@ const logInSlice = createSlice({
     user: null,
     isOtpVerify: true,
     numberOfVerifyOtpFail: 0,
-    isAuthenticated:false
+    isAuthenticated: false,
   },
   reducers: {
     setUser: (state, action) => {
