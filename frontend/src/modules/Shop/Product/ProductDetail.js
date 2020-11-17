@@ -18,7 +18,6 @@ const stylePrice = {
 };
 
 function ProductDetail({ product, params }) {
-
   const dispatch = useDispatch();
   const [quantity, setQuality] = useState(1);
   const handleChange = (event) => {
@@ -30,11 +29,11 @@ function ProductDetail({ product, params }) {
         <title>{product.title}</title>
         <meta name="description" content={product.description} />
         <meta name="keywords" content={product.title}></meta>
-        <link rel="canonical" href={`/product/${params.product}`} />
+        <link rel="canonical" href={`${DOMAIN}/product/${params.product}`} />
         <meta property="og:title" content={`${product.title}| Shop Sale`} />
         <meta property="og:description" content={product.description} />
         <meta property="og:type" content="online shop" />
-        <meta property="og:url" content={`/product/${params.product}`} />
+        <meta property="og:url" content={`${DOMAIN}/product/${params.product}`} />
         <meta property="og:site_name" content="Shop sale" />
 
         <meta property="og:image" content={`${product.image}`} />
@@ -44,30 +43,34 @@ function ProductDetail({ product, params }) {
       </Head>
       <Container>
         <Grid container spacing={2}>
-          <Grid item xs={12} xs={10} sm={10} md={6} lg={5}>
+          <Grid container justify="center" item xs={12} xs={10} sm={10} md={6} lg={5}>
             <img src={product.image} alt={product.title} style={styleImage} />
           </Grid>
           <Grid item xs={12} xs={10} sm={10} md={6} lg={6}>
             <h2>{product.title}</h2>
 
-            <h1 style={stylePrice}>₫{convertPrice(200)}</h1>
+            <h1 style={stylePrice}>{convertPrice(product.price)}₫</h1>
+            <div style={{ whiteSpace: "pre-wrap" }}>
+              <h4>CHI TIẾT SẢN PHẨM</h4>
+              {product.description}
+            </div>
             <h4>
               Vận Chuyển :
-              <span style={{ marginLeft: 10 }}>
+              <span style={{ marginLeft: 10, marginRight: 10 }}>
                 <img
                   alt="free shipping"
                   src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/assets/9d21899f3344277e34d40bfc08f60bc7.png"
                   style={{ height: 20 }}
                 />
-                Miễn Phí Vận Chuyển
               </span>
+              Miễn Phí Vận Chuyển
             </h4>
-            <div>
+            <div style={{ display: 'flex', marginBottom: 20}}>
               <Button
                 variant="contained"
                 color="primary"
                 onClick={() => {
-                  setQuality((quantity) => (quantity -= 1));
+                  if (quantity > 1) setQuality((quantity) => (quantity -= 1));
                 }}
               >
                 -
@@ -84,6 +87,8 @@ function ProductDetail({ product, params }) {
                 +
               </Button>
             </div>
+
+            <br />
             <div>
               <Button
                 variant="outlined"
@@ -104,13 +109,6 @@ function ProductDetail({ product, params }) {
               >
                 Mua Ngay
               </Button>
-            </div>
-          </Grid>
-
-          <Grid item xs={12} xs={10} sm={10} md={6} lg={5}>
-            <div style={{ marginTop: 50 }}>
-              <h4>CHI TIẾT SẢN PHẨM</h4>
-              {product.description}
             </div>
           </Grid>
         </Grid>

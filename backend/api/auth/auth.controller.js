@@ -105,7 +105,11 @@ exports.verifyConfirm = async (req, res, next) => {
 exports.sendOtpAuth = async (req, res, next) => {
   try {
     const query = { email: req.body.email };
+<<<<<<< HEAD
     const { phone } = await UserModel.findOne(query, "phone");
+=======
+    const { phone } = await UserModel.findOne(query, "phone");    
+>>>>>>> 915451e20a096259aa0779dbd5d7b4429fc18f10
     client.verify
       .services(process.env.VERIFY_SERVICE_SID)
       .verifications.create({
@@ -115,7 +119,11 @@ exports.sendOtpAuth = async (req, res, next) => {
       .then((data) => {
         res.status(200).send(data);
       });
+<<<<<<< HEAD
   } catch (err) {
+=======
+  } catch (err) {   
+>>>>>>> 915451e20a096259aa0779dbd5d7b4429fc18f10
     next(err);
   }
 };

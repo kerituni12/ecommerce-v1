@@ -31,16 +31,16 @@ export default function AdminProductDetail() {
     setValue(newValue);
   };
 
-  const onSubmit = async (value) => {
-    console.log(value);
+  const onSubmit = async (values) => {
     try {
-      const { data } = await api.put(`/api/product/${value.slug}`, value);
+      const { data } = await api.put(`/api/product/${product}`, values);
       if (data) {
-        console.log(data);
         toast("Update success!");
+        router.replace({
+          pathname: "./" + values.slug,
+        });
       }
-    } catch (err) {
-      console.log(err.response);
+    } catch (err) {     
       toast(err.response.data.message);
     }
   };
@@ -54,8 +54,7 @@ export default function AdminProductDetail() {
             const { product } = data;
             reset(product);
           }
-        } catch (error) {
-          console.log(error);
+        } catch (error) {          
           setError(error.response.data.message);
         }
       }

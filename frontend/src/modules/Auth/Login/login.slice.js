@@ -2,28 +2,29 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import api from "services/axios";
 import Router from "next/router";
 import Cookies from "js-cookie";
+import { toast } from "react-toastify";
 
-export const login = createAsyncThunk("login", async ({ email, password }, { dispatch }) => {
+export const login = createAsyncThunk("login", async ({ email, password, setRenderLogin }, { dispatch }) => {
   try {
     const {
       data: { user, isOtpVerify },
     } = await api.post("/api/auth/login", { email, password });
     if (!isOtpVerify) {
       dispatch(authSuccess(user));
-      Router.push("/admin");
+      Router.push("/");
     } else {
-
-      // Bat de gui ma otp ve dt 
+      // Bat de gui ma otp ve dt
       // await api.post("/api/auth/send-otp-auth", { email });
+      setRenderLogin(false);
       dispatch(needVerifyOtp());
     }
   } catch (err) {
-    throw new Error();
+    toast(err.response.data.message);
   }
 });
 
 export const verifyOtp = createAsyncThunk("verifyOtp", async ({ email, otp }, { dispatch }) => {
-  //Cai nay dung neu xac nhan bang server nha 
+  //Cai nay dung neu xac nhan bang server nha
   // const { data } = await api.post("/api/auth/verify-otp-auth", { email, otp });
 
   // Day la du lieu mau , khong dung trong deploy
@@ -31,16 +32,18 @@ export const verifyOtp = createAsyncThunk("verifyOtp", async ({ email, otp }, { 
   data.status = "approved";
   //
   if (data.status === "approved") {
-    dispatch(authSuccess());
+    const payload = Cookies.get("payload");
+    const user = JSON.parse(atob(payload)); 
+    dispatch(authSuccess(user));
     Router.push("/");
     return;
   }
   dispatch(verifyOtpFail());
 });
 
-export const logout = createAsyncThunk("logout", async (data, {dispatch}) => {
+export const logout = createAsyncThunk("logout", async (data, { dispatch }) => {
   Cookies.remove("payload");
-  dispatch(logoutSuccess()) 
+  dispatch(logoutSuccess());
 });
 
 const logInSlice = createSlice({
@@ -48,8 +51,8 @@ const logInSlice = createSlice({
   initialState: {
     user: null,
     isOtpVerify: true,
-
     numberOfVerifyOtpFail: 0,
+    isAuthenticated:false
   },
   reducers: {
     setUser: (state, action) => {

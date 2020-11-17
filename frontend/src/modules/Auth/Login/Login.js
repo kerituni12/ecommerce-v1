@@ -10,17 +10,16 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
   },
 }));
-function Login({ setEmail, setRenderLogin}) {
-    const classes = useStyles();
-    const dispatch = useDispatch();
-    const { handleSubmit, register } = useForm();
-  
-    const onSubmit = handleSubmit(({ email, password }) => {
-        dispatch(login({ email, password }));
-        setEmail(email)
-        setRenderLogin(false)
-      });
-    
+function Login({ setEmail, setRenderLogin }) {
+  const classes = useStyles();
+  const dispatch = useDispatch();
+  const { handleSubmit, register } = useForm();
+
+  const onSubmit = handleSubmit(({ email, password }) => {
+    dispatch(login({ email, password, setRenderLogin }));
+    setEmail(email);
+  });
+
   return (
     <Container className={classes.container} maxWidth="xs">
       <form onSubmit={onSubmit}>

@@ -9,12 +9,14 @@ const useStyles = makeStyles((theme) => ({
       display: "flex",
     },
   },
+  topHeader: { display: "flex", justifyContent: "space-between", paddingTop: "10px" },
+  borderRight: { marginLeft: "3px", marginRight: "3px", lineHeight: "1.6em" },
 }));
 
 function TopHeader() {
   const classes = useStyles();
   return (
-    <div style={{ display: "flex", justifyContent: "space-between" }}>
+    <div className={classes.topHeader}>
       <div className={classes.sectionDesktop}>
         <Typography>Tải ứng dụng</Typography>
       </div>
@@ -23,7 +25,7 @@ function TopHeader() {
           <Link href="/login">
             <Typography>Đăng nhập</Typography>
           </Link>
-          <div style={{ marginLeft: "3px", marginRight: "3px", lineHeight: "1.6em" }}> | </div>
+          <div className={classes.borderRight}> | </div>
           <Link href="/register">
             <Typography>Đăng kí </Typography>
           </Link>

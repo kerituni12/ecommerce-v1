@@ -3,8 +3,7 @@ import api from "services/axios";
 
 export const getProductList = createAsyncThunk("getProductList", async (_, { dispatch }) => {
   const { data } = await api.get("/api/product");
-  if (data) console.log(data.products);
-  dispatch(getProductListSuccess(data.products));
+  if (data) dispatch(getProductListSuccess(data.products));
 });
 const productSlice = createSlice({
   name: "product",

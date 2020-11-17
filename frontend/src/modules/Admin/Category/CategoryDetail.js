@@ -21,6 +21,9 @@ function CategoryCreate(props) {
       const { data } = await api.post("/api/category", values);
       if (data) {
         toast("Create success !");
+        router.replace({
+          pathname: "./" + values.slug,
+        });
       }
     } catch (err) {
       toast(err.response.data.message);
@@ -36,8 +39,7 @@ function CategoryCreate(props) {
             const { category } = data;
             reset(category);
           }
-        } catch (error) {
-          console.log(error);
+        } catch (error) {          
           setError(error.response.data.message);
         }
       }

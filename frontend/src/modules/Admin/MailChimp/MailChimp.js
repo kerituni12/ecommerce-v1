@@ -4,7 +4,7 @@ import api from "services/axios";
 const dataTableConfigs = {
   name: "mailchimp",
   columnConfigs: [
-    { id: "name", numeric: false, disablePadding: false, label: "Name" },
+    { id: "name", numeric: false, disablePadding: true, label: "Name" },
     {
       id: "email_address",
       numeric: false,
@@ -28,8 +28,7 @@ function Products() {
             status,
             name: merge_fields.NAME,
           }));
-
-          console.log(temp);
+        
           setProducts(temp);
         }
       } catch (error) {

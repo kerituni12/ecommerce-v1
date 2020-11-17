@@ -1,5 +1,5 @@
 import { wrapper } from "store/store";
-import { PrivateRoute } from "hocs/PrivateRoute";
+import { PrivateRoute, AdminRoute } from "hocs/PrivateRoute";
 import { PersistGate } from "redux-persist/integration/react";
 import { useStore, useDispatch } from "react-redux";
 import { ToastContainer } from "react-toastify";
@@ -26,12 +26,12 @@ const WrappedApp = ({ Component, pageProps, router }) => {
   if (router.pathname.startsWith("/admin")) {
     return (
       <PersistGate persistor={store.__persistor} loading={<h1>loading</h1>}>
-        <PrivateRoute>
+        <AdminRoute>
           <AdminLayout>
             <ToastContainer />
             <Component {...pageProps} />
           </AdminLayout>
-        </PrivateRoute>
+        </AdminRoute>
       </PersistGate>
     );
   }

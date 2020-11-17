@@ -17,7 +17,7 @@ const appMenuItems = [
   },
   {
     name: "Order",
-    link: "/order",
+    link: "/admin/order",
     Icon: IconShoppingCart,
   },
   {

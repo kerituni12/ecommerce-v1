@@ -1,28 +1,22 @@
 import React, { useEffect } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import Table from "@material-ui/core/Table";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import TableBody from "@material-ui/core/TableBody";
-import Paper from "@material-ui/core/Paper";
-import { Container, Grid, Box } from "@material-ui/core";
-import CartItem from "./CartItem";
-
-import Button from "@material-ui/core/Button";
 import { useSelector, useDispatch } from "react-redux";
 import Link from "next/link";
 
-import convertPrice from "helpers/convertPriceVND";
+import { makeStyles } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
+import { Container, Grid, Box, List, ListItem, Typography, Button, ListItemSecondaryAction } from "@material-ui/core";
+import { Table, TableCell, TableHead, TableRow, TableContainer, ListItemText } from "@material-ui/core";
+import CartItem from "./CartItem";
+
+import convertPriceVND from "helpers/convertPriceVND";
 import { getCart } from "@shop/Cart/cart.slice";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+  },
+  demo: {
+    backgroundColor: theme.palette.background.paper,
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -30,6 +24,10 @@ const useStyles = makeStyles((theme) => ({
   table: {
     minWidth: 700,
   },
+  tableHeader: {
+    background: "#00acc1",
+    color: "#ffffff"
+  }
 }));
 
 const styleButton = {
@@ -50,7 +48,7 @@ function subtotal(items) {
       sum += item.price * item.quantity;
     }
   });
-  let sumVnd = convertPrice(sum);
+  let sumVnd = convertPriceVND(sum);
   return sumVnd;
 }
 
@@ -65,35 +63,24 @@ function CartContainer(props) {
   let result;
   if (items) {
     result = items.map((item, index) => {
-      return (
-        <CartItem
-          key={item._id}        
-          item={item}          
-        />
-      );
+      return <CartItem key={item._id} item={item} />;
     });
   }
 
   return (
     <div className={classes.root}>
-      <Container className="paddingTopFixed">
-        <AppBar position="static" style={StyleAppBar}>
-          <Toolbar variant="dense">{/* <Typography variant="h6">{props.messageCart}</Typography> */}</Toolbar>
-        </AppBar>
-      </Container>
-
       <Container>
-        <Grid container>
-          <Grid item lg={8}>
+        <Grid container spacing={4}>
+          <Grid item md={8}>
             <TableContainer component={Paper}>
               <Table className={classes.table} aria-label="spanning table">
-                <TableHead>
+                <TableHead className={classes.tableHeader}>
                   <TableRow>
                     <TableCell></TableCell>
                     <TableCell>Sản Phẩm</TableCell>
                     <TableCell>Mô tả</TableCell>
                     <TableCell align="left">Đơn Giá</TableCell>
-                    <TableCell align="left">Số Lượng</TableCell>
+                    <TableCell align="center">Số Lượng</TableCell>
                     <TableCell align="center">Thành Tiền</TableCell>
                     <TableCell align="center">Thao Tác</TableCell>
                   </TableRow>
@@ -103,23 +90,35 @@ function CartContainer(props) {
               </Table>
             </TableContainer>
           </Grid>
-          <Grid item lg={4}>
-            <Box>
-              <Typography>Tam tinh</Typography>
-              <Typography>{subtotal(items)}</Typography>
-            </Box>
-            {/* Handle ship + subtotal */}
-            <Box>
-              <Typography>Tổng tiền</Typography>
-              <Typography>{subtotal(items)}</Typography>
-            </Box>
-            <Box>
-              <Link href="/checkout">
-                <Button variant="contained" color="primary">
-                  Checkout
-                </Button>
-              </Link>
-            </Box>
+          <Grid item md={4}>
+            <div className={classes.demo}>
+              <List>
+                <ListItem>
+                  <ListItemText primary="Tạm tính" />
+                  <ListItemSecondaryAction>
+                    <Typography>đ{subtotal(items)}</Typography>
+                  </ListItemSecondaryAction>
+                </ListItem>
+                <ListItem>
+                  <ListItemText primary="Phí vận chuyển" />
+                  <ListItemSecondaryAction>
+                    <Typography>đ0</Typography>
+                  </ListItemSecondaryAction>
+                </ListItem>
+                <hr style={{ borderTop: "1px solid rgb(189 189 189)", width: "92%" }} />
+                <ListItem>
+                  <ListItemText primary="Tổng cộng" />
+                  <ListItemSecondaryAction>
+                    <Typography>đ{subtotal(items)}</Typography>
+                  </ListItemSecondaryAction>
+                </ListItem>
+                <Link href="/checkout">
+                  <Button variant="contained" color="primary" fullWidth>
+                    Thanh toán
+                  </Button>
+                </Link>
+              </List>
+            </div>
           </Grid>
         </Grid>
       </Container>
