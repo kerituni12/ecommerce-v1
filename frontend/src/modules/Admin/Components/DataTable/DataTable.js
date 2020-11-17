@@ -99,7 +99,7 @@ function DataTable({ data = [], orderByDefault, dataTableConfigs, checkbox }) {
       );
     }
   };
-  const [rootRoute, hash] = dataTableConfigs.routerRules.split("#");
+  const [rootRoute, hash] = dataTableConfigs.routerRules?.split("#");
 
   const renderCell = (row) => {
     return dataTableConfigs.columnConfigs.map((cell, index) => (
@@ -109,7 +109,7 @@ function DataTable({ data = [], orderByDefault, dataTableConfigs, checkbox }) {
         scope="row"
         padding={cell.disablePadding ? "none" : "default"}
         align={cell.numeric ? "right" : "left"}
-        onClick={() => Router.push(`${rootRoute}/${row[`${hash}`]}`)}
+        onClick={rootRoute ? () => Router.push(`${rootRoute}/${row[`${hash}`]}`) : null}
       >
         {row[cell.id]}
       </TableCell>
