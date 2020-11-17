@@ -27,7 +27,7 @@ function Products() {
           const _products = data.products.map((product) => {
             return {
               ...product,
-              description: product.description.split(" ").slice(0, 18).join(" ") + "...",
+              description: product.description?.split(" ").slice(0, 18).join(" ") + "...",
             };
           });
           setProducts(_products);

@@ -1,11 +1,13 @@
 import React from "react";
-import Cookies from "js-cookie";
+import Cookies from "universal-cookie";
 
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography, Container, Grid, ListItemText, List, ListItem } from "@material-ui/core";
 
 import api from "services/axios";
 import converPriceVND from "helpers/convertPriceVND";
+
+const cookies = new Cookies();
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,7 +33,7 @@ export default function Order() {
 
   React.useEffect(() => {
     async function fetchData() {
-      const order = Cookies.get("orderId");
+      const order = cookies.get("orderId");
       try {
         const { data } = await api.get(`/api/order/${order}`);
         if (data) {

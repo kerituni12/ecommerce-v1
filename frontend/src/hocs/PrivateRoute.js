@@ -2,7 +2,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { authSuccess } from "modules/Auth/Login/login.slice";
 import Router from "next/router";
 
-import Cookies from "js-cookie";
+import Cookies from "universal-cookie";
+
+const cookies = new Cookies();
 
 function PrivateRoute({ children }) {
   const dispatch = useDispatch();
@@ -13,7 +15,7 @@ function PrivateRoute({ children }) {
 
   if (!isAuthenticated) {
     // Restore authenticated from cookies
-    const payload = Cookies.get("payload");
+    const payload = cookies.get("payloadClient");
     if (payload && !isOtpVerify) {
       const user = JSON.parse(atob(payload));
       dispatch(authSuccess(user));
@@ -35,7 +37,7 @@ function AdminRoute({ children }) {
 
   if (!isAuthenticated || !isAdmin) {
     // Restore authenticated from cookies
-    const payload = Cookies.get("payload");
+    const payload = cookies.get("payloadClient");
     if (payload && !isOtpVerify) {
       const user = JSON.parse(atob(payload));
       if (user.role === "admin") {
