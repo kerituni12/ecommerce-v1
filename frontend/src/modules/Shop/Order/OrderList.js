@@ -1,7 +1,8 @@
 import DataTable from "@admin/Components/DataTable/DataTable";
 import api from "services/axios";
-import Cookies from "js-cookie";
+import Cookies from "universal-cookie";
 import { toast } from "react-toastify";
+const cookies = new Cookies();
 
 const dataTableConfigs = {
   name: "order",
@@ -26,7 +27,7 @@ function Orders() {
   React.useEffect(() => {
     async function fetchData() {
       try {
-        const payload = Cookies.get("payload");
+        const payload = cookies.get("payload");
         if (payload) {
           const user = JSON.parse(atob(payload));
           const { data } = await api.get(`/api/order/user-order/${user.id}`);
