@@ -3,6 +3,7 @@ import api from "services/axios";
 
 const dataTableConfigs = {
   name: "mailchimp",
+  routerRules: "",
   columnConfigs: [
     { id: "name", numeric: false, disablePadding: true, label: "Name" },
     {

@@ -3,6 +3,7 @@ import api from "services/axios";
 
 const dataTableConfigs = {
   name: "category",
+  routerRules: "/admin/category#slug",
   columnConfigs: [
     {
       id: "title",
