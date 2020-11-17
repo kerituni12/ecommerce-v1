@@ -70,19 +70,16 @@ exports.login = async (req, res, next) => {
           maxAge: jwtExpiresIn * 1000,
           secure: false,
           httpOnly: true,
-          domain: "ecommerce-v1.vercel.app",
         })
         .cookie("payload", splitToken[1], {
           maxAge: jwtExpiresIn * 1000,
           secure: false,
           httpOnly: false,
-          domain: "ecommerce-v1.vercel.app",
         })
         .cookie("header", splitToken[0], {
           maxAge: jwtExpiresIn * 1000,
           secure: false,
           httpOnly: true,
-          domain: "ecommerce-v1.vercel.app",
         })
 
         // Use api response with the same params of cookie for both mobile and browser.
