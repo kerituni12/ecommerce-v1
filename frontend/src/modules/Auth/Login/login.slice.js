@@ -46,7 +46,7 @@ export const verifyOtp = createAsyncThunk("verifyOtp", async ({ email, otp }, { 
 });
 
 export const logout = createAsyncThunk("logout", async (data, { dispatch }) => {
-  cookies.remove("payloadClient", { path: "/" });
+  cookies.remove("payloadClient", { path: "/", domain: NEXT_PUBLIC_BASE_API_URL });
   dispatch(logoutSuccess());
 });
 
