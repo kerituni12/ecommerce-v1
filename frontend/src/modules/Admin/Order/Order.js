@@ -5,9 +5,10 @@ import { toast } from "react-toastify";
 
 const dataTableConfigs = {
   name: "order",
+  routerRules: "/admin/order#id",
   columnConfigs: [
     {
-      id: "_id",
+      id: "id",
       numeric: false,
       disablePadding: true,
       label: "Order",
@@ -29,7 +30,7 @@ function Orders() {
         const { data } = await api.get(`/api/order`);
         if (data) {
           const _data = data.orders.map((order) => ({
-            _id: order._id,
+            id: order._id,
             total: order.totalPrice,
             delivered: order.isDelivered + "",
             paid: order.isPaid + "",
@@ -45,7 +46,7 @@ function Orders() {
     fetchData();
   }, []);
   return (
-    <DataTable data={orders} orderByDefault={{ order: "desc", orderBy: "slug" }} dataTableConfigs={dataTableConfigs} />
+    <DataTable data={orders} orderByDefault={{ order: "desc", orderBy: "id" }} dataTableConfigs={dataTableConfigs} />
   );
 }
 
