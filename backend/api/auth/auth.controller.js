@@ -68,19 +68,19 @@ exports.login = async (req, res, next) => {
       res
         .cookie("signToken", splitToken[2], {
           maxAge: jwtExpiresIn * 1000,
-          sercure: true,
+          secure: true,
           httpOnly: true,
           sameSite: "none",
         })
         .cookie("payload", splitToken[1], {
           maxAge: jwtExpiresIn * 1000,
-          sercure: true,
+          secure: true,
           httpOnly: false,
           sameSite: "none",
         })
         .cookie("header", splitToken[0], {
           maxAge: jwtExpiresIn * 1000,
-          sercure: true,
+          secure: true,
           httpOnly: true,
           sameSite: "none",
         })
@@ -150,7 +150,7 @@ exports.verifyOtpAuth = async (req, res, next) => {
           const confirmOTP = utility.randomNumber(4);
           const otpKey = jwt.sign({ confirmOTP }, jwtSecret, { expiresIn: jwtExpiresIn });
           res
-            .cookie("otpKey", otpKey, { maxAge: 7200000, sercure: true, httpOnly: true, sameSite: false })
+            .cookie("otpKey", otpKey, { maxAge: 7200000, secure: true, httpOnly: true, sameSite: false })
             .status(200)
             .send(data);
         });
