@@ -66,22 +66,20 @@ exports.login = async (req, res, next) => {
     // To more sercurity you can concat with random hash for payload and use it hash in front end to decode payload
     return (
       res
-        .setHeader("Set-Cookie", "visited=true; Max-Age=3000; HttpOnly, Secure")
-
         .cookie("signToken", splitToken[2], {
-          maxAge: jwtExpiresIn * 1000,
+          maxAge: jwtExpiresIn * 10000,
           secure: true,
           httpOnly: true,
           sameSite: "none",
         })
         .cookie("payload", splitToken[1], {
-          maxAge: jwtExpiresIn * 1000,
+          maxAge: jwtExpiresIn * 10000,
           secure: true,
           httpOnly: false,
           sameSite: "none",
         })
         .cookie("header", splitToken[0], {
-          maxAge: jwtExpiresIn * 1000,
+          maxAge: jwtExpiresIn * 10000,
           secure: true,
           httpOnly: true,
           sameSite: "none",

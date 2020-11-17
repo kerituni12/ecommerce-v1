@@ -22,7 +22,6 @@ app.use(morgan(logs));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 
 app.use(
   cors({
@@ -30,6 +29,7 @@ app.use(
     methods: "GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE",
     credentials: true,
     origin: process.env.FRONTEND_URL,
+    exposedHeaders: ["set-cookie"]
   })
 );
 
