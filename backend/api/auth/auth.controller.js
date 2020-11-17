@@ -66,9 +66,24 @@ exports.login = async (req, res, next) => {
     // To more sercurity you can concat with random hash for payload and use it hash in front end to decode payload
     return (
       res
-        .cookie("signToken", splitToken[2], { maxAge: jwtExpiresIn * 1000, secure: false, httpOnly: true })
-        .cookie("payload", splitToken[1], { maxAge: jwtExpiresIn * 1000, secure: false, httpOnly: false })
-        .cookie("header", splitToken[0], { maxAge: jwtExpiresIn * 1000, secure: false, httpOnly: true })
+        .cookie("signToken", splitToken[2], {
+          maxAge: jwtExpiresIn * 1000,
+          secure: false,
+          httpOnly: true,
+          domain: "vercel.app",
+        })
+        .cookie("payload", splitToken[1], {
+          maxAge: jwtExpiresIn * 1000,
+          secure: false,
+          httpOnly: false,
+          domain: "vercel.app",
+        })
+        .cookie("header", splitToken[0], {
+          maxAge: jwtExpiresIn * 1000,
+          secure: false,
+          httpOnly: true,
+          domain: "vercel.app",
+        })
 
         // Use api response with the same params of cookie for both mobile and browser.
         // Or use can check header if browser or mobile for separate  cookie response or api response
