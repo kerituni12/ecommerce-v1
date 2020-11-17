@@ -70,19 +70,19 @@ exports.login = async (req, res, next) => {
           maxAge: jwtExpiresIn * 1000,
           sercure: true,
           httpOnly: true,
-          sameSite: "none",
+          sameSite: false,
         })
         .cookie("payload", splitToken[1], {
           maxAge: jwtExpiresIn * 1000,
           sercure: true,
           httpOnly: false,
-          sameSite: "none",
+          sameSite: false,
         })
         .cookie("header", splitToken[0], {
           maxAge: jwtExpiresIn * 1000,
           sercure: true,
           httpOnly: true,
-          sameSite: "none",
+          sameSite: false,
         })
 
         // Use api response with the same params of cookie for both mobile and browser.
@@ -150,7 +150,7 @@ exports.verifyOtpAuth = async (req, res, next) => {
           const confirmOTP = utility.randomNumber(4);
           const otpKey = jwt.sign({ confirmOTP }, jwtSecret, { expiresIn: jwtExpiresIn });
           res
-            .cookie("otpKey", otpKey, { maxAge: 7200000, sercure: true, httpOnly: true, sameSite: "none" })
+            .cookie("otpKey", otpKey, { maxAge: 7200000, sercure: true, httpOnly: true, sameSite: false })
             .status(200)
             .send(data);
         });
