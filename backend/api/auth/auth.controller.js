@@ -70,19 +70,19 @@ exports.login = async (req, res, next) => {
           maxAge: jwtExpiresIn * 1000,
           sercure: true,
           httpOnly: true,
-          sameSite: false,
+          sameSite: "none",
         })
         .cookie("payload", splitToken[1], {
           maxAge: jwtExpiresIn * 1000,
           sercure: true,
           httpOnly: false,
-          sameSite: false,
+          sameSite: "none",
         })
         .cookie("header", splitToken[0], {
           maxAge: jwtExpiresIn * 1000,
           sercure: true,
           httpOnly: true,
-          sameSite: false,
+          sameSite: "none",
         })
 
         // Use api response with the same params of cookie for both mobile and browser.
