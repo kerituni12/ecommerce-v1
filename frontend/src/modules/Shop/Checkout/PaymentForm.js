@@ -65,8 +65,6 @@ export default function PaymentForm({ total, handleBack }) {
 
   const order = new Order(user, shipping, selectCartItems, total);
 
-  console.log(order);
-
   const handleChange = (event) => {
     setPaymentMethod(event.target.value);
     order.payment.paymentMethod = event.target.value;
