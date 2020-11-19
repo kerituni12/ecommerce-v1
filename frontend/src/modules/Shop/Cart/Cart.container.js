@@ -71,7 +71,7 @@ function CartContainer(props) {
     <div className={classes.root}>
       <Container>
         <Grid container spacing={4}>
-          <Grid item md={8}>
+          <Grid item md={8} xs={12}>
             <TableContainer component={Paper}>
               <Table className={classes.table} aria-label="spanning table">
                 <TableHead className={classes.tableHeader}>
@@ -90,7 +90,7 @@ function CartContainer(props) {
               </Table>
             </TableContainer>
           </Grid>
-          <Grid item md={4}>
+          <Grid item md={4} xs={12}>
             <div className={classes.demo}>
               <List>
                 <ListItem>

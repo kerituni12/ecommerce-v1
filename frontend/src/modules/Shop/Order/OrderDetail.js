@@ -39,8 +39,7 @@ export default function Order() {
       async function fetchData() {
         try {
           const { data } = await api.get(`/api/order/${orderId}`);
-          if (data) {
-            console.log(data);
+          if (data) {           
             setLoading(false);
             setOrder(data.order);
           }

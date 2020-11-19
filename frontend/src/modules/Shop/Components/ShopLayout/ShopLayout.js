@@ -1,7 +1,17 @@
 import Header from "@shop/Components/Header/Header";
 import Footer from "@shop/Components/Footer/Footer";
+import { makeStyles } from "@material-ui/core/styles";
 
+const useStyle = makeStyles((theme) => ({
+  main: {
+    marginTop:140,
+    [theme.breakpoints.down("md")]: {
+      marginTop: 100,
+    },
+  },
+}));
 export default function ShopLayout({ children }) {
+  const classes = useStyle();
   React.useEffect(() => {
     window.fbAsyncInit = function () {
       FB.init({
@@ -35,7 +45,7 @@ export default function ShopLayout({ children }) {
   return (
     <>
       <Header />
-      <div style={{ marginTop: 140 }}>{children}</div>
+      <div className={classes.main}>{children}</div>
       <Footer />
 
       <div id="fb-root"></div>

@@ -1,2 +1,2 @@
-const DOMAIN = process.env.NEXT_PUBLIC_BASE_API_URL;
+const DOMAIN = process.env.NEXT_PUBLIC_DOMAIN_URL;
 export { DOMAIN };

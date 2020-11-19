@@ -33,8 +33,7 @@ function Orders() {
       try {
         const payload = cookies.get("payloadClient");
         if (payload) {
-          const user = JSON.parse(atob(payload));
-          console.log(user.id);
+          const user = JSON.parse(atob(payload));          
           const { data } = await api.get(`/api/order/user-order/${user.id}`);
           if (data) {
             const _data = data.orders.map((order) => ({
