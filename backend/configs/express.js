@@ -13,6 +13,8 @@ const { handleNotFoundPage, handleError } = require("@middlewares/error");
 const { logs } = require("@configs/constants");
 
 const FRONTEND_BUILD_PATH = path.join(__dirname, "../../frontend/build");
+const regexDomain = new RegExp(`/\.${process.env.FRONTEND_URL}$/`, "g");
+const allowedDomains = [regexDomain, "https://localhost:3000", process.env.FRONTEND_URL];
 
 const app = express();
 
@@ -28,8 +30,17 @@ app.use(
   cors({
     allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept", "X-Access-Token", "Authorization"],
     methods: "GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE",
+    credentials: true,
+    origin: function (origin, callback) {
+      // bypass the requests with no origin (like curl requests, mobile apps, etc )
+      if (!origin) return callback(null, true);
 
-    origin: "*",
+      if (allowedDomains.indexOf(origin) === -1) {
+        var msg = `This site ${origin} does not have an access. Only specific domains are allowed to access it.`;
+        return callback(new Error(msg), false);
+      }
+      return callback(null, true);
+    },
     exposedHeaders: ["set-cookie"],
   })
 );
