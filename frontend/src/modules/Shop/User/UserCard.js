@@ -28,7 +28,7 @@ export default function MediaCard() {
     <Card className={classes.root}>
       <CardActionArea>
         <CardMedia className={classes.media} image="/avatar.png" title="Contemplative Reptile"></CardMedia>
-        <CardMedia></CardMedia>
+
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2" align="center">
             {user?.fullName || ""}

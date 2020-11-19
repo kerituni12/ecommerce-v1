@@ -92,7 +92,13 @@ function ProductDetail({ product, params }) {
               >
                 -
               </Button>
-              <TextField size="small" variant="outlined" value={quantity} onChange={handleChange} />
+              <TextField
+                size="small"
+                variant="outlined"
+                value={quantity}
+                onChange={handleChange}
+                style={{ width: 175 }}
+              />
 
               <Button
                 variant="contained"
