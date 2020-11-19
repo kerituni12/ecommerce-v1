@@ -31,7 +31,7 @@ export default function MediaCard() {
         <CardMedia></CardMedia>
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2" align="center">
-            {user.fullName}
+            {user?.fullName || ""}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p" align="center">
             Code vì đam mê
