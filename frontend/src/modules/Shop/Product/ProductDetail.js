@@ -49,7 +49,7 @@ function ProductDetail({ product, params }) {
         <link rel="canonical" href={`${DOMAIN}/product/${params.product}`} />
         <meta property="og:title" content={`${product.title}| Shop Sale`} />
         <meta property="og:description" content={product.description} />
-        <meta property="og:type" content="online shop" />
+        <meta property="og:type" content="website" />
         <meta property="og:url" content={`${DOMAIN}/product/${params.product}`} />
         <meta property="og:site_name" content="Shop sale" />
 
@@ -92,7 +92,13 @@ function ProductDetail({ product, params }) {
               >
                 -
               </Button>
-              <TextField size="small" variant="outlined" value={quantity} onChange={handleChange} />
+              <TextField
+                size="small"
+                variant="outlined"
+                value={quantity}
+                onChange={handleChange}
+                style={{ width: 175 }}
+              />
 
               <Button
                 variant="contained"
