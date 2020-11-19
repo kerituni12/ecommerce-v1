@@ -18,6 +18,22 @@ const stylePrice = {
   color: "rgb(0, 172, 193)",
 };
 
+const styleShareNow = {
+  marginLeft: 10,
+  color: "#fff",
+  backgroundColor: "#556cd6",
+  padding: "6px 16px",
+  fontSize: "0.875rem",
+  minWidth: 64,
+  boxSizing: "border-box",
+  fontFamily: `"Roboto", "Helvetica", "Arial", "sans-serif"`,
+  fontWeight: 500,
+  lineHeight: 1.75,
+  borderRadius: 4,
+  letterSpacing: "0.02857em",
+  textTransform: "uppercase",
+};
+
 function ProductDetail({ product, params }) {
   const dispatch = useDispatch();
   const [quantity, setQuality] = useState(1);
@@ -101,12 +117,11 @@ function ProductDetail({ product, params }) {
                 Thêm Vào Giỏ Hàng
               </Button>
               <FacebookShareButton
-                url={`https://kinshop.tk/product/nike-airforce-1-white-hyper-royal`}               
+                url={`https://kinshop.tk/product/nike-airforce-1-white-hyper-royal`}
                 hashtag="#kinshop"
+                style={styleShareNow}
               >
-                <Button variant="contained" color="primary" style={{ marginLeft: 10 }}>
-                  Share ngay
-                </Button>
+                Share Ngay
               </FacebookShareButton>
             </div>
           </Grid>
