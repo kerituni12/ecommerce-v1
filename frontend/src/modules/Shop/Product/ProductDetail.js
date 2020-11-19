@@ -54,7 +54,7 @@ function ProductDetail({ product, params }) {
         <meta property="og:site_name" content="Shop sale" />
 
         <meta property="og:image" content={`${product.image}`} />
-        <meta property="og:image:secure_url" ccontent={`${product.image}`} />
+        <meta property="og:image:secure_url" content={`${product.image}`} />
         <meta property="og:image:type" content="image/jpg" />
         {/* <meta property="fb:app_id" content={`${FB_APP_ID}`} /> */}
       </Head>
