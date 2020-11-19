@@ -29,7 +29,7 @@ app.use(
     allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept", "X-Access-Token", "Authorization"],
     methods: "GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE",
     credentials: true,
-    origin: process.env.FRONTEND_URL,
+    origin: "*",
     exposedHeaders: ["set-cookie"],
   })
 );
