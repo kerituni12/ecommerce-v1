@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { FacebookShareButton } from "react-share";
 import Head from "next/head";
 import Grid from "@material-ui/core/Grid";
 import { Container, TextField } from "@material-ui/core";
@@ -15,6 +16,22 @@ const styleImage = {
 
 const stylePrice = {
   color: "rgb(0, 172, 193)",
+};
+
+const styleShareNow = {
+  marginLeft: 10,
+  color: "#fff",
+  backgroundColor: "#556cd6",
+  padding: "6px 16px",
+  fontSize: "0.875rem",
+  minWidth: 64,
+  boxSizing: "border-box",
+  fontFamily: `"Roboto", "Helvetica", "Arial", "sans-serif"`,
+  fontWeight: 500,
+  lineHeight: 1.75,
+  borderRadius: 4,
+  letterSpacing: "0.02857em",
+  textTransform: "uppercase",
 };
 
 function ProductDetail({ product, params }) {
@@ -43,10 +60,10 @@ function ProductDetail({ product, params }) {
       </Head>
       <Container>
         <Grid container spacing={2}>
-          <Grid container justify="center" item xs={12} xs={10} sm={10} md={6} lg={5}>
+          <Grid container justify="center" item xs={12} md={5}>
             <img src={product.image} alt={product.title} style={styleImage} />
           </Grid>
-          <Grid item xs={12} xs={10} sm={10} md={6} lg={6}>
+          <Grid item xs={12} md={7}>
             <h2>{product.title}</h2>
 
             <h1 style={stylePrice}>{convertPrice(product.price)}₫</h1>
@@ -65,7 +82,7 @@ function ProductDetail({ product, params }) {
               </span>
               Miễn Phí Vận Chuyển
             </h4>
-            <div style={{ display: 'flex', marginBottom: 20}}>
+            <div style={{ display: "flex", marginBottom: 20 }}>
               <Button
                 variant="contained"
                 color="primary"
@@ -99,16 +116,13 @@ function ProductDetail({ product, params }) {
               >
                 Thêm Vào Giỏ Hàng
               </Button>
-              <Button
-                variant="contained"
-                color="primary"
-                style={{ marginLeft: 10 }}
-                onClick={() => {
-                  buyNow();
-                }}
+              <FacebookShareButton
+                url={`https://kinshop.tk/product/nike-airforce-1-white-hyper-royal`}
+                hashtag="#kinshop"
+                style={styleShareNow}
               >
-                Mua Ngay
-              </Button>
+                Share Ngay
+              </FacebookShareButton>
             </div>
           </Grid>
         </Grid>

@@ -63,7 +63,7 @@ export default function Checkout() {
   return (
     <Container>
       <Grid container spacing={2}>
-        <Grid item sm={8}>
+        <Grid item md={8}>
           <Paper className={classes.paper}>
             <Stepper activeStep={activeStep} className={classes.stepper}>
               {steps.map((label) => (
@@ -77,7 +77,7 @@ export default function Checkout() {
             </React.Fragment>
           </Paper>
         </Grid>
-        <Grid item md={4}>
+        <Grid item md={4} xs={12}> 
           <div className={classes.demo}>
             <List>
               <ListItem>
