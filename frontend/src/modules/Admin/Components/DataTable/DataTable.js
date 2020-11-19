@@ -18,7 +18,7 @@ import EnhancedTableToolbar from "./EnhancedTableToolbar";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
-    paddingTop: theme.spacing(2),
+    // paddingTop: theme.spacing(2),
   },
   paper: {
     width: "100%",

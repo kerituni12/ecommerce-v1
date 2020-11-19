@@ -14,6 +14,13 @@ const { logs } = require("@configs/constants");
 
 const FRONTEND_BUILD_PATH = path.join(__dirname, "../../frontend/build");
 
+const allowedDomains = [
+  "ecommerce-v1-git-dev.kerituni12.vercel.app",
+  "https://localhost:3000",
+  process.env.FRONTEND_URL,
+  "https://kinshop.tk",
+];
+
 const app = express();
 
 app.use(express.static(FRONTEND_BUILD_PATH));
@@ -29,7 +36,16 @@ app.use(
     allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept", "X-Access-Token", "Authorization"],
     methods: "GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE",
     credentials: true,
-    origin: process.env.FRONTEND_URL,
+    origin: function (origin, callback) {
+      // bypass the requests with no origin (like curl requests, mobile apps, etc )
+      if (!origin) return callback(null, true);
+
+      if (allowedDomains.indexOf(origin) === -1) {
+        var msg = `This site ${origin} does not have an access. Only specific domains are allowed to access it.`;
+        return callback(new Error(msg), false);
+      }
+      return callback(null, true);
+    },
     exposedHeaders: ["set-cookie"],
   })
 );

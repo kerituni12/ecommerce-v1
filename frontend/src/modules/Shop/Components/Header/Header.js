@@ -32,10 +32,10 @@ function Header(props) {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="fixed" style={styleAppBar}>
+      <AppBar position="fixed" className={classes.appBar}>
         <Container fixed>
           <TopHeader />
-          <Toolbar className={classes.toolBar}>
+          <Toolbar className={classes.toolBar} disableGutters>
             <Link href="/">
               <a>
                 <img src="/LogoWeb.png" alt="logo web shop sale" className={classes.logoWeb} />
@@ -50,7 +50,7 @@ function Header(props) {
                 arrow
                 placement="bottom-end"
               >
-                <IconButton style={styleCart}>
+                <IconButton className={classes.cart}>
                   <Badge badgeContent={cartItems.length} color="secondary">
                     <ShoppingCartIcon fontSize="large" className="show">
                       <NotificationsIcon />
@@ -69,6 +69,11 @@ function Header(props) {
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
+  },
+  appBar: {
+    position: "fixed",
+    zIndex: 3,
+    backgroundColor: "#00acc1",
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -101,16 +106,25 @@ const useStyles = makeStyles((theme) => ({
   },
   logoWeb: {
     height: "90px",
+    [theme.breakpoints.down("md")]: {
+      height: "60px",
+      marginRight: 10,
+    },
   },
   toolBar: {
     maxHeight: "80px",
+    [theme.breakpoints.down("md")]: {
+      width: "100%",
+    },
+  },
+  cart: {
+    color: "white",
+    marginLeft: 20,
+    [theme.breakpoints.down("md")]: {
+      marginLeft: 0,
+    },
   },
 }));
-
-const styleCart = {
-  color: "white",
-  marginLeft: 20,
-};
 
 const styleAppBar = {
   position: "fixed",

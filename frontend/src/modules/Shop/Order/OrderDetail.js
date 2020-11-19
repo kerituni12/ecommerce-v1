@@ -1,5 +1,4 @@
 import React from "react";
-import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -40,7 +39,6 @@ export default function Order() {
         try {
           const { data } = await api.get(`/api/order/${orderId}`);
           if (data) {
-            console.log(data);
             setLoading(false);
             setOrder(data.order);
           }
@@ -60,7 +58,7 @@ export default function Order() {
           <Grid item md={8}>
             <div className={classes.root}>
               <Typography variant="h6" gutterBottom>
-                Order summary
+                Tóm tắt đơn hàng
               </Typography>
               <List disablePadding>
                 {order.orderItems.map((item) => (
@@ -71,14 +69,14 @@ export default function Order() {
                   </ListItem>
                 ))}
                 <ListItem className={classes.listItem}>
-                  <ListItemText primary="Total" />
+                  <ListItemText primary="Tổng" />
                   <Typography variant="subtitle1" className={classes.total}>
                     đ{converPriceVND(order.totalPrice)}
                   </Typography>
                 </ListItem>
               </List>
               <Grid container spacing={2} justify="space-between">
-                <Grid item>
+                <Grid item  md={6}> 
                   <Typography variant="h6" gutterBottom className={classes.title}>
                     Shipping
                   </Typography>
@@ -89,22 +87,22 @@ export default function Order() {
                       .join(", ")}
                   </Typography>
                 </Grid>
-                <Grid item>
+                <Grid item md={6}> 
                   <Typography variant="h6" gutterBottom className={classes.title}>
-                    Payment details
+                    Chi tiết thanh toán
                   </Typography>
                   <Grid container>
                     <Grid item xs={6}>
-                      <Typography gutterBottom>Payment Method</Typography>
+                      <Typography gutterBottom>Phương thức thanh toán</Typography>
                     </Grid>
                     <Grid item xs={6}>
                       <Typography gutterBottom>: {order.payment.paymentMethod}</Typography>
                     </Grid>
                     <Grid item xs={6}>
-                      <Typography gutterBottom>Payment Status </Typography>
+                      <Typography gutterBottom>Trạng thái thanh toán</Typography>
                     </Grid>
                     <Grid item xs={6}>
-                      <Typography gutterBottom>: {order.isPaid + ""}</Typography>
+                      <Typography gutterBottom>: {order.isPaid ? "đã thanh toán" : "chưa thánh toán"}</Typography>
                     </Grid>
                   </Grid>
                 </Grid>
