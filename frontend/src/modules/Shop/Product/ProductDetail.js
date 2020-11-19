@@ -49,7 +49,7 @@ function ProductDetail({ product, params }) {
         <link rel="canonical" href={`${DOMAIN}/product/${params.product}`} />
         <meta property="og:title" content={`${product.title}| Shop Sale`} />
         <meta property="og:description" content={product.description} />
-        <meta property="og:type" content="shop" />
+        <meta property="og:type" content="website" />
         <meta property="og:url" content={`${DOMAIN}/product/${params.product}`} />
         <meta property="og:site_name" content="Shop sale" />
 
