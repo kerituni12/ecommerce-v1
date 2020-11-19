@@ -14,7 +14,12 @@ const { logs } = require("@configs/constants");
 
 const FRONTEND_BUILD_PATH = path.join(__dirname, "../../frontend/build");
 const regexDomain = new RegExp(`/\.kerituni12\.vercel\.app$/`, "g");
-const allowedDomains = [regexDomain, "https://localhost:3000", process.env.FRONTEND_URL, "https://kinshop.tk"];
+const allowedDomains = [
+  /\.kerituni12\.vercel\.app$/,
+  "https://localhost:3000",
+  process.env.FRONTEND_URL,
+  "https://kinshop.tk",
+];
 
 const app = express();
 
