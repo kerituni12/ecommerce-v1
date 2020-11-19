@@ -28,7 +28,7 @@ app.use(
   cors({
     allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept", "X-Access-Token", "Authorization"],
     methods: "GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE",
-    credentials: true,
+
     origin: "*",
     exposedHeaders: ["set-cookie"],
   })
