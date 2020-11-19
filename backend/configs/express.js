@@ -13,7 +13,7 @@ const { handleNotFoundPage, handleError } = require("@middlewares/error");
 const { logs } = require("@configs/constants");
 
 const FRONTEND_BUILD_PATH = path.join(__dirname, "../../frontend/build");
-const regexDomain = new RegExp(`/\.kerituni12\.vercel\.app$/`, "g");
+
 const allowedDomains = [
   "ecommerce-v1-git-dev.kerituni12.vercel.app",
   "https://localhost:3000",
