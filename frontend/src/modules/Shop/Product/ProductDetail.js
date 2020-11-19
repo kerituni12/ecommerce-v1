@@ -43,10 +43,10 @@ function ProductDetail({ product, params }) {
       </Head>
       <Container>
         <Grid container spacing={2}>
-          <Grid container justify="center" item xs={12} xs={10} sm={10} md={6} lg={5}>
+          <Grid container justify="center" item xs={12} md={6} >
             <img src={product.image} alt={product.title} style={styleImage} />
           </Grid>
-          <Grid item xs={12} xs={10} sm={10} md={6} lg={6}>
+          <Grid item xs={12} md={6} >
             <h2>{product.title}</h2>
 
             <h1 style={stylePrice}>{convertPrice(product.price)}₫</h1>

@@ -29,7 +29,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
       <Link color="inherit" href="/">
-        ShopSale
+        ShopSale - KinShop
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -90,7 +90,7 @@ export default function Pricing() {
       <Container maxWidth="md" component="footer" className={classes.footer}>
         <Grid container spacing={4} justify="space-evenly">
           {footers.map((footer) => (
-            <Grid item xs={6} sm={3} key={footer.title}>
+            <Grid item xs={4} sm={3} key={footer.title}>
               <Typography variant="h6" color="textPrimary" gutterBottom>
                 {footer.title}
               </Typography>
