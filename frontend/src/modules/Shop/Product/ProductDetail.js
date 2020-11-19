@@ -117,8 +117,8 @@ function ProductDetail({ product, params }) {
                 Thêm Vào Giỏ Hàng
               </Button>
               <FacebookShareButton
-                url={`https://kinshop.tk/product/nike-airforce-1-white-hyper-royal`}
-                hashtag="#kinshop"
+                url={`${DOMAIN}/product/${params.product}`}
+                hashtag="#shopsale"
                 style={styleShareNow}
               >
                 Share Ngay
