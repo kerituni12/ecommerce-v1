@@ -23,13 +23,8 @@ exports.register = async (req, res, next) => {
     const user = new UserModel({ ...userData, password: hashPassword, confirmOTP });
 
     // Send confirmation email
-    // let html = "<p>Please Confirm your Account.</p><p>OTP: " + otp + "</p>";
-    // await mailer.send(
-    //   constants.confirmEmails.from,
-    //   req.body.email,
-    //   "Confirm Account",
-    //   html
-    // );
+    let html = `<p>Please Confirm your Account.</p><p>OTP: <a href='${process.env.BACKEND_URL}/api/auth/verify-otp?email=${req.body.email}&otp=${confirmOTP}'>  confirmOTP  </a></p>`;
+    await mailer.send(mailConfigs.confirmEmails.from, req.body.email, "Confirm Account", html);
 
     const newUser = await user.save();
     return res.status(200).json(newUser.getDataResponse());
@@ -104,11 +99,11 @@ exports.logout = async (req, res, next) => {
 };
 exports.verifyConfirm = async (req, res, next) => {
   try {
-    const query = { email: req.body.email };
+    const query = { email: req.query.email };
     const user = await UserModel.findOne(query);
 
     if (!user) throw new APIError({ message: "Specified email not found" });
-    if (user.confirmOTP !== req.body.otp) throw new APIError({ message: "Otp does not match" });
+    if (user.confirmOTP !== req.query.otp) throw new APIError({ message: "Otp does not match" });
 
     await UserModel.findOneAndUpdate(query, { isConfirmed: true, confirmOTP: null });
     return res.status(200).json({ message: "Account confirmed success" });
