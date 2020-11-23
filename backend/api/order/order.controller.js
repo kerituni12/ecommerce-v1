@@ -13,21 +13,19 @@ exports.getAllOrder = async (req, res, next) => {
 };
 
 exports.getReportForDay = async function (req, res) {
-  
   let date = new Date();
   let day = date.getDate();
   let month = date.getMonth();
   let arr = [];
   let arr2 = [];
 
-  // only support from 8h to 18h  
-  for (let i = 14; i <= 24; i++) {
+  // only support from 8h to 18h
+  for (let i = 8; i <= 18; i++) {
     let sum1 = 0,
       sum2 = 0;
-    await Order.find(function (err, orders) {     
+    await Order.find(function (err, orders) {
       orders.forEach((v, j) => {
-        if (v.updatedAt.getMonth() == month) {        
-
+        if (v.updatedAt.getMonth() == month) {
           if (v.updatedAt.getDate() == day && v.updatedAt.getHours() == i) sum1 += v.totalPrice;
 
           // not check day = 1 return day = 31 || 30 prev month

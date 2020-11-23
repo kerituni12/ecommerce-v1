@@ -22,7 +22,13 @@ function TopHeader() {
   return (
     <div className={classes.topHeader}>
       <div className={classes.sectionDesktop}>
-        <Typography>Tải ứng dụng</Typography>
+      <Link href="/category/giay-nam">
+              <Typography>Giày nam </Typography>
+            </Link>
+            <div className={classes.borderRight}> | </div>
+            <Link href="/category/giay-nu">
+              <Typography>Giày nữ</Typography>
+            </Link>
       </div>
       <div style={{ paddingRight: 20 }}>
         {isAuthenticated ? (

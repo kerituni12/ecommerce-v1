@@ -4,7 +4,7 @@ const Order = require("../order/order.model");
 const request = require("request");
 
 // const PAGE_ACCESS_TOKEN =
-  // "EAAE12x70ZBswBAIIatIqGBjC1dfVJonE0otWKXh6OILiEPBv3w3Dvi09GvDgzI4ZAGIK0fw67U3cMg1ybPIoguuVys7wMd3ZAS7bUOxSy7uZBjm4KZCss3vc3RwAUVHU0KYZB2JoY5JmyYZChgFJm5YShlvtzFkLd8MVUCMk3Jk64V67yAyfaE7";
+// "EAAE12x70ZBswBAIIatIqGBjC1dfVJonE0otWKXh6OILiEPBv3w3Dvi09GvDgzI4ZAGIK0fw67U3cMg1ybPIoguuVys7wMd3ZAS7bUOxSy7uZBjm4KZCss3vc3RwAUVHU0KYZB2JoY5JmyYZChgFJm5YShlvtzFkLd8MVUCMk3Jk64V67yAyfaE7";
 
 //Handler LoopMessage
 // B1 : check mail = true -> save temp pass and request pass
@@ -246,7 +246,6 @@ async function callSendAPI(
   );
 }
 
-
 /**
  *
  * @param {key for select year or day} chart
@@ -310,7 +309,7 @@ async function getDataForChart() {
 
   try {
     // only support from 8h to 18h
-    for (let i = 14; i <= 24; i++) {
+    for (let i = 8; i <= 18; i++) {
       let sum1 = 0,
         sum2 = 0;
       await Order.find(function (err, orders) {
@@ -331,8 +330,8 @@ async function getDataForChart() {
   }
 
   const templateChart = `{type:%27line%27,data:{labels:[8,9,10,11,12,13,14,15,16,17,18],datasets:[{data:[${arr}],label:"hômnay",fill:false,borderColor:%27blue%27},{data:[${arr2}],label:"hômqua",fill:false,borderColor:%27yellow%27},]}}`;
-  
-  // TODO minify strim 
+
+  // TODO minify strim
 
   // const templateChart = `{
   //   type: "line",
