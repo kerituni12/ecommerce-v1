@@ -4,6 +4,7 @@ import Router from "next/router";
 
 function COD({ order }) {
   const onSubmit = async () => {
+    console.log(order);
     try {
       const { data } = await api.post(`/api/order`, order);
       if (data) {

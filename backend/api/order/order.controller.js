@@ -1,4 +1,6 @@
+const Mongoose = require("mongoose");
 const Order = require("./order.model");
+const Product = require("../product/product.model");
 const { APIError } = require("@helpers/ErrorHandler");
 
 exports.getAllOrder = async (req, res, next) => {
@@ -8,6 +10,36 @@ exports.getAllOrder = async (req, res, next) => {
   } catch (err) {
     next(err);
   }
+};
+
+exports.getReportForDay = async function (req, res) {
+  
+  let date = new Date();
+  let day = date.getDate();
+  let month = date.getMonth();
+  let arr = [];
+  let arr2 = [];
+
+  // only support from 8h to 18h  
+  for (let i = 14; i <= 24; i++) {
+    let sum1 = 0,
+      sum2 = 0;
+    await Order.find(function (err, orders) {     
+      orders.forEach((v, j) => {
+        if (v.updatedAt.getMonth() == month) {        
+
+          if (v.updatedAt.getDate() == day && v.updatedAt.getHours() == i) sum1 += v.totalPrice;
+
+          // not check day = 1 return day = 31 || 30 prev month
+          if (v.updatedAt.getDate() == day - 1 && v.updatedAt.getHours() == i) sum2 += v.totalPrice;
+        }
+      });
+    });
+    arr.push(sum1);
+    arr2.push(sum2);
+  }
+
+  res.json({ arr, arr2 });
 };
 
 exports.getOrderById = async (req, res, next) => {
@@ -34,6 +66,19 @@ exports.createOrder = async (req, res, next) => {
   try {
     // eslint-disable-next-line no-unused-vars
     const { _id, ...orderBody } = req.body;
+
+    // update inventory of list product
+    const bulkArr = [];
+    for (const i of orderBody.orderItems) {
+      bulkArr.push({
+        updateOne: {
+          filter: { _id: Mongoose.Types.ObjectId(i._id) },
+          update: { $inc: { inventory: -i.quantity } },
+        },
+      });
+    }
+    await Product.bulkWrite(bulkArr);
+
     const order = new Order(orderBody);
     const orderData = await order.save();
     return res.cookie("orderId", orderData._id + "", { maxAge: 720000 }).json({ order: orderData });

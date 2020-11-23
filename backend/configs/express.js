@@ -8,6 +8,7 @@ require("dotenv").config();
 
 const indexRouter = require("@routers");
 const apiRouter = require("@routers/api");
+const webhookRouter = require("@routers/webhook");
 
 const { handleNotFoundPage, handleError } = require("@middlewares/error");
 const { logs } = require("@configs/constants");
@@ -53,6 +54,7 @@ app.use(
 //Router
 app.use("/", indexRouter);
 app.use("/api/", apiRouter);
+app.use("/webhook/", webhookRouter);
 
 app.use(handleNotFoundPage);
 app.use(handleError);
