@@ -17,7 +17,7 @@ export const login = createAsyncThunk("login", async ({ email, password, setRend
       Router.push("/");
     } else {
       // Bat de gui ma otp ve dt
-      // await api.post("/api/auth/send-otp-auth", { email });
+      await api.post("/api/auth/send-otp-auth", { email });
       const payload = token.split(".")[1];
       cookies.set("payloadClient", payload, { maxAge: 72000 });
       setRenderLogin(false);
