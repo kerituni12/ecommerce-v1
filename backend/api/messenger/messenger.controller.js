@@ -1,3 +1,5 @@
+const client = require("twilio")(process.env.ACCOUNT_SID, process.env.AUTH_TOKEN);
+
 const Mess = require("./messenger.model");
 const User = require("../user/user.model");
 const Order = require("../order/order.model");
@@ -17,7 +19,7 @@ function handleLoopMessage(sender_psid, received_message) {
     {
       userId: sender_psid,
     },
-    function (err, mess) {
+    async function (err, mess) {
       if (mess) {
         switch (mess.loop) {
           case 1: //
@@ -25,14 +27,27 @@ function handleLoopMessage(sender_psid, received_message) {
               {
                 phone: received_message.text,
               },
-              function (err, user) {
-                console.log(user);
+              async function (err, user) {
                 if (user) {
                   response = {
                     text: "Vui lòng nhập mã otp",
                   };
                   callSendAPI(sender_psid, response);
-                  mess.loop += 1;
+                  try {
+                    client.verify
+                      .services(process.env.VERIFY_SERVICE_SID)
+                      .verifications.create({
+                        to: `+${received_message.text}`,
+                        channel: "sms",
+                      })
+                      .then((data) => {
+                        console.log("da chay xong");
+                      });
+                  } catch (err) {
+                    next(err);
+                  }
+                  mess.loop = 2;
+                  mess.tmpPhone = received_message.text;
                   if (user.role == "admin") mess.admin = 1;
                   mess.save(function (err) {
                     if (err) return console.log(err);
@@ -48,24 +63,51 @@ function handleLoopMessage(sender_psid, received_message) {
             return;
 
           case 2:
-            if (mess.admin) {
+            if (received_message.text.length !== 6) {
               response = {
-                text: "Bạn đã đăng nhập thành công",
+                text: "Mã OTP không hợp lệ",
               };
               callSendAPI(sender_psid, response);
-              mess.loop = 0;
-              mess.save(function (err) {
-                if (err) return console.log(err);
-              });
-            } else {
-              response = {
-                text: "Vui lòng đăng nhập với tài khoản admin",
-              };
-              callSendAPI(sender_psid, response);
-              mess.loop = 0;
-              mess.save(function (err) {
-                if (err) return console.log(err);
-              });
+              return;
+            }
+            try {
+              client.verify
+                .services(process.env.VERIFY_SERVICE_SID)
+                .verificationChecks.create({
+                  to: `+${mess.tmpPhone}`,
+                  code: received_message.text,
+                })
+                .then((data) => {
+                  console.log(data);
+                  if (data.status === "approved") {
+                    if (mess.admin) {
+                      response = {
+                        text: "Bạn đã đăng nhập thành công",
+                      };
+                      callSendAPI(sender_psid, response);
+                      mess.loop = 0;
+                      mess.save(function (err) {
+                        if (err) return console.log(err);
+                      });
+                    } else {
+                      response = {
+                        text: "Vui lòng đăng nhập với tài khoản admin",
+                      };
+                      callSendAPI(sender_psid, response);
+                      mess.loop = 0;
+                      mess.save(function (err) {
+                        if (err) return console.log(err);
+                      });
+                    }
+                  } else {
+                    response = {
+                      text: "Mã OTP không hợp lệ",
+                    };
+                    callSendAPI(sender_psid, response);
+                  }
+                });
+            } catch (err) {
+              console.log(err);
             }
 
             return;
@@ -114,7 +156,7 @@ function handleMessage(sender_psid, received_message) {
     case "logout":
       Mess.findOneAndRemove(
         {
-          uerId: sender_psid,
+          userId: sender_psid,
         },
         function (err) {
           if (err) return console.log(err);
@@ -147,6 +189,33 @@ function handleMessage(sender_psid, received_message) {
   }
 }
 
+function handleUserMessage(sender_psid, received_message) {
+  let response;
+
+  switch (received_message.toLowerCase().replace(/\s/gm, "")) {
+    case "gioithieushop":
+      response = {
+        text:
+          "Chào mừng bạn đã đến với shop. Shopsale là 1 shop giày thể thao cung cấp hàng chất lượng và giá cả sinh viên",
+      };
+      callSendAPI(sender_psid, response);
+      return;
+    case "exit":
+      Mess.findOneAndRemove(
+        {
+          userId: sender_psid,
+        },
+        function (err) {
+          if (err) return console.log(err);
+          callSendAPI(sender_psid, {
+            text: "đã exit",
+          });
+        }
+      );
+      return;
+    default:
+  }
+}
 // Start event login
 
 function handleLogin(sender_psid) {
@@ -190,7 +259,7 @@ function handlePostback(sender_psid, received_postback) {
       },
       function (err, mess) {
         if (mess) {
-          mess.loop += 1;
+          mess.loop = 1;
           mess.save(function (err) {
             if (err) return console.log(err);
           });
@@ -357,6 +426,7 @@ async function getDataForChart() {
 
 module.exports = {
   handleMessage: handleMessage,
+  handleUserMessage: handleUserMessage,
   handleLoopMessage: handleLoopMessage,
   handlePostback: handlePostback,
   sendChart: sendChart,

@@ -37,7 +37,7 @@ function CategoryCreate(props) {
               defaultValue=""
               rules={{
                 required: "this is required",
-                pattern: { value: /^[a-zA-Z 0-9]*$/, message: "not include special characters" },
+                // pattern: { value: /^[a-zA-Z 0-9]*$/, message: "not include special characters" },
               }}
             />
           </Grid>
@@ -52,7 +52,7 @@ function CategoryCreate(props) {
               defaultValue=""
               rules={{
                 required: "this is required",
-                pattern: { value: /^[a-zA-Z 0-9]*$/, message: "not include special characters" },
+                // pattern: { value: /^[a-zA-Z 0-9]*$/, message: "not include special characters" },
               }}
             />
           </Grid>
@@ -66,7 +66,7 @@ function CategoryCreate(props) {
               error={errors.title ? true : false}
               defaultValue=""
               rules={{
-                pattern: { value: /^[a-zA-Z 0-9]*$/, message: "not include special characters" },
+                // pattern: { value: /^[a-zA-Z 0-9]*$/, message: "not include special characters" },
               }}
             />
           </Grid>

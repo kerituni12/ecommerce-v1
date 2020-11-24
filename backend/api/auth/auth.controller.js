@@ -144,6 +144,8 @@ exports.verifyOtpAuth = async (req, res, next) => {
           code: req.body.otp,
         })
         .then((data) => {
+
+          // ma hash chu khong phai ma otp tu verify
           const confirmOTP = utility.randomNumber(4);
           const otpKey = jwt.sign({ confirmOTP }, jwtSecret, { expiresIn: jwtExpiresIn });
           res

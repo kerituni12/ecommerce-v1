@@ -3,7 +3,7 @@ import api from "services/axios";
 import Router from "next/router";
 import Cookies from "universal-cookie";
 import { toast } from "react-toastify";
-import Cookies2 from "js-cookie"
+import Cookies2 from "js-cookie";
 
 const cookies = new Cookies();
 
@@ -49,6 +49,7 @@ export const verifyOtp = createAsyncThunk("verifyOtp", async ({ email, otp }, { 
 export const logout = createAsyncThunk("logout", async (data, { dispatch }) => {
   Cookies2.remove("payloadClient");
   dispatch(logoutSuccess());
+  Router.push("/");
 });
 
 const logInSlice = createSlice({

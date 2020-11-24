@@ -49,7 +49,7 @@ const appMenuItems = [
       {
         name: "List",
         link: "/admin/category",
-      },     
+      },
     ],
   },
   {
@@ -62,26 +62,26 @@ const appMenuItems = [
       },
     ],
   },
-  {
-    name: "Nested Pages",
-    Icon: IconLibraryBooks,
-    items: [
-      {
-        name: "Level 2",
-      },
-      {
-        name: "Level 2",
-        items: [
-          {
-            name: "Level 3",
-          },
-          {
-            name: "Level 3",
-          },
-        ],
-      },
-    ],
-  },
+  // {
+  //   name: "Nested Pages",
+  //   Icon: IconLibraryBooks,
+  //   items: [
+  //     {
+  //       name: "Level 2",
+  //     },
+  //     {
+  //       name: "Level 2",
+  //       items: [
+  //         {
+  //           name: "Level 3",
+  //         },
+  //         {
+  //           name: "Level 3",
+  //         },
+  //       ],
+  //     },
+  //   ],
+  // },
 ];
 
 export { appMenuItems, drawConfigs };
