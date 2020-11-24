@@ -30,11 +30,11 @@ export const login = createAsyncThunk("login", async ({ email, password, setRend
 
 export const verifyOtp = createAsyncThunk("verifyOtp", async ({ email, otp }, { dispatch }) => {
   //Cai nay dung neu xac nhan bang server nha
-  // const { data } = await api.post("/api/auth/verify-otp-auth", { email, otp });
+  const { data } = await api.post("/api/auth/verify-otp-auth", { email, otp });
 
   // Day la du lieu mau , khong dung trong deploy
-  const data = {};
-  data.status = "approved";
+  // const data = {};
+  // data.status = "approvedd";
   //
   if (data.status === "approved") {
     const payload = cookies.get("payloadClient");
@@ -66,6 +66,7 @@ const logInSlice = createSlice({
     },
     logoutSuccess: (state) => {
       state.isAuthenticated = false;
+      state.numberOfVerifyOtpFail = 0;
     },
     needVerifyOtp: (state) => {
       state.isOtpVerify = true;

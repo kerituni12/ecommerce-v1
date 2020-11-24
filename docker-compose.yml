@@ -10,12 +10,20 @@ services:
     volumes:
       - ./frontend:/usr/app/frontend
       - /usr/app/frontend/build
+    networks:
+      - common
   backend:
     container_name: server
     build:
       context: ./backend
       dockerfile: Dockerfile
     ports:
-      - "5000:5000"
+      - "3001:3001"
+    environment:
+      PORT: 3001
     volumes:
       - ./backend:/usr/app/backend
+    networks:
+      - common
+networks:
+  common:
