@@ -3,6 +3,7 @@ const client = require("twilio")(process.env.ACCOUNT_SID, process.env.AUTH_TOKEN
 const Mess = require("./messenger.model");
 const User = require("../user/user.model");
 const Order = require("../order/order.model");
+const { randomNumber } = require("@helpers/utility");
 const request = require("request");
 
 // const PAGE_ACCESS_TOKEN =
@@ -205,9 +206,9 @@ function handleUserMessage(sender_psid, received_message) {
       };
       callSendAPI(sender_psid, response);
       return;
-    case "test":
+    case "getcoupon":
       response = {
-        text: "Test message",
+        text: `Hi, i give you coupon with a great shopping experience. Your coupon is ${randomNumber(6)}`,
       };
       callSendAPI(sender_psid, response);
       return;
@@ -232,6 +233,11 @@ function handleUserMessage(sender_psid, received_message) {
       );
       return;
     default:
+      response = {
+        text: "Hello, I hope you have a nice day . Can i help you ?",
+      };
+      callSendAPI(sender_psid, response);
+      return;
   }
 }
 // Start event login

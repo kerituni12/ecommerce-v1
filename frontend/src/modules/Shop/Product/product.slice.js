@@ -5,6 +5,7 @@ export const getProductList = createAsyncThunk("getProductList", async (_, { dis
   const { data } = await api.get("/api/product");
   if (data) dispatch(getProductListSuccess(data.products));
 });
+
 const productSlice = createSlice({
   name: "product",
   initialState: {

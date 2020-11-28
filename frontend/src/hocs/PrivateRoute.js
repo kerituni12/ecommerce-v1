@@ -32,7 +32,7 @@ function AdminRoute({ children }) {
   const { isAuthenticated, isOtpVerify, isAdmin } = useSelector(({ login }) => ({
     isAuthenticated: !!login.isAuthenticated,
     isOtpVerify: login.isOtpVerify,
-    isAdmin: login.user.role === "admin",
+    isAdmin: login.user?.role === "admin",
   }));
 
   if (!isAuthenticated || !isAdmin) {
