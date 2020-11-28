@@ -193,6 +193,24 @@ function handleUserMessage(sender_psid, received_message) {
   let response;
 
   switch (received_message.toLowerCase().replace(/\s/gm, "")) {
+    case "hi":
+      response = {
+        text: "Hello, Can i help you ?",
+      };
+      callSendAPI(sender_psid, response);
+      return;
+    case "hello":
+      response = {
+        text: "Hello, I hope you have a nice day . Can i help you ?",
+      };
+      callSendAPI(sender_psid, response);
+      return;
+    case "test":
+      response = {
+        text: "Test message",
+      };
+      callSendAPI(sender_psid, response);
+      return;
     case "gioithieushop":
       response = {
         text:

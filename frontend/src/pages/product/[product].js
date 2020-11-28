@@ -4,6 +4,7 @@ import api from "services/axios";
 export default ProductDetail;
 
 export async function getServerSideProps({ params }) {
+  console.log(params);
   try {
     const { data } = await api.get(`/api/product/${params.product}`);
     return { props: { product: data.product, params } };

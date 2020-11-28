@@ -13,17 +13,13 @@ const webhookRouter = require("@routers/webhook");
 const { handleNotFoundPage, handleError } = require("@middlewares/error");
 const { logs } = require("@configs/constants");
 
-const FRONTEND_BUILD_PATH = path.join(__dirname, "../../frontend/build");
 
-const allowedDomains = [
-  "ecommerce-v1-git-dev.kerituni12.vercel.app",
-  "https://localhost:3000",
-  process.env.FRONTEND_URL,
-  "https://kinshop.tk",
-];
+
+const allowedDomains = ["https://localhost:3000", process.env.FRONTEND_URL];
 
 const app = express();
 
+const FRONTEND_BUILD_PATH = path.join(__dirname, "../../frontend/build");
 app.use(express.static(FRONTEND_BUILD_PATH));
 
 app.use(morgan(logs));

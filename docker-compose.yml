@@ -1,17 +1,5 @@
 version: "3"
 services:
-  frontend:
-    container_name: client
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./frontend:/usr/app/frontend
-      - /usr/app/frontend/build
-    networks:
-      - common
   backend:
     container_name: server
     build:
@@ -25,5 +13,18 @@ services:
       - ./backend:/usr/app/backend
     networks:
       - common
+  frontend:
+    container_name: client
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/usr/app/frontend
+      - /usr/app/frontend/.next
+    networks:
+      - common
+
 networks:
   common:
