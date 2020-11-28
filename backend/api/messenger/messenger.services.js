@@ -25,51 +25,54 @@ function handleVerifyServer(req, res) {
 /*
  * Webhook POST handler
  */
-async function handleWebhookEvent(req, res) {
-  const body = req.body;
+function handleWebhookEvent(req, res) {
+  let body = req.body;
 
   if (body.object === "page") {
     body.entry.forEach(function (entry) {
-      const webhook_event = entry.messaging[0];
+      let webhook_event = entry.messaging[0];
+      console.log(webhook_event);
 
-      const sender_psid = webhook_event.sender.id;
+      // Get the sender PSID
+      let sender_psid = webhook_event.sender.id;
+      console.log("Sender PSID: " + sender_psid);
 
-      const mess = Mess.findOne({ userId: sender_psid });
-
-      if (mess) {
-        if (webhook_event.message) {
-          if (mess.loop == 0) {
-            if (mess.admin == 1) messengerController.handleMessage(sender_psid, webhook_event.message);
-            else if (webhook_event.message.text == "login") messengerController.handleLogin(sender_psid);
-          } else if (webhook_event.message.text == "exit")
-            messengerController.handleUserMessage(sender_psid, webhook_event.message.text);
-          else messengerController.handleLoopMessage(sender_psid, webhook_event.message);
-        } else if (webhook_event.postback) {
-          messengerController.handlePostback(sender_psid, webhook_event.postback);
-        }
-        return ;
-      } 
-        if (webhook_event.message) {
-          // Neu truoc do chua dang nhap lan nao
-          if (webhook_event.message.text == "login") {
-            const mess = new Mess({
-              userId: sender_psid,
-              loop: 0,
-            });
-            mess.save(function (err) {
-              if (err) return console.log(err);
-            });
-            messengerController.handleLogin(sender_psid);
-          } else {
-            messengerController.handleUserMessage(sender_psid, webhook_event.message.text);
+      Mess.findOne({ userId: sender_psid }, function (err, mess) {
+        // neu truoc do da login
+        if (mess) {
+          if (webhook_event.message) {
+            if (mess.loop == 0) {
+              if (mess.admin == 1) messengerController.handleMessage(sender_psid, webhook_event.message);
+              else if (webhook_event.message.text == "login") messengerController.handleLogin(sender_psid);
+            } else if (webhook_event.message.text == "exit")
+              messengerController.handleUserMessage(sender_psid, webhook_event.message.text);
+            else messengerController.handleLoopMessage(sender_psid, webhook_event.message);
+          } else if (webhook_event.postback) {
+            messengerController.handlePostback(sender_psid, webhook_event.postback);
           }
-        } else if (webhook_event.postback) {
-          messengerController.handleUserMessage(sender_psid, webhook_event.postback.payload);
+        } else {
+          if (webhook_event.message) {
+            // Neu truoc do chua dang nhap lan nao
+            if (webhook_event.message.text == "login") {
+              var mess = new Mess({
+                userId: sender_psid,
+                loop: 0,
+              });
+              mess.save(function (err) {
+                if (err) return console.log(err);
+              });
+              messengerController.handleLogin(sender_psid);
+            } else {
+              messengerController.handleUserMessage(sender_psid, webhook_event.message.text);
+            }
+          } else if (webhook_event.postback) {
+            messengerController.handleUserMessage(sender_psid, webhook_event.postback.payload);
+          }
         }
-      
-
-      res.status(200).send("EVENT_RECEIVED");
+      });
     });
+
+    res.status(200).send("EVENT_RECEIVED");
   } else {
     res.sendStatus(404);
   }
