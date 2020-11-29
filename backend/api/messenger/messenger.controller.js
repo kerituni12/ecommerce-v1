@@ -232,7 +232,7 @@ function handleUserMessage(sender_psid, received_message) {
         }
       );
       return;
-    case "get_started":
+    case "getstarted":
       response = {
         attachment: {
           type: "template",
