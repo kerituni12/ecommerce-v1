@@ -232,10 +232,65 @@ function handleUserMessage(sender_psid, received_message) {
         }
       );
       return;
+    case "get_started":
+      response = {
+        attachment: {
+          type: "template",
+          payload: {
+            template_type: "button",
+            text: "Welcome to shopsale. Please choose option you want to support",
+            buttons: [
+              {
+                type: "postback",
+                title: "Introduction shop ",
+                payload: "gioithieushop",
+              },
+              {
+                type: "postback",
+                title: "Get coupon ",
+                payload: "getcoupon",
+              },
+              {
+                type: "web_url",
+                title: "Visit shop",
+                url: "http://ecommerce-v1.vercel.app/",
+                webview_height_ratio: "full",
+              },
+            ],
+          },
+        },
+      };
+      callSendAPI(sender_psid, response);
+      return;
     default:
       response = {
-        text: "Hello, I hope you have a nice day . Can i help you ?",
+        attachment: {
+          type: "template",
+          payload: {
+            template_type: "button",
+            text: "Please choose option you want to support. Hope you have  a nice day .",
+            buttons: [
+              {
+                type: "postback",
+                title: "Introduction shop ",
+                payload: "gioithieushop",
+              },
+              {
+                type: "postback",
+                title: "Get coupon ",
+                payload: "getcoupon",
+              },
+              {
+                type: "web_url",
+                title: "Visit shop",
+                url: "http://ecommerce-v1.vercel.app/",
+                webview_height_ratio: "full",
+              },
+            ],
+          },
+        },
       };
+
       callSendAPI(sender_psid, response);
       return;
   }
