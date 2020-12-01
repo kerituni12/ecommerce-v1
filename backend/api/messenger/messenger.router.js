@@ -1,10 +1,9 @@
 const express = require("express");
 const router = express.Router();
 
-const MessengerServices = require('./messenger.services');
+const MessengerController = require("./messenger.controller");
 
-router.get('/', MessengerServices.handleVerifyServer);
-router.post('/', MessengerServices.handleWebhookEvent);
-
+router.get("/", MessengerController.handleVerifyServer);
+router.post("/", MessengerController.handleWebhookEvent);
 
 module.exports = router;
