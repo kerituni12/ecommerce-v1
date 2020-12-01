@@ -16,7 +16,7 @@ https://ecommerce-v1.vercel.app
 2. OTP verify
 3. Mailchimp
 4. SEO basic
-5. Paypal, Vnp
+5. Paypal, Vnpay 
 
 ---
 
