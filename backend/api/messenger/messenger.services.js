@@ -92,7 +92,6 @@ function handleLoopMessage(sender_psid, received_message) {
               });
 
               fakePromise.then((data) => {
-                console.log(data);
                 if (data.status === "approved") {
                   if (mess.admin) {
                     response = {
@@ -494,7 +493,7 @@ async function getDataForChart() {
   // const templateChart = `{type:%27line%27,data:{labels:[8,9,10,11,12,13,14,15,16,17,18],datasets:[{data:[${arr}],label:"hômnay",fill:false,borderColor:%27blue%27},{data:[${arr2}],label:"hômqua",fill:false,borderColor:%27yellow%27},]}}`;
 
   // Fake Data
-  const templateChart = `{type:%27line%27,data:{labels:[8,9,10,11,12,13,14,15,16,17,18],datasets:[{data:[0,300000, 0,0,0,0,0,0,450000,0,0],label:"hômnay",fill:false,borderColor:%27blue%27},{data:[0,200000, 0,0,0,500000,0,0,450000,0,0],label:"hômqua",fill:false,borderColor:%27yellow%27},]}}`;
+  const templateChart = `{type:%27line%27,data:{labels:[8,9,10,11,12,13,14,15,16,17,18],datasets:[{data:[0,300000,0,0,0,0,0,0,450000,0,0],label:%27homnay%27,fill:false,borderColor:%27blue%27},{data:[0,200000,0,0,0,500000,0,0,450000,0,0],label:%27homqua%27,fill:false,borderColor:%27yellow%27},]}}`;
 
   // TODO minify strim
 
