@@ -13,8 +13,16 @@ const useStyle = makeStyles((theme) => ({
     alignItems: "center",
     backgroundColor: theme.palette.background.paper,
     padding: 30,
-    height: 200,
+    height: 250,
     justifyContent: "space-between",
+  },
+  otpInput: {
+    width: "2rem !important",
+    height: "2rem",
+    margin: ".5rem",
+  },
+  otpContianer: {
+    margin: "1rem 0",
   },
   wrong: {
     color: "red",
@@ -49,7 +57,15 @@ function OTPVerify({ email, setRenderLogin }) {
           <Typography className={classes.wrong}>Bạn đã nhập sai {numberOfVerifyOtpFail} lần</Typography>
         ) : null}
         <Typography>Nhập mã xác nhận OTP</Typography>
-        <OtpInput value={otp} onChange={handleChange} numInputs={6} separator={<span>-</span>} />
+        <Typography>(tính năng tạm thời bị tắt !! nhập 6 số để pass )</Typography>
+        <OtpInput
+          inputStyle={classes.otpInput}
+          containerStyle={classes.otpContianer}
+          value={otp}
+          onChange={handleChange}
+          numInputs={6}
+          separator={<span>-</span>}
+        />
         <Button color="secondary" variant="contained" onClick={() => handleVerifyOtp(otp)}>
           Submit
         </Button>

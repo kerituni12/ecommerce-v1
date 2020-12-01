@@ -16,8 +16,8 @@ export const login = createAsyncThunk("login", async ({ email, password, setRend
       dispatch(authSuccess(user));
       Router.push("/");
     } else {
-      // Bat de gui ma otp ve dt
-      await api.post("/api/auth/send-otp-auth", { email });
+      // Bat de gui ma otp ve dt . only use in product or check env dev
+      // await api.post("/api/auth/send-otp-auth", { email });
       const payload = token.split(".")[1];
       cookies.set("payloadClient", payload, { maxAge: 72000 });
       setRenderLogin(false);
@@ -29,12 +29,12 @@ export const login = createAsyncThunk("login", async ({ email, password, setRend
 });
 
 export const verifyOtp = createAsyncThunk("verifyOtp", async ({ email, otp }, { dispatch }) => {
-  //Cai nay dung neu xac nhan bang server nha
-  const { data } = await api.post("/api/auth/verify-otp-auth", { email, otp });
+  //Cai nay dung neu xac nhan bang server nha . only use in product or check env dev
+  // const { data } = await api.post("/api/auth/verify-otp-auth", { email, otp });
 
-  // Day la du lieu mau , khong dung trong deploy
-  // const data = {};
-  // data.status = "approvedd";
+  // Day la du lieu mau , khong dung trong deploy . only dev env
+  const data = {};
+  data.status = "approved";
   //
   if (data.status === "approved") {
     const payload = cookies.get("payloadClient");
