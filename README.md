@@ -15,7 +15,8 @@ https://ecommerce-v1.vercel.app
 1. Messenger Chatbot
 2. OTP verify
 3. Mailchimp
-4. Live Support
+4. SEO basic
+5. P
 
 ---
 
