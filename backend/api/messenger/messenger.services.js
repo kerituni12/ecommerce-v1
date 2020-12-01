@@ -31,22 +31,26 @@ function handleLoopMessage(sender_psid, received_message) {
               async function (err, user) {
                 if (user) {
                   response = {
-                    text: "Vui lòng nhập mã otp",
+                    text: "Vui lòng nhập mã otp (123321)",
                   };
                   callSendAPI(sender_psid, response);
-                  try {
-                    client.verify
-                      .services(process.env.VERIFY_SERVICE_SID)
-                      .verifications.create({
-                        to: `+${received_message.text}`,
-                        channel: "sms",
-                      })
-                      .then((data) => {
-                        console.log("da chay xong");
-                      });
-                  } catch (err) {
-                    next(err);
-                  }
+
+                  // Send sms otp , Only  use in production
+
+                  // try {
+                  //   client.verify
+                  //     .services(process.env.VERIFY_SERVICE_SID)
+                  //     .verifications.create({
+                  //       to: `+${received_message.text}`,
+                  //       channel: "sms",
+                  //     })
+                  //     .then((data) => {
+                  //       console.log("da chay xong");
+                  //     });
+                  // } catch (err) {
+                  //   next(err);
+                  // }
+
                   mess.loop = 2;
                   mess.tmpPhone = received_message.text;
                   if (user.role == "admin") mess.admin = 1;
@@ -72,41 +76,50 @@ function handleLoopMessage(sender_psid, received_message) {
               return;
             }
             try {
-              client.verify
-                .services(process.env.VERIFY_SERVICE_SID)
-                .verificationChecks.create({
-                  to: `+${mess.tmpPhone}`,
-                  code: received_message.text,
-                })
-                .then((data) => {
-                  console.log(data);
-                  if (data.status === "approved") {
-                    if (mess.admin) {
-                      response = {
-                        text: "Bạn đã đăng nhập thành công",
-                      };
-                      callSendAPI(sender_psid, response);
-                      mess.loop = 0;
-                      mess.save(function (err) {
-                        if (err) return console.log(err);
-                      });
-                    } else {
-                      response = {
-                        text: "Vui lòng đăng nhập với tài khoản admin",
-                      };
-                      callSendAPI(sender_psid, response);
-                      mess.loop = 0;
-                      mess.save(function (err) {
-                        if (err) return console.log(err);
-                      });
-                    }
-                  } else {
+              // client.verify
+              //   .services(process.env.VERIFY_SERVICE_SID)
+              //   .verificationChecks.create({
+              //     to: `+${mess.tmpPhone}`,
+              //     code: received_message.text,
+              //   })
+
+              const fakePromise = new Promise((resolve, reject) => {
+                setTimeout(function () {
+                  const data = { status: "approved" };
+
+                  resolve(data);
+                }, Math.random() * 100);
+              });
+
+              fakePromise.then((data) => {
+                console.log(data);
+                if (data.status === "approved") {
+                  if (mess.admin) {
                     response = {
-                      text: "Mã OTP không hợp lệ",
+                      text: "Bạn đã đăng nhập thành công",
                     };
                     callSendAPI(sender_psid, response);
+                    mess.loop = 0;
+                    mess.save(function (err) {
+                      if (err) return console.log(err);
+                    });
+                  } else {
+                    response = {
+                      text: "Vui lòng đăng nhập với tài khoản admin",
+                    };
+                    callSendAPI(sender_psid, response);
+                    mess.loop = 0;
+                    mess.save(function (err) {
+                      if (err) return console.log(err);
+                    });
                   }
-                });
+                } else {
+                  response = {
+                    text: "Mã OTP không hợp lệ",
+                  };
+                  callSendAPI(sender_psid, response);
+                }
+              });
             } catch (err) {
               console.log(err);
             }
@@ -478,12 +491,10 @@ async function getDataForChart() {
     console.log(err);
   }
 
-
   // const templateChart = `{type:%27line%27,data:{labels:[8,9,10,11,12,13,14,15,16,17,18],datasets:[{data:[${arr}],label:"hômnay",fill:false,borderColor:%27blue%27},{data:[${arr2}],label:"hômqua",fill:false,borderColor:%27yellow%27},]}}`;
 
   // Fake Data
-   const templateChart = `{type:%27line%27,data:{labels:[8,9,10,11,12,13,14,15,16,17,18],datasets:[{data:[0,300000, 0,0,0,0,0,0,450000,0,0],label:"hômnay",fill:false,borderColor:%27blue%27},{data:[0,200000, 0,0,0,500000,0,0,450000,0,0],label:"hômqua",fill:false,borderColor:%27yellow%27},]}}`;
-
+  const templateChart = `{type:%27line%27,data:{labels:[8,9,10,11,12,13,14,15,16,17,18],datasets:[{data:[0,300000, 0,0,0,0,0,0,450000,0,0],label:"hômnay",fill:false,borderColor:%27blue%27},{data:[0,200000, 0,0,0,500000,0,0,450000,0,0],label:"hômqua",fill:false,borderColor:%27yellow%27},]}}`;
 
   // TODO minify strim
 
