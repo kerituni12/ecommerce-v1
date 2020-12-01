@@ -4,11 +4,13 @@ import api from "services/axios";
 export default ProductDetail;
 
 export async function getServerSideProps({ params }) {
+  console.log(params);
   try {
     const { data } = await api.get(`/api/product/${params.product}`);
     return { props: { product: data.product, params } };
   } catch (err) {
     // Hanlde typeError
+    console.log("error", err.message);
     const { status, message } = err?.response?.data || { status: 500, message: "api errors" };
     return { props: { error: { code: status, message: message } } };
   }
@@ -21,12 +23,10 @@ export async function getServerSideProps({ params }) {
 //     return { product: data.product, query };
 //   } catch (err) {
 //     // Hanlde typeError
-//     const { status, message } = err?.response?.data || { status: 500, message: "api errors" };
+//     const { status, message } = err?.response?.data || { status: 500, message: err.message };
 //     return { error: { code: status, message: message } };
 //   }
 // };
-
-
 
 // export async function getStaticProps({ params }) {
 //   try {

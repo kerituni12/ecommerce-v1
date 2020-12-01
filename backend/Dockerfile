@@ -6,7 +6,7 @@ COPY package*.json /usr/app/backend/
 RUN npm install
 COPY . /usr/app/backend/
 
-EXPOSE 5000
+EXPOSE 3001
 
 # You can change this
 CMD [ "npm", "start" ]

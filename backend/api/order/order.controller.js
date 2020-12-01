@@ -16,6 +16,9 @@ exports.getReportForDay = async function (req, res) {
   let date = new Date();
   let day = date.getDate();
   let month = date.getMonth();
+
+  // Array 1 is today, array 2 is yesterday
+
   let arr = [];
   let arr2 = [];
 
@@ -37,7 +40,9 @@ exports.getReportForDay = async function (req, res) {
     arr2.push(sum2);
   }
 
-  res.json({ arr, arr2 });
+  const fakeData1 = [0, 300000, 0, 0, 0, 0, 0, 0, 450000, 0, 0];
+  const fakeData2 = [0, 200000, 0, 0, 500000, 0, 0, 0, 450000, 0, 0];
+  res.json({ arr: fakeData1, arr2: fakeData2 });
 };
 
 exports.getOrderById = async (req, res, next) => {

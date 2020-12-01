@@ -9,31 +9,6 @@ import Button from "@material-ui/core/Button";
 import { updateCart } from "@shop/Cart/cart.slice";
 import { DOMAIN } from "configs/constants";
 
-const styleImage = {
-  border: "2px solid rgba(0,0,0,.05)",
-  height: 320,
-};
-
-const stylePrice = {
-  color: "rgb(0, 172, 193)",
-};
-
-const styleShareNow = {
-  marginLeft: 10,
-  color: "#fff",
-  backgroundColor: "#556cd6",
-  padding: "6px 16px",
-  fontSize: "0.875rem",
-  minWidth: 64,
-  boxSizing: "border-box",
-  fontFamily: `"Roboto", "Helvetica", "Arial", "sans-serif"`,
-  fontWeight: 500,
-  lineHeight: 1.75,
-  borderRadius: 4,
-  letterSpacing: "0.02857em",
-  textTransform: "uppercase",
-};
-
 function ProductDetail({ product, params }) {
   const dispatch = useDispatch();
   const [quantity, setQuality] = useState(1);
@@ -48,7 +23,7 @@ function ProductDetail({ product, params }) {
         <meta name="keywords" content={product.title}></meta>
         <link rel="canonical" href={`${DOMAIN}/product/${params.product}`} />
         <meta property="og:title" content={`${product.title}| Shop Sale`} />
-        <meta property="og:description" content={product.description} />
+        <meta property="og:description" content={product.description?.split(" ").slice(0, 18).join(" ")} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={`${DOMAIN}/product/${params.product}`} />
         <meta property="og:site_name" content="Shop sale" />
@@ -58,6 +33,7 @@ function ProductDetail({ product, params }) {
         <meta property="og:image:type" content="image/jpg" />
         {/* <meta property="fb:app_id" content={`${FB_APP_ID}`} /> */}
       </Head>
+
       <Container>
         <Grid container spacing={2}>
           <Grid container justify="center" item xs={12} md={5}>
@@ -65,7 +41,6 @@ function ProductDetail({ product, params }) {
           </Grid>
           <Grid item xs={12} md={7}>
             <h2>{product.title}</h2>
-
             <h1 style={stylePrice}>{convertPrice(product.price)}₫</h1>
             <div style={{ whiteSpace: "pre-wrap" }}>
               <h4>CHI TIẾT SẢN PHẨM</h4>
@@ -136,5 +111,30 @@ function ProductDetail({ product, params }) {
     </>
   );
 }
+
+const styleImage = {
+  border: "2px solid rgba(0,0,0,.05)",
+  height: 320,
+};
+
+const stylePrice = {
+  color: "rgb(0, 172, 193)",
+};
+
+const styleShareNow = {
+  marginLeft: 10,
+  color: "#fff",
+  backgroundColor: "#556cd6",
+  padding: "6px 16px",
+  fontSize: "0.875rem",
+  minWidth: 64,
+  boxSizing: "border-box",
+  fontFamily: `"Roboto", "Helvetica", "Arial", "sans-serif"`,
+  fontWeight: 500,
+  lineHeight: 1.75,
+  borderRadius: 4,
+  letterSpacing: "0.02857em",
+  textTransform: "uppercase",
+};
 
 export default ProductDetail;

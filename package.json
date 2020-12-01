@@ -12,7 +12,8 @@
     "start-frontend": "cd frontend && npm start",
     "start-backend": "cd backend && npm start",
     "start": "concurrently \"npm run start-backend\" \"npm run start-frontend\"",
-    "dev": "concurrently \"cd backend && npm run dev\" \" cd frontend && npm run dev\""
+    "dev": "concurrently \"cd backend && npm run dev\" \" cd frontend && npm run dev\"",
+    "install-dev": "npm run install-frontend && npm run install-backend"
   },
   "repository": {
     "type": "git",

@@ -19,6 +19,7 @@ const dataTableConfigs = {
       label: "Order",
     },
     { id: "total", numeric: true, disablePadding: false, label: "Total" },
+    { id: "method", numeric: true, disablePadding: false, label: "Paid Method" },
     { id: "paid", numeric: true, disablePadding: false, label: "Paid Status" },
     { id: "delivered", numeric: true, disablePadding: false, label: "Delivered" },
     { id: "time", numeric: true, disablePadding: false, label: "Time" },
@@ -38,10 +39,11 @@ function Orders() {
           if (data) {
             const _data = data.orders.map((order) => ({
               id: order._id,
-              total: order.totalPrice,
-              delivered: order.isDelivered + "",
-              paid: order.isPaid + "",
-              time: new Date(order.updatedAt).toISOString().slice(0, 10),
+            total: order.totalPrice,
+            delivered: order.isDelivered + "",
+            paid: order.isPaid + "",
+            method: order.payment.paymentMethod,
+            time: new Date(order.updatedAt).toISOString().slice(0, 10),
             }));
             setOrders(_data);
           }

@@ -8,8 +8,8 @@ var MessengerSchema = mongoose.Schema({
   loop: {
     type: Number,
   },
-  isVerify: {
-    type: Boolean,
+  tmpPhone: {
+    type: Number,
   },
   admin: {
     type: Number,

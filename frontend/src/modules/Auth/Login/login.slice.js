@@ -3,7 +3,7 @@ import api from "services/axios";
 import Router from "next/router";
 import Cookies from "universal-cookie";
 import { toast } from "react-toastify";
-import Cookies2 from "js-cookie"
+import Cookies2 from "js-cookie";
 
 const cookies = new Cookies();
 
@@ -16,7 +16,7 @@ export const login = createAsyncThunk("login", async ({ email, password, setRend
       dispatch(authSuccess(user));
       Router.push("/");
     } else {
-      // Bat de gui ma otp ve dt
+      // Bat de gui ma otp ve dt . only use in product or check env dev
       // await api.post("/api/auth/send-otp-auth", { email });
       const payload = token.split(".")[1];
       cookies.set("payloadClient", payload, { maxAge: 72000 });
@@ -29,10 +29,10 @@ export const login = createAsyncThunk("login", async ({ email, password, setRend
 });
 
 export const verifyOtp = createAsyncThunk("verifyOtp", async ({ email, otp }, { dispatch }) => {
-  //Cai nay dung neu xac nhan bang server nha
+  //Cai nay dung neu xac nhan bang server nha . only use in product or check env dev
   // const { data } = await api.post("/api/auth/verify-otp-auth", { email, otp });
 
-  // Day la du lieu mau , khong dung trong deploy
+  // Day la du lieu mau , khong dung trong deploy . only dev env
   const data = {};
   data.status = "approved";
   //
@@ -49,6 +49,7 @@ export const verifyOtp = createAsyncThunk("verifyOtp", async ({ email, otp }, { 
 export const logout = createAsyncThunk("logout", async (data, { dispatch }) => {
   Cookies2.remove("payloadClient");
   dispatch(logoutSuccess());
+  Router.push("/");
 });
 
 const logInSlice = createSlice({
@@ -65,6 +66,7 @@ const logInSlice = createSlice({
     },
     logoutSuccess: (state) => {
       state.isAuthenticated = false;
+      state.numberOfVerifyOtpFail = 0;
     },
     needVerifyOtp: (state) => {
       state.isOtpVerify = true;
