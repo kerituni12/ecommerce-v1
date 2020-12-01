@@ -1,4 +1,4 @@
-const messengerController = require("./messenger.services");
+const messengerServices = require("./messenger.services");
 
 const VERIFY_TOKEN = "test";
 
@@ -42,13 +42,13 @@ function handleWebhookEvent(req, res) {
         if (mess) {
           if (webhook_event.message) {
             if (mess.loop == 0) {
-              if (mess.admin == 1) messengerController.handleMessage(sender_psid, webhook_event.message);
-              else if (webhook_event.message.text == "login") messengerController.handleLogin(sender_psid);
+              if (mess.admin == 1) messengerServices.handleMessage(sender_psid, webhook_event.message);
+              else if (webhook_event.message.text == "login") messengerServices.handleLogin(sender_psid);
             } else if (webhook_event.message.text == "exit")
-              messengerController.handleUserMessage(sender_psid, webhook_event.message.text);
-            else messengerController.handleLoopMessage(sender_psid, webhook_event.message);
+              messengerServices.handleUserMessage(sender_psid, webhook_event.message.text);
+            else messengerServices.handleLoopMessage(sender_psid, webhook_event.message);
           } else if (webhook_event.postback) {
-            messengerController.handlePostback(sender_psid, webhook_event.postback);
+            messengerServices.handlePostback(sender_psid, webhook_event.postback);
           }
         } else {
           if (webhook_event.message) {
@@ -61,12 +61,12 @@ function handleWebhookEvent(req, res) {
               mess.save(function (err) {
                 if (err) return console.log(err);
               });
-              messengerController.handleLogin(sender_psid);
+              messengerServices.handleLogin(sender_psid);
             } else {
-              messengerController.handleUserMessage(sender_psid, webhook_event.message.text);
+              messengerServices.handleUserMessage(sender_psid, webhook_event.message.text);
             }
           } else if (webhook_event.postback) {
-            messengerController.handleUserMessage(sender_psid, webhook_event.postback.payload);
+            messengerServices.handleUserMessage(sender_psid, webhook_event.postback.payload);
           }
         }
       });
