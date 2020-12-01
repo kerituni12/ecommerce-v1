@@ -468,27 +468,27 @@ async function getDataForChart() {
   let arr = [];
   let arr2 = [];
 
-  try {
-    // only support from 8h to 18h
-    for (let i = 8; i <= 18; i++) {
-      let sum1 = 0,
-        sum2 = 0;
-      await Order.find(function (err, orders) {
-        orders.forEach((v, j) => {
-          if (v.updatedAt.getMonth() == month) {
-            if (v.updatedAt.getDate() == day && v.updatedAt.getHours() == i) sum1 += v.totalPrice;
+  // try {
+  //   // only support from 8h to 18h
+  //   for (let i = 8; i <= 18; i++) {
+  //     let sum1 = 0,
+  //       sum2 = 0;
+  //     await Order.find(function (err, orders) {
+  //       orders.forEach((v, j) => {
+  //         if (v.updatedAt.getMonth() == month) {
+  //           if (v.updatedAt.getDate() == day && v.updatedAt.getHours() == i) sum1 += v.totalPrice;
 
-            // not check day = 1 return day = 31 || 30 prev month
-            if (v.updatedAt.getDate() == day - 1 && v.updatedAt.getHours() == i) sum2 += v.totalPrice;
-          }
-        });
-      });
-      arr.push(sum1);
-      arr2.push(sum2);
-    }
-  } catch (err) {
-    console.log(err);
-  }
+  //           // not check day = 1 return day = 31 || 30 prev month
+  //           if (v.updatedAt.getDate() == day - 1 && v.updatedAt.getHours() == i) sum2 += v.totalPrice;
+  //         }
+  //       });
+  //     });
+  //     arr.push(sum1);
+  //     arr2.push(sum2);
+  //   }
+  // } catch (err) {
+  //   console.log(err);
+  // }
 
   // const templateChart = `{type:%27line%27,data:{labels:[8,9,10,11,12,13,14,15,16,17,18],datasets:[{data:[${arr}],label:"hômnay",fill:false,borderColor:%27blue%27},{data:[${arr2}],label:"hômqua",fill:false,borderColor:%27yellow%27},]}}`;
 
