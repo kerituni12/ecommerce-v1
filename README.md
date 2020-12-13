@@ -18,7 +18,7 @@ https://ecommerce-v1.vercel.app
 4. SEO basic
 5. Paypal, Vnpay
 
-## Video demo
+## Video demo (click image f)
 
 Chatbot find info product and order detail
 
