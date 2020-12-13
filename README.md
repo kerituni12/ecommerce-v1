@@ -12,11 +12,20 @@ https://ecommerce-v1.vercel.app
 
 ## More Features
 
-1. Messenger Chatbot
+1. Messenger Chatbot (NLP vs wit.ai)
 2. OTP verify
 3. Mailchimp
 4. SEO basic
-5. Paypal, Vnpay 
+5. Paypal, Vnpay
+
+## Video demo
+
+Chatbot find info product and order detail
+
+[![SC2 Video](https://img.youtube.com/vi/LjiHQyjvQ3c/0.jpg)](http://www.youtube.com/watch?v=LjiHQyjvQ3c)
+
+Ecommerce store
+[![SC2 Video](https://img.youtube.com/vi/D0mUqKr8hfg/0.jpg)](http://www.youtube.com/watch?v=D0mUqKr8hfg)
 
 ---
 
@@ -45,3 +54,4 @@ Suport Docker , Docker compose
 
 ## Note : Don't use this project for production ,  
 Hope you will clone or fork this project and dev it your way. Wish you success with your ideas
+
